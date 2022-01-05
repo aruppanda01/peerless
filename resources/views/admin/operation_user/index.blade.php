@@ -11,7 +11,7 @@
                     <ul class="breadcrumb p-0">
                         <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
                         <li class="text-white"><i class="fa fa-chevron-right"></i></li>
-                        <li><a href="{{ route('admin.credit-user.index') }}" class="active">Credit User</a></li>
+                        <li><a href="{{ route('admin.operation-user.index') }}" class="active">Operaions User</a></li>
                     </ul>
                 </div>
                 @include('admin.layouts.navbar')
@@ -19,8 +19,8 @@
             <hr>
             <div class="dashboard-body-content">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5>Credit User</h5>
-                    <a href="{{ route('admin.credit-user.create') }}" class="actionbutton btn btn-sm">ADD USER</a>
+                    <h5>Operaions User</h5>
+                    <a href="{{ route('admin.operation-user.create') }}" class="actionbutton btn btn-sm">ADD USER</a>
                 </div>
                 <hr>
                 @if (session('success'))
@@ -52,30 +52,28 @@
                                     <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        {{ $user->mobile ? $user->mobile : 'N/A' }}
+                                        {{ $user->phone_no ? $user->phone_no : 'N/A' }}
                                     </td>
                                     <td class="text-center">
-                                        @if ($user->status == 1 && $user->deactivated == 0)
+                                        @if ($user->status == 1 && $user->is_deactivated == 0)
                                             <span class="badge badge-success">Approved</span>
-                                        @elseif ($user->status == 1 && $user->deactivated == 1)
+                                        @elseif ($user->status == 1 && $user->is_deactivated == 1)
                                             <span class="badge badge-danger">Deactivated</span>
-                                        @elseif($user->rejected == 1)
-                                            <span class="badge badge-danger">Rejected</span>
                                         @else
                                             <span class="badge badge-warning">Pending</span>
                                         @endif
 
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.credit-user.show', $user->id) }}"><i
+                                        <a href="{{ route('admin.operation-user.show', $user->id) }}"><i
                                                 class="far fa-eye"></i></a>
-                                        <a href="{{ route('admin.credit-user.edit', $user->id) }}"
+                                        <a href="{{ route('admin.operation-user.edit', $user->id) }}"
                                             class="ml-2"><i class="far fa-edit"></i></a>
                                         <a href="javascript:void(0);" class="ml-2" data-toggle="modal"
                                             data-target="#exampleModal" onclick="deleteForm({{ $user->id }})"><i
                                                 class="far fa-trash-alt text-danger"></i></a>
                                         <form id="delete_form_{{ $user->id }}"
-                                            action="{{ route('admin.credit-user.destroy', $user->id) }}" method="POST">
+                                            action="{{ route('admin.operation-user.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>

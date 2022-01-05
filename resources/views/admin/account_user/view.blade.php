@@ -11,7 +11,7 @@
                     <ul class="breadcrumb p-0">
                         <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
                         <li class="text-white"><i class="fa fa-chevron-right"></i></li>
-                        <li><a href="{{ route('admin.credit-user.index') }}">Student List</a></li>
+                        <li><a href="{{ route('admin.accountant-user.index') }}">Accountant User List</a></li>
                         <li class="text-white"><i class="fa fa-chevron-right"></i></li>
                         <li><a href="#" class="active">User
                                 Details</a></li>
@@ -27,21 +27,21 @@
                             <div class="page-title-icon">
                                 <i class="fa fa-graduation-cap"></i>
                             </div>
-                            <div>Students Profile
+                            <div>Profile
                             </div>
                         </div>
                         <div class="mr-3">
                             @if ($user_details->status == 0)
-                                    <a href="{{ route('admin.credit-user.approve', $user_details->id) }}"
+                                    <a href="{{ route('admin.accountant-user.approve', $user_details->id) }}"
                                         class="btn btn-info pull-right" onclick="activeAccount({{ $user_details->id }})"
                                         id="activeAccount">Approve</a>
                             @else
                                 @if ($user_details->is_deactivated == 0)
-                                    <a href="{{ route('admin.credit-user.deactivate', $user_details->id) }}"
+                                    <a href="{{ route('admin.accountant-user.deactivate', $user_details->id) }}"
                                         class="btn btn-danger pull-right" onclick="deactivateAccount({{ $user_details->id }})"
                                         id="deactivateAccount" data-toggle="tooltip">Deactivate</a>
                                 @elseif ($user_details->is_deactivated == 1)
-                                    <a href="{{ route('admin.credit-user.activate', $user_details->id) }}"
+                                    <a href="{{ route('admin.accountant-user.activate', $user_details->id) }}"
                                         class="btn btn-info pull-right" onclick="activate_account({{ $user_details->id }})"
                                         id="activateAccount">Activate</a>
                                 @endif
@@ -72,6 +72,17 @@
                                         class="ml-3">
                                         <!-- <img src="assets/images/edit.png" class="img-fluid mx-auto"> -->
                                     </span></h4>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <label>Email :</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <p>{{ $user_details->email ? $user_details->email : 'N/A' }}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> --}}
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-7">
                                         <label>DOB :</label>
@@ -111,7 +122,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <p>
-                                            {{ $user_details->mobile ? $user_details->mobile : 'N/A' }}
+                                            {{ $user_details->phone_no ? $user_details->phone_no : 'N/A' }}
                                         </p>
                                     </div>
                                     <div class="col-md-2">

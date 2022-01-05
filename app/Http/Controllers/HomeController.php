@@ -30,7 +30,7 @@ class HomeController extends Controller
                 $redirectTo = 'admin/dashboard';
                 break;
             case 2:
-                $redirectTo = 'hr/profile';
+                $redirectTo = 'credit_user/profile';
                 break;
             case 3:
                 $redirectTo = 'teacher/profile';

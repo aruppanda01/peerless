@@ -27,7 +27,7 @@
                                     <img src="{{ asset('img/Total-Customers.png') }}">
                                 </div>
                                 <div class="text-sec">
-                                    <h3><span>Total Teachers</span></h3>
+                                    <h3>{{ $total_credit_user }}<span>Total Credit Users</span></h3>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,19 @@
                                     <img src="{{ asset('img/new-Customers.png') }}">
                                 </div>
                                 <div class="text-sec">
-                                    <h3><span>Total Students</span></h3>
+                                    <h3>{{ $total_operation_user }}<span>Total Operation Users</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body gpcVCf">
+                                <div class="icon-sec w-25">
+                                    <img src="{{ asset('img/new-Customers.png') }}">
+                                </div>
+                                <div class="text-sec">
+                                    <h3>{{ $total_accountant_user }}<span>Total Accountant Users</span></h3>
                                 </div>
                             </div>
                         </div>

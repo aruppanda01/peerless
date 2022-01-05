@@ -41,6 +41,39 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+        public function login(Request $req)
+    {
+        $req->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+        $inactive_user = User::where('email', $req->email)->where('status', 0)->where('is_rejected', 0)->first();
+        $deactivate_user = User::where('email',$req->email)->where('status',1)->where('is_deactivated',1)->first();
+        $user = User::where('email', $req->email)->first();
+        if ($user) {
+            if ($user->role_id == 2) {
+                if ($inactive_user) {
+                    auth()->logout();
+                    return back()->with('error', 'Your account is not active.')->withInput();
+                }
+                if ($deactivate_user) {
+                    auth()->logout();
+                    return back()->with('error', 'Your account is deactivated by admin.')->withInput();
+                }
+                if (Hash::check($req->password, $user->password)) {
+                    Auth::login($user);
+                    return redirect()->intended('/home');
+                } else {
+                    $errors['password'] = 'You have entered wrong password';
+                }
+            } else {
+                $errors['email'] = 'This email is not register with us';
+            }
+        } else {
+            $errors['email'] = 'This email is not register with us';
+        }
+        return back()->withErrors($errors)->withInput($req->all());
+    }
     public function admin_login(Request $request)
     {
         if ($request->method() == 'GET') {

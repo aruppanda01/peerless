@@ -11,7 +11,7 @@
                     <ul class="breadcrumb p-0">
                         <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
                         <li class="text-white"><i class="fa fa-chevron-right"></i></li>
-                        <li><a href="{{ route('admin.credit-user.index') }}">Credit User List</a></li>
+                        <li><a href="{{ route('admin.operation-user.index') }}">Operation User List</a></li>
                         <li class="text-white"><i class="fa fa-chevron-right"></i></li>
                         <li><a href="#" class="active">User
                                 Details</a></li>
@@ -32,16 +32,16 @@
                         </div>
                         <div class="mr-3">
                             @if ($user_details->status == 0)
-                                    <a href="{{ route('admin.credit-user.approve', $user_details->id) }}"
+                                    <a href="{{ route('admin.operation-user.approve', $user_details->id) }}"
                                         class="btn btn-info pull-right" onclick="activeAccount({{ $user_details->id }})"
                                         id="activeAccount">Approve</a>
                             @else
                                 @if ($user_details->is_deactivated == 0)
-                                    <a href="{{ route('admin.credit-user.deactivate', $user_details->id) }}"
+                                    <a href="{{ route('admin.operation-user.deactivate', $user_details->id) }}"
                                         class="btn btn-danger pull-right" onclick="deactivateAccount({{ $user_details->id }})"
                                         id="deactivateAccount" data-toggle="tooltip">Deactivate</a>
                                 @elseif ($user_details->is_deactivated == 1)
-                                    <a href="{{ route('admin.credit-user.activate', $user_details->id) }}"
+                                    <a href="{{ route('admin.operation-user.activate', $user_details->id) }}"
                                         class="btn btn-info pull-right" onclick="activate_account({{ $user_details->id }})"
                                         id="activateAccount">Activate</a>
                                 @endif
@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <p>
-                                            {{ $user_details->phone_no ? $user_details->phone_no : 'N/A' }}
+                                            {{ $user_details->mobile ? $user_details->mobile : 'N/A' }}
                                         </p>
                                     </div>
                                     <div class="col-md-2">

@@ -20,10 +20,14 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
 Route::any('admin/login', [LoginController::class, 'admin_login'])->name('admin_login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     require 'custom/admin.php';
+});
+Route::group(['as' => 'credit_user.', 'prefix' => 'credit_user'], function () {
+    require 'custom/credit_user.php';
 });

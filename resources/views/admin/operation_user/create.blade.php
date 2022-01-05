@@ -10,7 +10,7 @@
 				<ul class="breadcrumb p-0">
 					<li><a href="{{ route('admin.dashboard')}}">Home</a></li>
 					<li class="text-white"><i class="fa fa-chevron-right"></i></li>
-					<li><a href="{{ route('admin.credit-user.index')}}">Credit User List</a></li>
+					<li><a href="{{ route('admin.operation-user.index')}}">Operation User List</a></li>
 					<li class="text-white"><i class="fa fa-chevron-right"></i></li>
 					<li><a href="#" class="active">Add user</a></li>
 				</ul>
@@ -19,9 +19,9 @@
 		</div>
 		<hr>
 		<div class="dashboard-body-content">
-			<h5>Add Credit User</h5>
+			<h5>Add Operation User</h5>
 			<hr>
-			<form action="{{ route('admin.credit-user.store') }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('admin.operation-user.store') }}" method="POST" enctype="multipart/form-data">
 				@csrf
 				<h5 class="text-blue">Basic Information</h5>
 				<div class="row m-0 pt-3">
