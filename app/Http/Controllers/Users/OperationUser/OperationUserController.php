@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Users\CreditUser;
+namespace App\Http\Controllers\Users\OperationUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class CreditUserController extends Controller
+class OperationUserController extends Controller
 {
     public function index()
     {
@@ -18,13 +18,13 @@ class CreditUserController extends Controller
         $current_user_id = Auth::user()->id;
         $data['user_details'] = User::where('id', $current_user_id)->first();
         $data['user_age'] = Carbon::parse($data['user_details']->dob)->diff(Carbon::now())->format('%y years');
-        return view('users.credit_user.profile')->with($data);
+        return view('users.operation_user.profile')->with($data);
     }
 
     public function changePassword()
     {
         $data = array();
-        return view('users.credit_user.change_password')->with($data);
+        return view('users.operation_user.change_password')->with($data);
     }
 
     function updatePassword(Request $request)

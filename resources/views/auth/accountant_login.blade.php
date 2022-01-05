@@ -9,7 +9,7 @@
                     <a href="{{ route('land_page') }}"><i title="Home Page" class="fa fa-home text-primary fa-2x float-right mr-3 mt-3 shadow-sm text-info"></i></a>
                     <div class="row align-items-center jusify-content-center">
                         <div class="col-lg-5">
-                            <img src="{{ asset('frontend/images/sign-in.png') }}" class="img-fluid">
+                            <img src="{{ asset('frontend/images/sign-in-teacher.png') }}" class="img-fluid">
                         </div>
                         <div class="col-lg-7 form-div wow fadeInRight">
                             <div class="heading">
@@ -36,7 +36,7 @@
                                 </div>
                             @endif
 
-                            <form class="cd-form" method="POST" action="{{ route('login') }}">
+                            <form class="cd-form" method="POST" action="{{ route('accountant_login') }}">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-sm-12">

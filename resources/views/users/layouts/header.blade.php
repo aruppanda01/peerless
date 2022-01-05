@@ -374,16 +374,42 @@
                                         <div class="scrollbar-container ps">
                                             <ul class="nav flex-column">
                                                 <li class="nav-item-header nav-item">Activity</li>
+                                                @if (Auth::user()->role_id == 4)
+                                                <li class="nav-item">
+                                                    <a href="{{ route('accountant_user.profile') }}"
+                                                        class="nav-link">Profile
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ route('accountant_user.changePassword') }}"
+                                                        class="nav-link">Change
+                                                        Password</a>
+                                                </li>
+                                                @endif
+                                                @if (Auth::user()->role_id == 3)
+                                                <li class="nav-item">
+                                                    <a href="{{ route('operation_user.profile') }}"
+                                                        class="nav-link">Profile
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ route('operation_user.changePassword') }}"
+                                                        class="nav-link">Change
+                                                        Password</a>
+                                                </li>
+                                                @endif
+                                                @if (Auth::user()->role_id == 2)
                                                 <li class="nav-item">
                                                     <a href="{{ route('credit_user.profile') }}"
                                                         class="nav-link">Profile
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="{{ route('credit_user.profile') }}"
+                                                    <a href="{{ route('credit_user.changePassword') }}"
                                                         class="nav-link">Change
                                                         Password</a>
                                                 </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>

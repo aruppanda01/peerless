@@ -17,17 +17,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('land_page');
 
 Auth::routes();
 
 Route::any('admin/login', [LoginController::class, 'admin_login'])->name('admin_login');
+Route::any('operation/login', [LoginController::class, 'operation_login'])->name('operation_login');
+Route::any('accountant/login', [LoginController::class, 'accountant_login'])->name('accountant_login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     require 'custom/admin.php';
 });
+
 Route::group(['as' => 'credit_user.', 'prefix' => 'credit_user'], function () {
     require 'custom/credit_user.php';
+});
+
+Route::group(['as' => 'operation_user.', 'prefix' => 'operation_user'], function () {
+    require 'custom/operation_user.php';
+});
+
+Route::group(['as' => 'accountant_user.', 'prefix' => 'accountant_user'], function () {
+    require 'custom/accountant_user.php';
 });

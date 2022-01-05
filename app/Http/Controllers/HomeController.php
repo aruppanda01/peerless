@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $redirectTo = 'user/profile';
+        $redirectTo = 'admin/dashboard';
         switch (Auth::user()->role_id) {
             case 1:
                 $redirectTo = 'admin/dashboard';
@@ -33,10 +33,10 @@ class HomeController extends Controller
                 $redirectTo = 'credit_user/profile';
                 break;
             case 3:
-                $redirectTo = 'teacher/profile';
+                $redirectTo = 'operation_user/profile';
                 break;
             case 4:
-                $redirectTo = 'user/profile';
+                $redirectTo = 'accountant_user/profile';
                 break;
         }
         return redirect($redirectTo);

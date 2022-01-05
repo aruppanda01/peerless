@@ -41,7 +41,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-        public function login(Request $req)
+    public function login(Request $req)
     {
         $req->validate([
             'email' => 'required|string|email',
@@ -73,6 +73,80 @@ class LoginController extends Controller
             $errors['email'] = 'This email is not register with us';
         }
         return back()->withErrors($errors)->withInput($req->all());
+    }
+    public function operation_login(Request $req)
+    {
+        if ($req->method() == 'GET') {
+            return view('auth.operation_login');
+        } else if ($req->method() == 'POST') {
+            $req->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+            $inactive_user = User::where('email', $req->email)->where('status', 0)->where('is_rejected', 0)->first();
+            $deactivate_user = User::where('email',$req->email)->where('status',1)->where('is_deactivated',1)->first();
+            $user = User::where('email', $req->email)->first();
+            if ($user) {
+                if ($user->role_id == 3) {
+                    if ($inactive_user) {
+                        auth()->logout();
+                        return back()->with('error', 'Your account is not active.')->withInput();
+                    }
+                    if ($deactivate_user) {
+                        auth()->logout();
+                        return back()->with('error', 'Your account is deactivated by admin.')->withInput();
+                    }
+                    if (Hash::check($req->password, $user->password)) {
+                        Auth::login($user);
+                        return redirect()->intended('/home');
+                    } else {
+                        $errors['password'] = 'You have entered wrong password';
+                    }
+                } else {
+                    $errors['email'] = 'This email is not register with us';
+                }
+            } else {
+                $errors['email'] = 'This email is not register with us';
+            }
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+    }
+    public function accountant_login(Request $req)
+    {
+        if ($req->method() == 'GET') {
+            return view('auth.accountant_login');
+        } else if ($req->method() == 'POST') {
+            $req->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+            $inactive_user = User::where('email', $req->email)->where('status', 0)->where('is_rejected', 0)->first();
+            $deactivate_user = User::where('email',$req->email)->where('status',1)->where('is_deactivated',1)->first();
+            $user = User::where('email', $req->email)->first();
+            if ($user) {
+                if ($user->role_id == 4) {
+                    if ($inactive_user) {
+                        auth()->logout();
+                        return back()->with('error', 'Your account is not active.')->withInput();
+                    }
+                    if ($deactivate_user) {
+                        auth()->logout();
+                        return back()->with('error', 'Your account is deactivated by admin.')->withInput();
+                    }
+                    if (Hash::check($req->password, $user->password)) {
+                        Auth::login($user);
+                        return redirect()->intended('/home');
+                    } else {
+                        $errors['password'] = 'You have entered wrong password';
+                    }
+                } else {
+                    $errors['email'] = 'This email is not register with us';
+                }
+            } else {
+                $errors['email'] = 'This email is not register with us';
+            }
+            return back()->withErrors($errors)->withInput($req->all());
+        }
     }
     public function admin_login(Request $request)
     {
