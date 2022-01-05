@@ -52,13 +52,15 @@
                                     <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        {{ $user->phone_no ? $user->phone_no : 'N/A' }}
+                                        {{ $user->mobile ? $user->mobile : 'N/A' }}
                                     </td>
                                     <td class="text-center">
-                                        @if ($user->status == 1 && $user->is_deactivated == 0)
+                                        @if ($user->status == 1 && $user->deactivated == 0)
                                             <span class="badge badge-success">Approved</span>
-                                        @elseif ($user->status == 1 && $user->is_deactivated == 1)
+                                        @elseif ($user->status == 1 && $user->deactivated == 1)
                                             <span class="badge badge-danger">Deactivated</span>
+                                        @elseif($user->rejected == 1)
+                                            <span class="badge badge-danger">Rejected</span>
                                         @else
                                             <span class="badge badge-warning">Pending</span>
                                         @endif

@@ -79,7 +79,6 @@ class CreditUserController extends Controller
             return redirect()->route('admin.credit-user.index')->with('success','User Created Successfully');
         } catch (Exception $e) {
             DB::rollback();
-            dd($e);
             return 0;
         }
     }
@@ -106,7 +105,9 @@ class CreditUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = array();
+        $data['user_details'] = User::find($id);
+        return view('admin.credit_user.edit')->with($data);
     }
 
     /**
@@ -118,7 +119,31 @@ class CreditUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'first_name' => 'required |string| max:255',
+            'last_name' => 'required |string| max:255',
+            'phone_no' => 'required| max:10',
+            'dob' => 'required | date',
+            'gender' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+
+            $user = User::find($id);
+            $user->first_name = $request['first_name'];
+            $user->last_name = $request['last_name'];
+            $user->phone_no = $request['phone_no'];
+            $user->dob = $request['dob'];
+            $user->gender = $request['gender'];
+            $user->save();
+
+            DB::commit();
+            return redirect()->route('admin.credit-user.index')->with('success','User Details Updated Successfully');
+        } catch (Exception $e) {
+            DB::rollback();
+            return 0;
+        }
     }
 
     /**
@@ -129,7 +154,9 @@ class CreditUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        return redirect()->route('admin.credit-user.index')->with('success','User Deleted Successfully');
+
     }
 
     public function approval($id)
@@ -147,7 +174,7 @@ class CreditUserController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->status == 1) {
-            $user->deactivated = 1;
+            $user->is_deactivated = 1;
             $user->save();
             FacadesNotification::route('mail', $user->email)->notify(new AccountDeactivateMail($user));
             return response()->json(['success' => true, 'data' => 'inactivated']);
@@ -157,7 +184,7 @@ class CreditUserController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->status == 1) {
-            $user->deactivated = 0;
+            $user->is_deactivated = 0;
             $user->save();
             FacadesNotification::route('mail', $user->email)->notify(new AccountActivationMail($user));
             return response()->json(['success' => true,'data' => 'inactivated']);
