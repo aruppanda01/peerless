@@ -43,6 +43,11 @@
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
                         </a>
                     </li>
+                    <li class="{{ Request::is('credit_user/loan*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('credit_user.loan.index') }}">
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
+                        </a>
+                    </li>
                     <li class="{{ Request::is('credit_user/change-password') ? 'mm-active' : '' }}">
                         <a href="{{ route('credit_user.changePassword') }}">
                             <i class="fa fa-cog metismenu-icon"></i>Settings
@@ -53,6 +58,11 @@
                     <li class="{{ Request::is('operation_user/profile') ? 'mm-active' : '' }}">
                         <a href="{{ route('operation_user.profile') }}">
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('operation_user/loan*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('operation_user.loan.index') }}">
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
                         </a>
                     </li>
                     <li class="{{ Request::is('operation_user/change-password') ? 'mm-active' : '' }}">
