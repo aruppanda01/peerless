@@ -16,7 +16,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $data['all_loan_details'] = Loan::latest()->get();
+        $data['all_loan_details'] = Loan::where('o_verified_status',0)->latest()->get();
         return view('users.operation_user.loan.index')->with($data);
     }
 
@@ -49,7 +49,9 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
+        return view('users.operation_user.loan.view')->with($data);
     }
 
     /**
@@ -74,7 +76,28 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'whether_compliance_of_last_sanction_terms_done' => 'required|max:255',
+            'deviation_from_last_sanction_terms' => 'required|max:255',
+        ],[
+            'whether_compliance_of_last_sanction_terms_done.required' => 'This field is required',
+            'whether_compliance_of_last_sanction_terms_done.max:255' => 'Maximum character reached',
+
+            'deviation_from_last_sanction_terms.required' => 'This field is required',
+            'deviation_from_last_sanction_terms.max:255' => 'Maximum character reached',
+        ]);
+
+        $loan = Loan::find($id);
+        $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
+        $loan->deviation_from_last_sanction_terms = $request->deviation_from_last_sanction_terms;
+       
+        $loan->o_verified_by = Auth::user()->id;
+        $loan->o_verified_dept = Auth::user()->role_id;
+        $loan->o_verified_status = 1;
+        $loan->status = 1;
+        $loan->save();
+
+        return redirect()->route('operation_user.loan.index')->with('success','Successfully updated');
     }
 
     /**
@@ -96,8 +119,72 @@ class LoanController extends Controller
         // dd($request->all());
         $loan_details = Loan::find($request->loan_id);
         $loan_details->revert_user_id = Auth::user()->id;
-        $loan_details->revert_department = 1;
+        $loan_details->revert_department = 2;
+
+        $loan_details->o_verified_by = Auth::user()->id;
+        $loan_details->o_verified_dept = 2;
+        $loan_details->o_verified_status = 0;
+        $loan_details->status = 2;
+
         $loan_details->save();
         return response()->json('success');
+    }
+
+    /**
+     * All loans that are found any issue by the Accountant Team
+     */
+    public function failedLoanDetails(Request $request)
+    {
+        $data = array();
+        $data['all_failed_loan'] = Loan::where('revert_user_id','!=',null)
+                            ->where('revert_department',Auth::user()->role_id)
+                            ->latest()
+                            ->get();
+        return view('users.operation_user.loan.revert_loan.index')->with($data);
+    }
+
+    public function failedLoanDetailsShow($id)
+    {
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
+        return view('users.operation_user.loan.revert_loan.show')->with($data);
+    }
+    public function failedLoanDetailsEdit($id)
+    {
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
+        return view('users.operation_user.loan.revert_loan.edit')->with($data);
+    }
+
+    public function failedLoanDetailsUpdate(Request $request, $id)
+    {
+        $this->validate($request,[
+            'whether_compliance_of_last_sanction_terms_done' => 'required|max:255',
+            'deviation_from_last_sanction_terms' => 'required|max:255',
+        ],[
+            'whether_compliance_of_last_sanction_terms_done.required' => 'This field is required',
+            'whether_compliance_of_last_sanction_terms_done.max:255' => 'Maximum character reached',
+
+            'deviation_from_last_sanction_terms.required' => 'This field is required',
+            'deviation_from_last_sanction_terms.max:255' => 'Maximum character reached',
+        ]);
+
+        $loan = Loan::find($id);
+        $loan = Loan::find($id);
+        $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
+        $loan->deviation_from_last_sanction_terms = $request->deviation_from_last_sanction_terms;
+
+        $loan->is_modify_details = 1;
+
+        /**
+         * For Updated status we are newly add an value 4.
+         *  */ 
+        $loan->status = 4;
+        $loan->o_verified_by = Auth::user()->id;
+        $loan->o_verified_dept = Auth::user()->role_id;
+        $loan->o_verified_status = 1;
+        $loan->save();
+
+        return redirect()->route('operation_user.failedLoanDetails')->with('success','Successfully updated');
     }
 }

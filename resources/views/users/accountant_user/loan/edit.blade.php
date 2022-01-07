@@ -31,7 +31,7 @@
 		</div> --}}
         <div class="row m-0 justify-content-center ">
             <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
-                <form action="{{ route('operation_user.loan.update',$loan_details->id) }}" method="POST">
+                <form action="{{ route('accountant_user.loan.update',$loan_details->id) }}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -86,7 +86,7 @@
                         <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done</label>
                         <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
                             value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
-                            id="whether_compliance_of_last_sanction_terms_done">
+                            id="whether_compliance_of_last_sanction_terms_done" disabled>
                             @error('whether_compliance_of_last_sanction_terms_done')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -95,22 +95,31 @@
                         <label for="exampleFormControlFile1">8. Deviation from last sanction terms</label>
                         <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
                             value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
-                            id="deviation_from_last_sanction_terms">
+                            id="deviation_from_last_sanction_terms" disabled>
                             @error('deviation_from_last_sanction_terms')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on</label>
-                        <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                        <input class="form-control" type="text" name="amount_O_s_as_on">
+                        @error('amount_O_s_as_on')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">10. Residual Tenure</label>
-                        <input class="form-control" type="text" name="residual_tenure" disabled>
+                        <input class="form-control" type="text" name="residual_tenure">
+                        @error('residual_tenure')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">11. Utilization of Limit</label>
-                        <input class="form-control" type="text" name="utilization_of_limit" disabled>
+                        <input class="form-control" type="text" name="utilization_of_limit">
+                        @error('utilization_of_limit')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1" class="text-dark">12. Occurrence of irregularity in the
@@ -118,31 +127,49 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">a. No. of times Bounces in the account</label>
-                        <input class="form-control" type="text" name="no_of_times_bounces_in_the_account" disabled>
+                        <input class="form-control" type="text" name="no_of_times_bounces_in_the_account">
+                        @error('no_of_times_bounces_in_the_account')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">b. Any bounces in last six months</label>
-                        <input class="form-control" type="text" name="any_bounces_in_last_six_months" disabled>
+                        <input class="form-control" type="text" name="any_bounces_in_last_six_months">
+                        @error('any_bounces_in_last_six_months')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">c. No. of times and days, the account was irregular</label>
-                        <input class="form-control" type="text" name="no_of_times_and_days" disabled>
+                        <input class="form-control" type="text" name="no_of_times_and_days">
+                        @error('no_of_times_and_days')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">d. Reasons for the irregularity (ies)</label>
-                        <input class="form-control" type="text" name="reasons_for_the_irregularity" disabled>
+                        <input class="form-control" type="text" name="reasons_for_the_irregularity">
+                        @error('reasons_for_the_irregularity')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">e. Peak irregularity in the account</label>
-                        <input class="form-control" type="text" name="peak_irregularity_in_the_account" disabled>
+                        <input class="form-control" type="text" name="peak_irregularity_in_the_account">
+                        @error('peak_irregularity_in_the_account')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">f. Comment on irregularity</label>
-                        <input class="form-control" type="text" name="comment_on_irregularity" disabled>
+                        <input class="form-control" type="text" name="comment_on_irregularity">
+                        @error('comment_on_irregularity')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
                         <button class="btn btn-primary float-left" data-toggle="tooltip" data-placement="top"
-                            title="Revert Back to the Credit Deperment"
+                            title="Revert Back to the Operation Deperment"
                             onclick="revertBack({{ $loan_details->id }})">Revert Back</button>
                         <button class="btn btn-primary">Submit</button>
                     </div>
@@ -163,7 +190,7 @@
 
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
-                text: "This form contains error and you revert back to the CREDIT depeartment",
+                text: "This form contains error and you revert back to the OPERATION depeartment",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, CONFIRM it!',
@@ -173,7 +200,7 @@
                 if (result.isConfirmed) {
                     event.preventDefault();
                     $.ajax({
-                        url: "{{ route('operation_user.revertBack') }}",
+                        url: "{{ route('accountant_user.revertBack') }}",
                         data: {
                             _token: "{{ csrf_token() }}",
                             loan_id : id
@@ -182,7 +209,7 @@
                         dataType: 'json',
                         type: 'post',
                         success: function(response) {
-                            location.href = "{{ route('operation_user.loan.index') }}";
+                            location.href = "{{ route('accountant_user.loan.index') }}";
                         }
                     });
 

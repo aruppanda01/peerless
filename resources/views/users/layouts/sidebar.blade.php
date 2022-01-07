@@ -48,6 +48,11 @@
                             <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
                         </a>
                     </li>
+                    <li class="{{ Request::is('credit_user/failed-loan-details*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('credit_user.failedLoanDetails') }}">
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>Reverted Loan
+                        </a>
+                    </li>
                     <li class="{{ Request::is('credit_user/change-password') ? 'mm-active' : '' }}">
                         <a href="{{ route('credit_user.changePassword') }}">
                             <i class="fa fa-cog metismenu-icon"></i>Settings
@@ -65,6 +70,11 @@
                             <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
                         </a>
                     </li>
+                    <li class="{{ Request::is('operation_user/failed-loan-details*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('operation_user.failedLoanDetails') }}">
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>Reverted Loan
+                        </a>
+                    </li>
                     <li class="{{ Request::is('operation_user/change-password') ? 'mm-active' : '' }}">
                         <a href="{{ route('operation_user.changePassword') }}">
                             <i class="fa fa-cog metismenu-icon"></i>Settings
@@ -75,6 +85,11 @@
                     <li class="{{ Request::is('accountant_user/profile') ? 'mm-active' : '' }}">
                         <a href="{{ route('accountant_user.profile') }}">
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('accountant_user/loan*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('accountant_user.loan.index') }}">
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
                         </a>
                     </li>
                     <li class="{{ Request::is('accountant_user/change-password') ? 'mm-active' : '' }}">

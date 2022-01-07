@@ -8,7 +8,7 @@
     <div class="container mt-2">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('operation_user.failedLoanDetails') }}">Loan List</a></li>
               <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
             </ol>
           </nav>
@@ -31,7 +31,7 @@
 		</div> --}}
         <div class="row m-0 justify-content-center ">
             <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
-                <form action="{{ route('operation_user.loan.update',$loan_details->id) }}" method="POST">
+                <form action="{{ route('credit_user.failedLoanDetailsUpdate',$loan_details->id) }}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -86,19 +86,15 @@
                         <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done</label>
                         <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
                             value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
-                            id="whether_compliance_of_last_sanction_terms_done">
-                            @error('whether_compliance_of_last_sanction_terms_done')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            id="whether_compliance_of_last_sanction_terms_done" disabled>
+                        <p id="err_msg" class="text-danger"></p>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">8. Deviation from last sanction terms</label>
                         <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
                             value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
-                            id="deviation_from_last_sanction_terms">
-                            @error('deviation_from_last_sanction_terms')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            id="deviation_from_last_sanction_terms" disabled>
+                        <p id="err_msg1" class="text-danger"></p>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on</label>
@@ -140,67 +136,8 @@
                         <label for="exampleFormControlFile1">f. Comment on irregularity</label>
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                     </div>
-                    <div class="col-12 text-right mt-3 p-0">
-                        <button class="btn btn-primary float-left" data-toggle="tooltip" data-placement="top"
-                            title="Revert Back to the Credit Deperment"
-                            onclick="revertBack({{ $loan_details->id }})">Revert Back</button>
-                        <button class="btn btn-primary">Submit</button>
-                    </div>
                 </form>
             </div>
         </div>
     </div>
-    <script>
-        function revertBack(id) {
-            event.preventDefault();
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "This form contains error and you revert back to the CREDIT depeartment",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, CONFIRM it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    event.preventDefault();
-                    $.ajax({
-                        url: "{{ route('operation_user.revertBack') }}",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            loan_id : id
-                            
-                        },
-                        dataType: 'json',
-                        type: 'post',
-                        success: function(response) {
-                            location.href = "{{ route('operation_user.loan.index') }}";
-                        }
-                    });
-
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'The form status remain same :)',
-                        'error'
-                    )
-                }
-            })
-        }
-
-        setTimeout(function() {
-            $(".alert-success").hide();
-        }, 5000);
-    </script>
 @endsection

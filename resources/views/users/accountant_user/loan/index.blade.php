@@ -57,24 +57,29 @@
                                             </th>
                                             <td>{{ date('d-M-Y',strtotime($loan->created_at)) }}</td>
                                             <th>
-                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == '')
-                                                    <span data-toggle="tooltip" data-placement="top" title="This form is submitted by the credit deperment">
+                                                @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status == '')
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is submitted by the operation deperment">
                                                         <p class="badge badge-success">Sumitted</p>
                                                     </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status != '')
+                                                @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status != '')
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
                                                         <p class="badge badge-success">Verified</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 2)
-                                                    <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the credit deperment due to insufficient documents">
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the operation deperment due to insufficient documents">
                                                         <p class="badge badge-warning">Revert Back</p>
                                                     </span>
                                                     
                                                 @elseif($loan->status == 4)
-                                                    <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the credit deperment">
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the operation deperment">
                                                         <p class="badge badge-primary">Updated</p>
+                                                    </span>
+                                                @endif
+                                                @if ($loan->status == 5)
+                                                     <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the operation deperment">
+                                                        <p class="badge badge-primary">Completed</p>
                                                     </span>
                                                 @endif
                                             </th>
@@ -82,19 +87,19 @@
                                             <td>
                                                 @if ($loan->revert_user_id != '')
                                                 <span  data-toggle="tooltip" data-placement="top" title="View Form">
-                                                    <a href="{{ route('operation_user.loan.show',$loan->id) }}"><i
+                                                    <a href="{{ route('accountant_user.loan.show',$loan->id) }}"><i
                                                         class="fa fa-eye"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->o_verified_status == 0)
+                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->a_verified_status == 0)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
-                                                    <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
+                                                    <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 1 && $loan->o_verified_status == 0)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 1 && $loan->a_verified_status == 0)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
-                                                    <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
+                                                    <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif

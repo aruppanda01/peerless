@@ -12,4 +12,9 @@ Route::group(['middleware' => ['auth','operation_user']], function () {
 
     Route::resource('loan',LoanController::class);
     Route::post('revert-back',[LoanController::class,'revertBack'])->name('revertBack');
+
+    Route::get('failed-loan-details', [LoanController::class, 'failedLoanDetails'])->name('failedLoanDetails');
+    Route::get('failed-loan-details/show/{id}', [LoanController::class, 'failedLoanDetailsShow'])->name('failedLoanDetailsShow');
+    Route::get('failed-loan-details/edit/{id}', [LoanController::class, 'failedLoanDetailsEdit'])->name('failedLoanDetailsEdit');
+    Route::put('failed-loan-details/update/{id}', [LoanController::class, 'failedLoanDetailsUpdate'])->name('failedLoanDetailsUpdate');
 });

@@ -12,4 +12,8 @@ Route::group(['middleware' => ['auth','credit_user']], function () {
     Route::post('update-password', [CreditUserController::class, 'updatePassword'])->name('updatePassword');
 
     Route::resource('loan',LoanController::class);
+    Route::get('failed-loan-details', [LoanController::class, 'failedLoanDetails'])->name('failedLoanDetails');
+    Route::get('failed-loan-details/show/{id}', [LoanController::class, 'failedLoanDetailsShow'])->name('failedLoanDetailsShow');
+    Route::get('failed-loan-details/edit/{id}', [LoanController::class, 'failedLoanDetailsEdit'])->name('failedLoanDetailsEdit');
+    Route::put('failed-loan-details/update/{id}', [LoanController::class, 'failedLoanDetailsUpdate'])->name('failedLoanDetailsUpdate');
 });
