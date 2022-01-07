@@ -1,20 +1,79 @@
 @extends('users.layouts.master')
 @section('content')
+<style>
+button:focus {
+  outline: 0;
+  outline: inherit !important;
+}
+.form-group{
+  margin-bottom: 0;
+}
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+  position: relative;
+  letter-spacing: 0.8px;
+  color: #464646;
+  font-family: 'Montserrat', sans-serif;
+}
+.form-control:focus {
+  border-color: #18b8c0 !important;
+  outline: 0;
+  box-shadow: none;
+}
+.form-control {
+  border-radius: 0;
+  font-size: 15px;
+  resize: none;
+  font-weight: 500;
+}
+.booknow {
+  background-color: #2a2a2a;
+  border-color: #2a2a2a;
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-radius: 0 0 0 0;
+  padding: 13px 30px 12px 30px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+.booknow:hover {
+  color: #2a2a2a;
+  background-color: #fff;
+  border-color: #2a2a2a;
+}
+.form_title h6{
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+  text-align: center;
+}
+.form_title h2{
+  font-size: 24px;
+  font-weight: 800;
+  display: block;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.form_title h2 span{
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+}
+.form_title img{
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+</style>
     <!--CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     {{-- <link href="{{ asset('frontend/loan/css/style.css') }}" rel="stylesheet" type="text/css"> --}}
     {{-- <link href="{{ asset('frontend/loan/css/bootstrap.css') }}" rel="stylesheet" type="text/css"> --}}
 	
     <div class="container mt-2">
-		@if (session('success'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				{{ session('success') }}
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		@endif
-        {{-- <div class="row m-0 justify-content-center pb-4 form_title">
+        <div class="row m-0 justify-content-center pb-4 mt-5 form_title">
 			<div class="d-flex">
 				<img src="{{ asset('frontend/loan/peerless_logo.png') }}">
 				<h2 class="col-12 p-0">Peerless Financial Services Limited 
@@ -22,9 +81,20 @@
 				</h2>
 			</div>
 			<h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)</h6>
-		</div> --}}
-        <div class="row m-0 justify-content-center ">
-            <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
+		</div>
+        <div class="row  m-0 justify-content-center form_title">
+            @if (session('success'))
+			<div class="alert alert-success alert-dismissible fade show col-12 col-lg-7 mb-2" role="alert">
+				{{ session('success') }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		@endif
+        </div>
+
+        <div class="row col-12 m-0 justify-content-center ">
+            <div class="col-12 col-lg-7 shadow p-3 bg-light">
                 <form action="{{ route('credit_user.loan.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
