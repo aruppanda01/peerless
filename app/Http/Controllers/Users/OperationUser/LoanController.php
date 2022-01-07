@@ -93,6 +93,7 @@ class LoanController extends Controller
      */
     public function revertBack(Request $request)
     {
+        // dd($request->all());
         $loan_details = Loan::find($request->loan_id);
         $loan_details->revert_user_id = Auth::user()->id;
         $loan_details->revert_department = 1;

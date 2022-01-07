@@ -30,6 +30,7 @@
                                         <th>Serial no</th>
                                         <th>Upload By</th>
                                         <th>Upload Date</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -37,8 +38,27 @@
                                     @foreach ($all_loan_details as $key => $loan)
                                         <tr class="bg-tr">
                                             <td>{{ $key + 1 }}</td>
-                                            <th>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</th>
+                                            <th>
+                                                @php 
+                                                    if($loan->user_id){
+                                                        $user_details = App\Models\User::find($loan->user_id);
+                                                        echo $user_details->first_name .' '.$user_details->last_name; 
+                                                    }
+                                                    
+                                                @endphp
+                                            </th>
                                             <td>{{ date('d-M-Y',strtotime($loan->created_at)) }}</td>
+                                            <th>
+                                                @if ($loan->revert_user_id != '')
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the operation dept due to insufficient documents">
+                                                        <p class="badge badge-warning">Revert Back</p>
+                                                    </span>
+                                                    
+                                                @else
+                                                    
+                                                @endif
+                                            </th>
+                                            
                                             <td>
                                                 {{-- <a href="{{ route('operation_user.loan.show') }}"><i
                                                     class="far fa-eye"></i></a> --}}

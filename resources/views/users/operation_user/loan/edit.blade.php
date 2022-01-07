@@ -165,15 +165,13 @@
                         url: "{{ route('operation_user.revertBack') }}",
                         data: {
                             _token: "{{ csrf_token() }}",
-                            deviation_from_last_sanction_terms: deviation_from_last_sanction_terms,
-                            whether_compliance_of_last_sanction_terms_done: whether_compliance_of_last_sanction_terms_done,
                             loan_id : id
                             
                         },
                         dataType: 'json',
                         type: 'post',
                         success: function(response) {
-                            location.reload();
+                            location.href = "{{ route('operation_user.loan.index') }}";
                         }
                     });
 
