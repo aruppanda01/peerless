@@ -132,7 +132,7 @@
                             <i class="icon  icon-anim-pulse ion-android-notifications"></i>
                             <a class="nav-link" data-toggle="dropdown" href="#">
                                 {{-- <i class="far fa-bell"></i> --}}
-                                {{-- @php
+                                @php
                                     if ($notification->unreadCount > 0) {
                                         echo '<span class="badge badge-danger navbar-badge">' . $notification->unreadCount . '</span>';
                                     } elseif ($notification->unreadCount > 99) {
@@ -140,7 +140,7 @@
                                     } else {
                                         echo '';
                                     }
-                                @endphp --}}
+                                @endphp
                             </a>
                         </span>
                         </span>
@@ -153,10 +153,14 @@
                                     style="background-image: url('assets/images/dropdown-header/city3.jpg');"></div>
                                 <div class="menu-header-content text-dark p-3">
                                     <h5 class="menu-header-title">Notifications</h5>
-                                    {{-- <h6 class="menu-header-subtitle">You have @if (count($notification) > 0)
+                                    <h6 class="menu-header-subtitle">
+                                        @if (count($notification) > 0)
+                                            You have
                                             <b>{{ $notification->unreadCount }}</b> unread messages
                                             {{ $notification->unreadCount == 1 ? 'notification' : 'notifications' }}
-                                        @endif --}}
+                                        @else
+                                            No New Notification
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -173,9 +177,9 @@
                                                         <i class="badge badge-dot badge-dot-xl badge-success"> </i>
                                                     </span>
                                                     <div class="vertical-timeline-element-content bounce-in"> --}}
-                                                        {{-- <h4 class="timeline-title">All Hands Meeting</h4> --}}
+                                        {{-- <h4 class="timeline-title">All Hands Meeting</h4> --}}
 
-                                                        {{-- <a href="javascript:void(0)"
+                                        {{-- <a href="javascript:void(0)"
                                                             class=" {{ $noti->read_flag == 0 ? 'unread' : 'read' }}"
                                                             onclick="readNotification('{{ $noti->id }}', '{{ $noti->route ? route($noti->route) : '' }}')">
                                                             <p>{{ $noti->title }}
@@ -375,40 +379,40 @@
                                             <ul class="nav flex-column">
                                                 <li class="nav-item-header nav-item">Activity</li>
                                                 @if (Auth::user()->role_id == 4)
-                                                <li class="nav-item">
-                                                    <a href="{{ route('accountant_user.profile') }}"
-                                                        class="nav-link">Profile
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('accountant_user.changePassword') }}"
-                                                        class="nav-link">Change
-                                                        Password</a>
-                                                </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ route('accountant_user.profile') }}"
+                                                            class="nav-link">Profile
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ route('accountant_user.changePassword') }}"
+                                                            class="nav-link">Change
+                                                            Password</a>
+                                                    </li>
                                                 @endif
                                                 @if (Auth::user()->role_id == 3)
-                                                <li class="nav-item">
-                                                    <a href="{{ route('operation_user.profile') }}"
-                                                        class="nav-link">Profile
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('operation_user.changePassword') }}"
-                                                        class="nav-link">Change
-                                                        Password</a>
-                                                </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ route('operation_user.profile') }}"
+                                                            class="nav-link">Profile
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ route('operation_user.changePassword') }}"
+                                                            class="nav-link">Change
+                                                            Password</a>
+                                                    </li>
                                                 @endif
                                                 @if (Auth::user()->role_id == 2)
-                                                <li class="nav-item">
-                                                    <a href="{{ route('credit_user.profile') }}"
-                                                        class="nav-link">Profile
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('credit_user.changePassword') }}"
-                                                        class="nav-link">Change
-                                                        Password</a>
-                                                </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ route('credit_user.profile') }}"
+                                                            class="nav-link">Profile
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ route('credit_user.changePassword') }}"
+                                                            class="nav-link">Change
+                                                            Password</a>
+                                                    </li>
                                                 @endif
                                             </ul>
                                         </div>
@@ -424,5 +428,54 @@
 </div>
 <div class="app-main">
     <script>
-        
+        function readNotification(id, route) {
+            $.ajax({
+                url: '{{ route('notification.read') }}',
+                method: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    id: id
+                },
+                success: function(result) {
+                    // console.log('{{ url()->current() }}',route);
+                    // if (route != '' && '{{ url()->current() }}' != route) {
+                    window.location = route;
+                    // }
+                }
+            });
+        }
+
+        function markAllNotificationRead() {
+            // Swal.fire({
+            //     title: 'Are you sure?',
+            //     text: 'You want to mark all notifications as read. You might lose some data.',
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#f44336',
+            //     cancelButtonColor: '#8b8787',
+            //     confirmButtonText: 'Yes, mark all as read!'
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            $.ajax({
+                url: '{{ route('logs.notification.readall') }}',
+                method: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}'
+                },
+                beforeSend: function() {
+                    $('.mark-all-read-btn').prop('disabled', true).html(
+                        '<i class="fas fa-sync-alt"></i> Please wait');
+                },
+                success: function(result) {
+                    $('#notification-bell a.nav-link').remove('');
+                    // $('#notifications-timeline .notification-single .callout').removeClass(
+                    //     'callout-dark');
+                    // $('#notifications-timeline .unread-noti-count').text('');
+                    $('.mark-all-read-btn').removeClass('btn-outline-danger').addClass('btn-success').html(
+                        '<i class="fas fa-check"></i> All notifications marked as read');
+                }
+            });
+            //     }
+            // });
+        }
     </script>

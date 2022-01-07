@@ -64,8 +64,10 @@ class LoanController extends Controller
             'tenure.max:255' => 'Maximum character reached',
         ]);
 
+        $current_user_id = Auth::user()->id;
+
         $loan = new Loan();
-        $loan->user_id = Auth::user()->id;
+        $loan->user_id = $current_user_id;
         $loan->borrower_name = $request->borrower_name;
         $loan->bco_borrower_name = $request->bco_borrower_name;
         $loan->bguarantor_name = $request->bguarantor_name;
@@ -74,10 +76,16 @@ class LoanController extends Controller
         $loan->tenure = $request->tenure;
         $loan->status = 1;
 
-        $loan->c_verified_by = Auth::user()->id;
+        $loan->c_verified_by = $current_user_id;
         $loan->c_verified_dept = Auth::user()->role_id;
         $loan->c_verified_status = 1;
         $loan->save();
+
+        /**
+         * Send notification to the Operation Department
+         * That credit user just submitted a document
+         */
+        createNotification($current_user_id, 2 , 'credit_user_form_submission');
 
         return redirect()->back()->with('success','Successfully created');
     }
