@@ -62,9 +62,14 @@
                                                         <p class="badge badge-success">Sumitted</p>
                                                     </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status != '')
+                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status > 0)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
                                                         <p class="badge badge-success">Verified</p>
+                                                    </span>
+                                                @endif
+                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == 0)
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is verified by the credit deperment">
+                                                        <p class="badge badge-primary">Verified by Credit Dept</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 2)

@@ -169,21 +169,21 @@
                                 <div class="p-3">
                                     <div class="dropdown-holder">
 
-                                        {{-- @foreach ($notification as $noti)
+                                        @foreach ($notification as $noti)
 
                                             <div class="vertical-timeline-item vertical-timeline-element">
                                                 <div>
                                                     <span class="vertical-timeline-element-icon bounce-in">
                                                         <i class="badge badge-dot badge-dot-xl badge-success"> </i>
                                                     </span>
-                                                    <div class="vertical-timeline-element-content bounce-in"> --}}
+                                                    <div class="vertical-timeline-element-content bounce-in">
                                         {{-- <h4 class="timeline-title">All Hands Meeting</h4> --}}
 
-                                        {{-- <a href="javascript:void(0)"
+                                        <a href="javascript:void(0)"
                                                             class=" {{ $noti->read_flag == 0 ? 'unread' : 'read' }}"
                                                             onclick="readNotification('{{ $noti->id }}', '{{ $noti->route ? route($noti->route) : '' }}')">
                                                             <p>{{ $noti->title }}
-                                                                {{ \carbon\carbon::parse($noti->created_at)->diffForHumans() }}
+                                                                <span class="font-weight-bold">{{ getAsiaTime($noti->created_at) }}</span> 
                                                             </p>
                                                         </a>
 
@@ -191,7 +191,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach --}}
+                                        @endforeach
                                         {{-- <div class="vertical-timeline-item vertical-timeline-element">
                                             <div>
                                                 <span class="vertical-timeline-element-icon bounce-in">

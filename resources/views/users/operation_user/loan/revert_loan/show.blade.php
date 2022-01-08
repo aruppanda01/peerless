@@ -1,26 +1,19 @@
 @extends('users.layouts.master')
 @section('content')
     <!--CSS-->
+    @include('users.layouts.loan_page_extra_css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    {{-- <link href="{{ asset('frontend/loan/css/style.css') }}" rel="stylesheet" type="text/css"> --}}
-    {{-- <link href="{{ asset('frontend/loan/css/bootstrap.css') }}" rel="stylesheet" type="text/css"> --}}
 
     <div class="container mt-2">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ route('operation_user.failedLoanDetails') }}">Loan List</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
-            </ol>
-          </nav>
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-        {{-- <div class="row m-0 justify-content-center pb-4 form_title">
+        <div class="row m-2 justify-content-center pb-4 mt-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
+                </ol>
+              </nav>
+        </div>
+          <div class="row m-0 justify-content-center pb-4 mt-2 form_title">
 			<div class="d-flex">
 				<img src="{{ asset('frontend/loan/peerless_logo.png') }}">
 				<h2 class="col-12 p-0">Peerless Financial Services Limited 
@@ -28,7 +21,17 @@
 				</h2>
 			</div>
 			<h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)</h6>
-		</div> --}}
+		</div>
+        <div class="row  m-0 justify-content-center form_title">
+            @if (session('success'))
+			<div class="alert alert-success alert-dismissible fade show col-12 col-lg-7 mb-2" role="alert">
+				{{ session('success') }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		@endif
+        </div>
         <div class="row m-0 justify-content-center ">
             <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
                 <form action="{{ route('credit_user.failedLoanDetailsUpdate',$loan_details->id) }}" method="POST">

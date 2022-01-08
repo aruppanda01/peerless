@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\CreditUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -83,9 +84,12 @@ class LoanController extends Controller
 
         /**
          * Send notification to the Operation Department
-         * That credit user just submitted a document
+         * to inform that credit department just submitted a form
          */
-        createNotification($current_user_id, 2 , 'credit_user_form_submission');
+        $operation_dept_users = User::where('role_id',3)->get();
+        foreach ($operation_dept_users as $key => $user) {
+            createNotification($current_user_id, $user->id , 'credit_user_form_submission');   
+        }
 
         return redirect()->back()->with('success','Successfully created');
     }
@@ -199,13 +203,24 @@ class LoanController extends Controller
         $loan->is_modify_details = 1;
 
         /**
-         * For Updated status we are newly add an value 4.
+         * For Updated status we are introduce an value 4.
+         * So the status 0 for pending,1 for processing,2 for revert back,4 for modified content,5 for completed
          *  */ 
+        $current_user_id = Auth::user()->id;
         $loan->status = 4;
-        $loan->c_verified_by = Auth::user()->id;
-        $loan->c_verified_dept = Auth::user()->role_id;
+        $loan->c_verified_by = $current_user_id;;
+        $loan->c_verified_dept = $current_user_id;;
         $loan->c_verified_status = 1;
         $loan->save();
+
+        /**
+         * Send notification to the Operation Department
+         * to inform that credit department review and re submitted the form
+         */
+        $operation_dept_users = User::where('role_id',3)->get();
+        foreach ($operation_dept_users as $key => $user) {
+            createNotification($current_user_id, $user->id , 'credit_user_form_re_submission');   
+        }
 
         return redirect()->route('credit_user.failedLoanDetails')->with('success','Successfully updated');
     }

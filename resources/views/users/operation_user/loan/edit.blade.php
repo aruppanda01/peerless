@@ -1,37 +1,41 @@
 @extends('users.layouts.master')
 @section('content')
+    @include('users.layouts.loan_page_extra_css')
     <!--CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    {{-- <link href="{{ asset('frontend/loan/css/style.css') }}" rel="stylesheet" type="text/css"> --}}
-    {{-- <link href="{{ asset('frontend/loan/css/bootstrap.css') }}" rel="stylesheet" type="text/css"> --}}
 
     <div class="container mt-2">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
-            </ol>
-          </nav>
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="row m-2 justify-content-center pb-4 mt-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row m-0 justify-content-center pb-4 mt-2 form_title">
+            <div class="d-flex">
+                <img src="{{ asset('frontend/loan/peerless_logo.png') }}">
+                <h2 class="col-12 p-0">Peerless Financial Services Limited
+                    <span>‘Peerless Bhavan’, 3 Esplanade East, Kolkata – 700069</span>
+                </h2>
             </div>
-        @endif
-        {{-- <div class="row m-0 justify-content-center pb-4 form_title">
-			<div class="d-flex">
-				<img src="{{ asset('frontend/loan/peerless_logo.png') }}">
-				<h2 class="col-12 p-0">Peerless Financial Services Limited 
-					<span>‘Peerless Bhavan’, 3 Esplanade East, Kolkata – 700069</span>
-				</h2>
-			</div>
-			<h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)</h6>
-		</div> --}}
+            <h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)
+            </h6>
+        </div>
+        <div class="row  m-0 justify-content-center form_title">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show col-12 col-lg-7 mb-2" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+        </div>
         <div class="row m-0 justify-content-center ">
             <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
-                <form action="{{ route('operation_user.loan.update',$loan_details->id) }}" method="POST">
+                <form action="{{ route('operation_user.loan.update', $loan_details->id) }}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -87,18 +91,18 @@
                         <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
                             value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
                             id="whether_compliance_of_last_sanction_terms_done">
-                            @error('whether_compliance_of_last_sanction_terms_done')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        @error('whether_compliance_of_last_sanction_terms_done')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">8. Deviation from last sanction terms</label>
                         <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
                             value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
                             id="deviation_from_last_sanction_terms">
-                            @error('deviation_from_last_sanction_terms')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        @error('deviation_from_last_sanction_terms')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on</label>
@@ -176,8 +180,8 @@
                         url: "{{ route('operation_user.revertBack') }}",
                         data: {
                             _token: "{{ csrf_token() }}",
-                            loan_id : id
-                            
+                            loan_id: id
+
                         },
                         dataType: 'json',
                         type: 'post',

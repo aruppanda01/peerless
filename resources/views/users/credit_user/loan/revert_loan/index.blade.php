@@ -65,8 +65,8 @@
 
                                                 @else
                                                      <span data-toggle="tooltip" data-placement="top"
-                                                        title="This form is revert back to the operation dept due to insufficient documents">
-                                                        <p class="badge badge-warning">Revert Back</p>
+                                                        title="The credit department reviewed and resubmitted the form">
+                                                        <p class="badge badge-primary">Updated</p>
                                                     </span>
                                                 @endif
                                             </th>
@@ -78,7 +78,7 @@
                                                         class="fa fa-eye"></i></a>
                                                 </span>
                                                 @endif --}}
-                                                @if ($loan->revert_user_id != '')
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 0)
                                                     <span data-toggle="tooltip" data-placement="top" title="Review Form">
                                                         <a href="{{ route('credit_user.failedLoanDetailsEdit', $loan->id) }}"
                                                             class="ml-2"><i class="fa fa-edit"></i></a>
