@@ -57,7 +57,7 @@
                                             </th>
                                             <td>{{ date('d-M-Y', strtotime($loan->updated_at)) }}</td>
                                             <th>
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 0)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 0)
                                                     <span data-toggle="tooltip" data-placement="top"
                                                         title="This form is revert back to the operation dept due to insufficient documents">
                                                         <p class="badge badge-warning">Revert Back</p>
@@ -78,7 +78,7 @@
                                                         class="fa fa-eye"></i></a>
                                                 </span>
                                                 @endif --}}
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 0)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 0)
                                                     <span data-toggle="tooltip" data-placement="top" title="Review Form">
                                                         <a href="{{ route('credit_user.failedLoanDetailsEdit', $loan->id) }}"
                                                             class="ml-2"><i class="fa fa-edit"></i></a>

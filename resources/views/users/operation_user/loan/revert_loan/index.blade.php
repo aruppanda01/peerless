@@ -57,8 +57,8 @@
                                             </th>
                                             <td>{{ date('d-M-Y', strtotime($loan->updated_at)) }}</td>
                                             <th>
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 0)
-                                                <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the credit deperment due to insufficient documents">
+                                                @if ($loan->status == 2 && $loan->is_modify_details_by_operation_dept == 0)
+                                                <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the account deperment due to insufficient documents">
                                                     <p class="badge badge-warning">Revert Back</p>
                                                 </span>
 
@@ -66,7 +66,7 @@
                                                 <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the operation deperment">
                                                     <p class="badge badge-primary">Completed</p>
                                                 </span>
-                                                @else
+                                                @elseif ($loan->status == 4 && $loan->is_modify_details_by_operation_dept == 1)
                                                 <span data-toggle="tooltip" data-placement="top"
                                                     title="This form is send for the reviewd team to verify that">
                                                     <p class="badge badge-success">Updated</p>
@@ -75,7 +75,7 @@
                                             </th>
 
                                             <td>
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 1)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_operation_dept == 1)
                                                 <span  data-toggle="tooltip" data-placement="top" title="View Form">
                                                     <a href="{{ route('operation_user.failedLoanDetailsShow',$loan->id) }}"><i
                                                         class="fa fa-eye"></i></a>

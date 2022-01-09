@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\AccountantUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -128,10 +129,18 @@ class LoanController extends Controller
         $loan->residual_tenure = $request->residual_tenure;
        
         $loan->a_verified_by = Auth::user()->id;
-        $loan->a_verified_dept = Auth::user()->role_id;
         $loan->a_verified_status = 1;
         $loan->status = 5;
         $loan->save();
+
+         /**
+         * Send notification to the Operation Department
+         * to inform that account department revert back a form
+         */
+        $operation_dept_users = User::where('role_id',1)->get();
+        foreach ($operation_dept_users as $key => $user) {
+            createNotification(Auth::user()->id, $user->id , 'loan_created_by_accountant');   
+        }
 
         return redirect()->route('accountant_user.loan.index')->with('success','Successfully updated');
     }
@@ -153,16 +162,41 @@ class LoanController extends Controller
     public function revertBack(Request $request)
     {
         // dd($request->all());
+        $current_user_id = Auth::user()->id;
         $loan_details = Loan::find($request->loan_id);
-        $loan_details->revert_user_id = Auth::user()->id;
+        $loan_details->revert_user_id = $current_user_id;
         $loan_details->revert_department = 3;
 
         $loan_details->a_verified_by = Auth::user()->id;
-        $loan_details->a_verified_dept = 2;
         $loan_details->a_verified_status = 0;
         $loan_details->status = 2;
 
         $loan_details->save();
+
+         /**
+         * Send notification to the Operation Department
+         * to inform that account department revert back a form
+         */
+        $operation_dept_users = User::where('role_id',3)->get();
+        foreach ($operation_dept_users as $key => $user) {
+            createNotification($current_user_id, $user->id , 'revert_back_by_account_dept');   
+        }
+        
         return response()->json('success');
+    }
+
+    /**
+     * Generate PDF for successfully loan update.
+     */
+    public function generatePDF()
+    {
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y')
+        ];
+          
+        $pdf = PDF::loadView('users.accountant_user.loan.index', $data);
+    
+        return $pdf->download('itsolutionstuff.pdf');
     }
 }

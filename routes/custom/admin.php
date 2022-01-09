@@ -24,4 +24,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::put('/approve-accountant-user/{id}', [AccountantUserController::class, 'approval'])->name('accountant-user.approve');
     Route::put('/deactivate-accountant-user/{id}', [AccountantUserController::class, 'deactivate_account'])->name('accountant-user.deactivate');
     Route::put('/activate-accountant-user/{id}', [AccountantUserController::class, 'activate_account'])->name('accountant-user.activate');
+
+    // Loan functionality
+    Route::resource('loan',LoanController::class);
 });

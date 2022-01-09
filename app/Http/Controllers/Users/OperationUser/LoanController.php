@@ -94,9 +94,8 @@ class LoanController extends Controller
        
         $current_user_id = Auth::user()->id;;
         $loan->o_verified_by = $current_user_id;
-        $loan->o_verified_dept = $current_user_id;
         $loan->o_verified_status = 1;
-        $loan->status = 1;
+        $loan->status = 3;
         $loan->save();
 
          /**
@@ -134,14 +133,13 @@ class LoanController extends Controller
         $loan_details->revert_department = 2;
 
         $loan_details->o_verified_by = $current_user_id;
-        $loan_details->o_verified_dept = 2;
         $loan_details->o_verified_status = 0;
         $loan_details->status = 2;
 
         $loan_details->save();
 
         /**
-         * Send notification to the Operation Department
+         * Send notification to the Credit Department
          * to inform that credit department just submitted a form
          */
         $operation_dept_users = User::where('role_id',2)->get();
@@ -159,6 +157,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['all_failed_loan'] = Loan::where('revert_user_id','!=',null)
+                            ->where('status',2)
                             ->where('revert_department',Auth::user()->role_id)
                             ->latest()
                             ->get();
@@ -192,21 +191,19 @@ class LoanController extends Controller
         ]);
 
         $loan = Loan::find($id);
-        $loan = Loan::find($id);
         $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
         $loan->deviation_from_last_sanction_terms = $request->deviation_from_last_sanction_terms;
 
-        $loan->is_modify_details = 1;
+        $loan->is_modify_details_by_operation_dept = 1;
 
         /**
          * For Updated status we are newly add an value 4.
          *  */ 
         $loan->status = 4;
         $loan->o_verified_by = Auth::user()->id;
-        $loan->o_verified_dept = Auth::user()->role_id;
         $loan->o_verified_status = 1;
         $loan->save();
 
-        return redirect()->route('operation_user.failedLoanDetails')->with('success','Successfully updated');
+        return redirect()->route('operation_user.failedLoanDetails')->with('success','Successfully Loan Details updated');
     }
 }

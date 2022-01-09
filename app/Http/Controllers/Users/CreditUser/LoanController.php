@@ -78,7 +78,6 @@ class LoanController extends Controller
         $loan->status = 1;
 
         $loan->c_verified_by = $current_user_id;
-        $loan->c_verified_dept = Auth::user()->role_id;
         $loan->c_verified_status = 1;
         $loan->save();
 
@@ -91,7 +90,7 @@ class LoanController extends Controller
             createNotification($current_user_id, $user->id , 'credit_user_form_submission');   
         }
 
-        return redirect()->back()->with('success','Successfully created');
+        return redirect()->back()->with('success','Successfully Loan Created');
     }
 
     /**
@@ -145,6 +144,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['all_failed_loan'] = Loan::where('revert_user_id','!=',null)
+                            ->where('status',2)
                             ->where('revert_department',Auth::user()->role_id)
                             ->latest()
                             ->get();
@@ -200,16 +200,11 @@ class LoanController extends Controller
         $loan->loan_type = $request->loan_type;
         $loan->amount_of_sanction = $request->amount_of_sanction;
         $loan->tenure = $request->tenure;
-        $loan->is_modify_details = 1;
+        $loan->is_modify_details_by_credit_dept = 1;
 
-        /**
-         * For Updated status we are introduce an value 4.
-         * So the status 0 for pending,1 for processing,2 for revert back,4 for modified content,5 for completed
-         *  */ 
         $current_user_id = Auth::user()->id;
         $loan->status = 4;
-        $loan->c_verified_by = $current_user_id;;
-        $loan->c_verified_dept = $current_user_id;;
+        $loan->c_verified_by = $current_user_id;
         $loan->c_verified_status = 1;
         $loan->save();
 
@@ -222,7 +217,7 @@ class LoanController extends Controller
             createNotification($current_user_id, $user->id , 'credit_user_form_re_submission');   
         }
 
-        return redirect()->route('credit_user.failedLoanDetails')->with('success','Successfully updated');
+        return redirect()->route('credit_user.failedLoanDetails')->with('success','Successfully Loan Details updated');
     }
 
 }

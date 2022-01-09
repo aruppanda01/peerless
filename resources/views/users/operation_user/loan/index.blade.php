@@ -52,6 +52,7 @@
                                                         $user_details = App\Models\User::find($loan->user_id);
                                                         echo $user_details->first_name .' '.$user_details->last_name; 
                                                     }
+                                                    // dd($loan);
                                                     
                                                 @endphp
                                             </th>
@@ -62,7 +63,8 @@
                                                         <p class="badge badge-success">Sumitted</p>
                                                     </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status > 0)
+                                                {{-- {{  $loan->o_verified_status }} --}}
+                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == 1)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
                                                         <p class="badge badge-success">Verified</p>
                                                     </span>
@@ -97,7 +99,7 @@
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 1 && $loan->o_verified_status == 0)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 1 && $loan->o_verified_status == 0)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>

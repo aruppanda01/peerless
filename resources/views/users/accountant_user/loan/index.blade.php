@@ -62,9 +62,14 @@
                                                         <p class="badge badge-success">Sumitted</p>
                                                     </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status != '')
+                                                @if ($loan->status == 3)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
-                                                        <p class="badge badge-success">Verified</p>
+                                                        <p class="badge badge-success">Verified by Operation Dept</p>
+                                                    </span>
+                                                @endif
+                                                @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status == 0)
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
+                                                        <p class="badge badge-success">Verified by Operation Dept</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 2)
@@ -97,7 +102,13 @@
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details == 1 && $loan->a_verified_status == 0)
+                                                @if ($loan->status == 3)
+                                                <span  data-toggle="tooltip" data-placement="top" title="Review Form">
+                                                    <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
+                                                        class="ml-2"><i class="fa fa-edit"></i></a>
+                                                </span>
+                                                @endif
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_operation_dept == 1 && $loan->a_verified_status == 0)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
