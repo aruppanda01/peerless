@@ -27,4 +27,5 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
     // Loan functionality
     Route::resource('loan',LoanController::class);
+    Route::get('generate-pdf/{id}', [LoanController::class, 'generatePDF'])->name('generatePDF');
 });

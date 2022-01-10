@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Loan;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -14,7 +16,9 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return view('admin.loan.index');
+        $data = array();
+        $data['loans'] = Loan::where('status',5)->latest()->get();
+        return view('admin.loan.index')->with($data);
     }
 
     /**
@@ -81,5 +85,18 @@ class LoanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Generate PDF for successfully loan update.
+     */
+    public function generatePDF(Request $request,$id)
+    {
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
+          
+        $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
+    
+        return $pdf->download('loan_details.pdf');
     }
 }

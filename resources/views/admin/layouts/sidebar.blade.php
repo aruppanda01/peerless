@@ -18,7 +18,7 @@
                         aria-hidden="true"></i>Accountant User</a></li>
             <li class="{{ Request::is('admin/loan*') ? 'active' : '' }}"><a
                     href="{{ route('admin.loan.index') }}"><i class="fa  fa-piggy-bank"
-                        aria-hidden="true"></i>Loan List</a></li>
+                        aria-hidden="true"></i>Loans</a></li>
                 <a class="btn-pill btn-shadow btn-shine btn btn-focus mt-2" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>{{ __('Logout') }}

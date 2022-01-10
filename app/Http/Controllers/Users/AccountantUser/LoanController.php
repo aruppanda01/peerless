@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users\AccountantUser;
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -188,15 +189,13 @@ class LoanController extends Controller
     /**
      * Generate PDF for successfully loan update.
      */
-    public function generatePDF()
+    public function generatePDF(Request $request,$id)
     {
-        $data = [
-            'title' => 'Welcome to ItSolutionStuff.com',
-            'date' => date('m/d/Y')
-        ];
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
           
-        $pdf = PDF::loadView('users.accountant_user.loan.index', $data);
+        $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
     
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->download('loan_details.pdf');
     }
 }

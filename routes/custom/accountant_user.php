@@ -12,5 +12,5 @@ Route::group(['middleware' => ['auth','accountant_user']], function () {
 
     Route::resource('loan',LoanController::class);
     Route::post('revert-back',[LoanController::class,'revertBack'])->name('revertBack');
-    Route::get('generate-pdf', [LoanController::class, 'generatePDF'])->name('generatePDF');
+    Route::get('generate-pdf/{id}', [LoanController::class, 'generatePDF'])->name('generatePDF');
 });

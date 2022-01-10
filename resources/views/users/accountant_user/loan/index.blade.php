@@ -96,6 +96,12 @@
                                                         class="fa fa-eye"></i></a>
                                                 </span>
                                                 @endif
+                                                @if ($loan->status == 5)
+                                                <span  data-toggle="tooltip" data-placement="top" title="Download Form">
+                                                    <a href="{{ route('accountant_user.generatePDF',$loan->id) }}"><i
+                                                        class="fa fa-download ml-2"></i></a>
+                                                </span>
+                                                @endif
                                                 @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->a_verified_status == 0)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
