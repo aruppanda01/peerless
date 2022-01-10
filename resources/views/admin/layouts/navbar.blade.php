@@ -9,9 +9,9 @@
                         <i class="fa fa-bell"></i>
                         @php
                             if ($notification->unreadCount > 0) {
-                                echo '<span class="badge badge-danger navbar-badge">' . $notification->unreadCount . '</span>';
+                                echo '<span class="badge badge-danger navbar-badge header-badge">' . $notification->unreadCount . '</span>';
                             } elseif ($notification->unreadCount > 99) {
-                                echo '<span class="badge badge-danger navbar-badge">99+</span>';
+                                echo '<span class="badge badge-danger navbar-badge header-badge">99+</span>';
                             } else {
                                 echo '';
                             }

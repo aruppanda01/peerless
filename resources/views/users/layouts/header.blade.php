@@ -129,16 +129,16 @@
                 <div class="dropdown">
                     <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
                         class="p-0 mr-2 btn btn-link">
-                        <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                        <span class="icon-wrapper icon-wrapper-alt rounded-circle position-relative">
                             <span class="icon-wrapper-bg bg-danger"></span>
                             <i class="icon  icon-anim-pulse ion-android-notifications"></i>
                             <a class="nav-link" data-toggle="dropdown" href="#">
                                 {{-- <i class="far fa-bell"></i> --}}
                                 @php
                                     if ($notification->unreadCount > 0) {
-                                        echo '<span class="badge badge-danger navbar-badge">' . $notification->unreadCount . '</span>';
+                                        echo '<span class="badge badge-danger navbar-badge header-badge">' . $notification->unreadCount . '</span>';
                                     } elseif ($notification->unreadCount > 99) {
-                                        echo '<span class="badge badge-danger navbar-badge">99+</span>';
+                                        echo '<span class="badge badge-danger navbar-badge header-badge">99+</span>';
                                     } else {
                                         echo '';
                                     }
@@ -330,9 +330,9 @@
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     class="p-0 btn">
-                                    <img width="42" class="rounded-circle"
+                                    {{-- <img width="42" class="rounded-circle"
                                         src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('frontend/assets/images/avatars/1.jpg') }}"
-                                        alt="">
+                                        alt=""> --}}
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true"
@@ -344,17 +344,17 @@
                                             </div>
                                             <div class="menu-header-content text-left">
                                                 <div class="widget-content p-0">
-                                                    <div class="widget-content-wrapper">
-                                                        <div class="widget-content-left mr-3">
+                                                    <div class="widget-content-wrapper justify-content-between p-2">
+                                                        {{-- <div class="widget-content-left mr-3">
                                                             <img width="42" class="rounded-circle"
                                                                 src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('frontend/assets/images/avatars/1.jpg') }}"
                                                                 alt="">
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">
+                                                            <div class="widget-heading text-white">
                                                                 {{ Auth::user()->first_name }}
                                                                 {{ Auth::user()->last_name }}</div>
-                                                            <div class="widget-subheading">{{ Auth::user()->email }}</div>
+                                                            {{-- <div class="widget-subheading">{{ Auth::user()->email }}</div> --}}
                                                         </div>
                                                         <div class="widget-content-right mr-2">
 
@@ -374,37 +374,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="scroll-area-xs" style="height: 150px;">
-                                        <div class="scrollbar-container ps">
+                                    <div class="scroll-area-xs" style="height: auto">
+                                        <div>
                                             <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item">Personal Details</li>
                                                 <li class="nav-item">
-                                                    <span class="nav-link text-primary">Email: {{ Auth::user()->email }}  <br>
-                                                        Department: {{ Auth::user()->role['name'] }} </span>
-                                                    <span class="nav-link"> </span> 
+                                                    <p class="nav-link mb-0 pb-0"><b class="mr-2">Email:</b>{{ Auth::user()->email }} </p>   
+                                                    <p class="nav-link mb-0 pb-0"><b class="mr-2">Department:</b>{{ Auth::user()->role['name'] }}</p>
+                                                    <p class="nav-link mb-0 pb-0"><b class="mr-2">Id:</b>{{ Auth::user()->id_no }}</p>
                                                 </li>
-                                                <li class="nav-item-header nav-item">Activity</li>
-                                                @if (Auth::user()->role_id == 4)
-                                                <li class="nav-item">
-                                                    <a href="{{ route('accountant_user.changePassword') }}"
-                                                        class="nav-link">Change
-                                                        Password</a>
-                                                </li>
-                                                @endif
-                                                @if (Auth::user()->role_id == 3)
-                                                <li class="nav-item">
-                                                    <a href="{{ route('operation_user.changePassword') }}"
-                                                        class="nav-link">Change
-                                                        Password</a>
-                                                </li>
-                                                @endif
-                                                @if (Auth::user()->role_id == 2)
-                                                <li class="nav-item">
-                                                    <a href="{{ route('credit_user.changePassword') }}"
-                                                        class="nav-link">Change
-                                                        Password</a>
-                                                </li>
-                                                @endif
                                             </ul>
                                         </div>
                                     </div>

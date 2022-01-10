@@ -1534,3 +1534,15 @@ table.dataTable.no-footer {
 div.dataTables_wrapper div.dataTables_filter {
     margin-bottom: 20px !important;
 }
+.header-badge{
+	position: absolute !important;
+	top: -1px;
+	right: -16px;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	padding: 0;
+	line-height: 24px;
+	background-color: #dd7478 !important;
+  }
