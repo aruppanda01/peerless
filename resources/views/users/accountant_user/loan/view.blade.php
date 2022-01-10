@@ -102,15 +102,15 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on</label>
-                        <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                        <input class="form-control" type="text" name="amount_O_s_as_on" value="{{ $loan_details->amount_O_s_as_on }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">10. Residual Tenure</label>
-                        <input class="form-control" type="text" name="residual_tenure" disabled>
+                        <input class="form-control" type="text" name="residual_tenure" value="{{ $loan_details->residual_tenure }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">11. Utilization of Limit</label>
-                        <input class="form-control" type="text" name="utilization_of_limit" disabled>
+                        <input class="form-control" type="text" name="utilization_of_limit" value="{{ $loan_details->utilization_of_limit }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1" class="text-dark">12. Occurrence of irregularity in the
@@ -118,27 +118,27 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">a. No. of times Bounces in the account</label>
-                        <input class="form-control" type="text" name="no_of_times_bounces_in_the_account" disabled>
+                        <input class="form-control" type="text" name="no_of_times_bounces_in_the_account" value="{{ $loan_details->no_of_times_bounces_in_the_account }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">b. Any bounces in last six months</label>
-                        <input class="form-control" type="text" name="any_bounces_in_last_six_months" disabled>
+                        <input class="form-control" type="text" name="any_bounces_in_last_six_months" value="{{ $loan_details->any_bounces_in_last_six_months }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">c. No. of times and days, the account was irregular</label>
-                        <input class="form-control" type="text" name="no_of_times_and_days" disabled>
+                        <input class="form-control" type="text" name="no_of_times_and_days" value="{{ $loan_details->no_of_times_and_days }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">d. Reasons for the irregularity (ies)</label>
-                        <input class="form-control" type="text" name="reasons_for_the_irregularity" disabled>
+                        <input class="form-control" type="text" name="reasons_for_the_irregularity" value="{{ $loan_details->reasons_for_the_irregularity }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">e. Peak irregularity in the account</label>
-                        <input class="form-control" type="text" name="peak_irregularity_in_the_account" disabled>
+                        <input class="form-control" type="text" name="peak_irregularity_in_the_account" value="{{ $loan_details->peak_irregularity_in_the_account }}"disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">f. Comment on irregularity</label>
-                        <input class="form-control" type="text" name="comment_on_irregularity" disabled>
+                        <input class="form-control" type="text" name="comment_on_irregularity" value="{{ $loan_details->comment_on_irregularity }}" disabled>
                     </div>
                 </form>
             </div>
