@@ -69,14 +69,14 @@
                                                 class="far fa-eye"></i></a>
                                         <a href="{{ route('admin.operation-user.edit', $user->id) }}"
                                             class="ml-2"><i class="far fa-edit"></i></a>
-                                        <a href="javascript:void(0);" class="ml-2" data-toggle="modal"
+                                        {{-- <a href="javascript:void(0);" class="ml-2" data-toggle="modal"
                                             data-target="#exampleModal" onclick="deleteForm({{ $user->id }})"><i
                                                 class="far fa-trash-alt text-danger"></i></a>
                                         <form id="delete_form_{{ $user->id }}"
                                             action="{{ route('admin.operation-user.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                        </form>
+                                        </form> --}}
                                     </td>
                                     </td>
                                 </tr>

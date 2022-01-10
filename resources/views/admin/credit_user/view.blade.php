@@ -20,6 +20,8 @@
                 @include('admin.layouts.navbar')
             </div>
             <hr>
+            {{-- <div class="dashboard-body-content">
+            </div> --}}
             <div class="app-main__inner">
                 <div class="app-page-title">
                     <div class="page-title-wrapper d-sm-flex justify-content-between">
@@ -62,12 +64,7 @@
                                     class="text-danger fa fa-times-circle"></i></h5>
                         @endif
                         <div class="row">
-                            <div class="col-lg-3">
-                                <img src="{{ asset('frontend/assets/images/avata3.jpg') }}"
-                                    class="img-fluid mx-auto">
-                            </div>
                             <div class="col-lg-4 not2">
-                                <p>{{ date('d-m-Y', strtotime($user_details->created_at)) }}</p>
                                 <h4 class="mb-4">{{ $user_details->first_name . ' ' . $user_details->last_name }}<span
                                         class="ml-3">
                                         <!-- <img src="assets/images/edit.png" class="img-fluid mx-auto"> -->
@@ -78,39 +75,6 @@
                                     </div>
                                     <div class="col-md-5">
                                         <p>{{ $user_details->email ? $user_details->email : 'N/A' }}</p>
-                                    </div>
-                                    <div class="col-md-2">
-                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> --}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <label>DOB :</label>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <p>{{ $user_details->dob ? $user_details->dob : 'N/A' }}</p>
-                                    </div>
-                                    <div class="col-md-2">
-                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> --}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <label>Age :</label>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <p>{{ $user_age }}</p>
-                                    </div>
-                                    <div class="col-md-2">
-                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> --}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <label>Gender :</label>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <p>{{ $user_details->gender ? $user_details->gender : 'N/A' }}</p>
                                     </div>
                                     <div class="col-md-2">
                                         {{-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> --}}

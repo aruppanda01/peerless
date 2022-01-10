@@ -62,7 +62,7 @@
 							@endif
 						</div>
 					</div>
-					<div class="col-lg-6">
+					{{-- <div class="col-lg-6">
 						<div class="form-group edit-box">
 							<label for="gender">Gender<span class="text-danger">*</span></label>
 							<select name="gender" id="gender"  class="form-control">
@@ -86,7 +86,7 @@
 							<span style="color: red;">{{ $errors->first('dob') }}</span>
 							@endif
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<div class="form-group d-flex justify-content-end">
 					<button type="submit" class="actionbutton">SAVE</button>

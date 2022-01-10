@@ -51,8 +51,8 @@ class AccountantUserController extends Controller
             'last_name' => 'required |string| max:255',
             'email' => 'required|email | unique:users',
             'phone_no' => 'required| max:10',
-            'dob' => 'required | date',
-            'gender' => 'required'
+            // 'dob' => 'required | date',
+            // 'gender' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -68,8 +68,8 @@ class AccountantUserController extends Controller
             $user->email = $request['email'];
             $user->phone_no = $request['phone_no'];
             $user->id_no =  $id_no;
-            $user->dob = $request['dob'];
-            $user->gender = $request['gender'];
+            // $user->dob = $request['dob'];
+            // $user->gender = $request['gender'];
             $user->password = Hash::make($id_no);
             $user->status = 0;
             $user->save();
@@ -122,8 +122,8 @@ class AccountantUserController extends Controller
             'first_name' => 'required |string| max:255',
             'last_name' => 'required |string| max:255',
             'phone_no' => 'required| max:10',
-            'dob' => 'required | date',
-            'gender' => 'required'
+            // 'dob' => 'required | date',
+            // 'gender' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -133,8 +133,8 @@ class AccountantUserController extends Controller
             $user->first_name = $request['first_name'];
             $user->last_name = $request['last_name'];
             $user->phone_no = $request['phone_no'];
-            $user->dob = $request['dob'];
-            $user->gender = $request['gender'];
+            // $user->dob = $request['dob'];
+            // $user->gender = $request['gender'];
             $user->save();
 
             DB::commit();
