@@ -18,15 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm plf_mrnu d-none">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <!--{{ config('app.name', 'Laravel') }}-->
-                    <img src="{{ asset('frontend/images/logo.png') }}" width="120px">
+                    {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -44,7 +42,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Credit Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                             @if (Route::has('operation_login'))
@@ -64,7 +62,7 @@
                                 </li>
                             @endif --}}
                         @else
-                            <!--<li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
@@ -80,41 +78,16 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>-->
+                            </li>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-        
-        <section class="log_body">
-            <div class="container">
-                <div class="row m-0 pt-2 pb-5">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <!--{{ config('app.name', 'Laravel') }}-->
-                        <img src="{{ asset('frontend/images/logo.png') }}" width="120px">
-                    </a>
-                </div>
-                <div class="row m-0  h-100 justify-content-center align-items-center">
-                    <div class="col-12 col-lg-7 pt-5 mt-lg-5 text-center">
-                        @guest
-                            @if (Route::has('login'))
-                                <a class="btn pl_btn" href="{{ route('login') }}">{{ __('Credit Login') }}</a>
-                            @endif
-                            @if (Route::has('operation_login'))
-                                <a class="btn pl_btn" href="{{ route('operation_login') }}">{{ __('Opertaion Login') }}</a>
-                            @endif
-                            @if (Route::has('accountant_login'))
-                                <a class="btn pl_btn" href="{{ route('accountant_login') }}">{{ __('Account Login') }}</a>
-                            @endif
-                        @endguest
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--<main class="py-4">
+
+        <main class="py-4">
             @yield('content')
-        </main>-->
+        </main>
     </div>
 </body>
 </html>

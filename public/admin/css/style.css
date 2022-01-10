@@ -118,7 +118,7 @@ ul{
 	display: block;
 }
 .authfy-login, .authfy-panel-left .brand-col {
-    height: 460px;
+    height: auto;
 }
 .brand-col .social-buttons .btn-facebook {
     background: #3b5998;
@@ -204,14 +204,15 @@ label {
 	padding: 10px 30px;
 	border: none;
 	border-radius: 5px;
-	background-color: #00c1cb;
+	background-color: #346aa7;
 	color: #fff;
 	font-weight: 500;
 	font-size: .875rem;
 	transition: all 0.5s;
 }
 .btn-brand:hover{
-	color:#384a61;
+	color:#fff;
+	background-color: #384a61;
 }
 .log-text{
 	font-size: 0.85rem;
@@ -276,15 +277,16 @@ label {
 	top: 0;
 	height: 100%;
 	max-width: 250px; */
-	background: #2656b2;
+	background: #103762;
 	padding: 0px;
 	box-shadow: 1px 0px 20px rgb(0 0 0 / 8%);
 }
 .customer-logo{
-	padding: 10px 0px;
-    margin: 5px auto;
+	padding: 15px 0px;
+    margin: 0px auto;
     text-align: center;
-  /*  width: 95px;*/
+    width: 120px;
+    margin-bottom: 21px;
 }
 /* .toggle-mob-menu{
 	display: none;
@@ -370,7 +372,7 @@ label {
 }*/
 .dashboard-content-header{
 	padding: 10px 0px;
-	background: #192146;
+	background: #103762;
 }
 .dashboard-content{
 	min-width: 95%;
@@ -781,14 +783,14 @@ margin-left: 10px;
     margin-left: auto;
 }
 #sidebar {
-    width: 230px;
+    width: 245px;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     z-index: 999;
     transition: all 0.3s;
-    border-top-right-radius: 12px;
+    border-top-right-radius: 0;
     position: relative;
 }
 /*.dashboard-menubar{
@@ -1520,4 +1522,15 @@ td img{
 	vertical-align: top !important;
 	text-align: center;
 	    white-space: nowrap;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    padding: 15px 18px;
+    border-bottom: 1px solid #e9ecef !important;
+}
+table.dataTable.no-footer {
+    border-bottom: 1px solid #e9ecef !important;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    margin-bottom: 20px !important;
 }

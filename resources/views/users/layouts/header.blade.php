@@ -1,6 +1,8 @@
 <div class="app-header header-shadow">
-    <div class="app-header__logo">
-        <div class="logo-src2"></div>
+    <div>
+        <div class="logo-src2">
+            <img src="{{ asset('frontend/images/logo.png') }}" width="100px">
+        </div>
         <!--  <div class="header__pane ml-auto">
                 <div>
                     <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -153,10 +155,9 @@
                                     style="background-image: url('assets/images/dropdown-header/city3.jpg');"></div>
                                 <div class="menu-header-content text-dark p-3">
                                     <h5 class="menu-header-title">Notifications</h5>
-                                    <h6 class="menu-header-subtitle">
-                                        @if (count($notification) > 0)
+                                    @if (count($notification) > 0)
                                             You have
-                                            <b>{{ $notification->unreadCount }}</b> unread messages
+                                            <b>{{ $notification->unreadCount }}</b> unread
                                             {{ $notification->unreadCount == 1 ? 'notification' : 'notifications' }}
                                         @else
                                             No New Notification
@@ -321,8 +322,8 @@
                         <div class="widget-content-left header-user-info">
                             <div class="widget-heading"> {{ Auth::user()->first_name }}
                                 {{ Auth::user()->last_name }}</div>
-                            <div class="widget-subheading"> Member Seance:
-                                {{ Auth::user()->created_at ? date('Y', strtotime(Auth::user()->created_at)) : 'N/A' }}
+                            <div class="widget-subheading">
+                                {{ Auth::user()->email }}
                             </div>
                         </div>
                         <div class="widget-content-left ml-3">
@@ -353,8 +354,7 @@
                                                             <div class="widget-heading">
                                                                 {{ Auth::user()->first_name }}
                                                                 {{ Auth::user()->last_name }}</div>
-                                                            <div class="widget-subheading opacity-8">A short
-                                                                profile description</div>
+                                                            <div class="widget-subheading">{{ Auth::user()->email }}</div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
 
@@ -377,42 +377,33 @@
                                     <div class="scroll-area-xs" style="height: 150px;">
                                         <div class="scrollbar-container ps">
                                             <ul class="nav flex-column">
+                                                <li class="nav-item-header nav-item">Personal Details</li>
+                                                <li class="nav-item">
+                                                    <span class="nav-link text-primary">Email: {{ Auth::user()->email }}  <br>
+                                                        Department: {{ Auth::user()->role['name'] }} </span>
+                                                    <span class="nav-link"> </span> 
+                                                </li>
                                                 <li class="nav-item-header nav-item">Activity</li>
                                                 @if (Auth::user()->role_id == 4)
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('accountant_user.profile') }}"
-                                                            class="nav-link">Profile
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('accountant_user.changePassword') }}"
-                                                            class="nav-link">Change
-                                                            Password</a>
-                                                    </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ route('accountant_user.changePassword') }}"
+                                                        class="nav-link">Change
+                                                        Password</a>
+                                                </li>
                                                 @endif
                                                 @if (Auth::user()->role_id == 3)
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('operation_user.profile') }}"
-                                                            class="nav-link">Profile
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('operation_user.changePassword') }}"
-                                                            class="nav-link">Change
-                                                            Password</a>
-                                                    </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ route('operation_user.changePassword') }}"
+                                                        class="nav-link">Change
+                                                        Password</a>
+                                                </li>
                                                 @endif
                                                 @if (Auth::user()->role_id == 2)
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('credit_user.profile') }}"
-                                                            class="nav-link">Profile
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('credit_user.changePassword') }}"
-                                                            class="nav-link">Change
-                                                            Password</a>
-                                                    </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ route('credit_user.changePassword') }}"
+                                                        class="nav-link">Change
+                                                        Password</a>
+                                                </li>
                                                 @endif
                                             </ul>
                                         </div>
@@ -428,54 +419,5 @@
 </div>
 <div class="app-main">
     <script>
-        function readNotification(id, route) {
-            $.ajax({
-                url: '{{ route('notification.read') }}',
-                method: 'POST',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    id: id
-                },
-                success: function(result) {
-                    // console.log('{{ url()->current() }}',route);
-                    // if (route != '' && '{{ url()->current() }}' != route) {
-                    window.location = route;
-                    // }
-                }
-            });
-        }
-
-        function markAllNotificationRead() {
-            // Swal.fire({
-            //     title: 'Are you sure?',
-            //     text: 'You want to mark all notifications as read. You might lose some data.',
-            //     icon: 'warning',
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#f44336',
-            //     cancelButtonColor: '#8b8787',
-            //     confirmButtonText: 'Yes, mark all as read!'
-            // }).then((result) => {
-            //     if (result.isConfirmed) {
-            $.ajax({
-                url: '{{ route('logs.notification.readall') }}',
-                method: 'POST',
-                data: {
-                    '_token': '{{ csrf_token() }}'
-                },
-                beforeSend: function() {
-                    $('.mark-all-read-btn').prop('disabled', true).html(
-                        '<i class="fas fa-sync-alt"></i> Please wait');
-                },
-                success: function(result) {
-                    $('#notification-bell a.nav-link').remove('');
-                    // $('#notifications-timeline .notification-single .callout').removeClass(
-                    //     'callout-dark');
-                    // $('#notifications-timeline .unread-noti-count').text('');
-                    $('.mark-all-read-btn').removeClass('btn-outline-danger').addClass('btn-success').html(
-                        '<i class="fas fa-check"></i> All notifications marked as read');
-                }
-            });
-            //     }
-            // });
-        }
+        
     </script>

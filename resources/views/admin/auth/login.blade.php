@@ -1,10 +1,10 @@
 @extends('admin.auth.layout')
 @section('content')
     <div class="container-fluid login-body">
-        <div class="row justify-content-center">
-            <div class="authfy-container col-xs-12 col-sm-10 col-md-8 col-lg-6 shadow-lg p-0">
+        <div class="row h-100 m-0 justify-content-center align-items-center">
+            <div class="authfy-container col-xs-12 col-sm-4 col-md-4 col-lg-4 shadow-lg p-0">
                 <div class="row m-0">
-                    <div class="col-sm-5 authfy-panel-left">
+                    <!--<div class="col-sm-5 authfy-panel-left">
                         <div class="brand-col">
                             <div class="headline text-center">
                                 <div class="brand-logo text-center pt-5">
@@ -12,8 +12,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-7 authfy-panel-right">
+                    </div>-->
+                    <div class="col-sm-12 authfy-panel-right">
                         <div class="authfy-login">
                             <h3>Login
                                 <small class="d-block text-muted">Enter your email address and password to access the account</small>

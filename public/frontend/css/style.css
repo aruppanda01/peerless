@@ -155,8 +155,8 @@ p {
 .sub-heading h2 {
     position: relative;
     color: #192146;
-    font-size: 48px;
-    line-height: 60px;
+    font-size: 42px;
+    line-height: 50px;
     font-weight: 600;
 }
 
@@ -1170,7 +1170,7 @@ hr.new5 {
 .sign-in-box {
     background: #fff;
     border-radius: 12px;
-    margin: 56px;
+    /*margin: 56px;*/
     -webkit-box-shadow: 0 3px 13px 0px rgb(0, 0, 0, 0.6);
     -moz-box-shadow: 0 3px 13px 0px rgb(0, 0, 0, 0.6);
     box-shadow: 0 3px 13px 0px rgb(0, 0, 0, 0.6);
@@ -2033,4 +2033,36 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .all_corce_list{
     margin-top:130px !important;
+}
+
+.homeicon{
+    position: absolute;
+    right: 25px;
+    z-index:22;
+    curser:pointer;
+}
+
+.log_body {
+    background: #6c7989  url(../images/welcome-about.jpg)no-repeat center top;
+    background-blend-mode: multiply;
+    background-size:cover;
+    height: 100vh;
+    padding: 0;
+}
+
+.plf_mrnu .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight:600;
+}
+
+.pl_btn{
+    background: #f77e0c;
+    padding: 12px 15px;
+    font-size: 1rem;
+    width: 30%;
+    color: #fff;
+}
+.pl_btn:hover{
+    background: #fff;
+    color: #60aaff;
 }

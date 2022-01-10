@@ -30,13 +30,13 @@ class HomeController extends Controller
                 $redirectTo = 'admin/dashboard';
                 break;
             case 2:
-                $redirectTo = 'credit_user/profile';
+                $redirectTo = 'credit_user/loan';
                 break;
             case 3:
-                $redirectTo = 'operation_user/profile';
+                $redirectTo = 'operation_user/loan';
                 break;
             case 4:
-                $redirectTo = 'accountant_user/profile';
+                $redirectTo = 'accountant_user/loan';
                 break;
         }
         return redirect($redirectTo);

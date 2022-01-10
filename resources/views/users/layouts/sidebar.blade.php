@@ -32,20 +32,20 @@
     </div>
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
-            <div class="logo-src"><img
+            <!--<div class="logo-src"><img
                     src="{{ asset('frontend/assets/images/logo-inverse.png') }}" class="img-fluid">
             </div>
-            <img src="{{ asset('frontend/images/shadow.png') }}" class="img-fluid mx-auto w-100">
+            <img src="{{ asset('frontend/images/shadow.png') }}" class="img-fluid mx-auto w-100">-->
             <ul class="vertical-nav-menu">
                 @if (Auth::user()->role_id == 2)
-                    <li class="{{ Request::is('credit_user/profile') ? 'mm-active' : '' }}">
+                    {{-- <li class="{{ Request::is('credit_user/profile') ? 'mm-active' : '' }}">
                         <a href="{{ route('credit_user.profile') }}">
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="{{ Request::is('credit_user/loan*') ? 'mm-active' : '' }}">
                         <a href="{{ route('credit_user.loan.index') }}">
-                            <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>New Loan
                         </a>
                     </li>
                     <li class="{{ Request::is('credit_user/failed-loan-details*') ? 'mm-active' : '' }}">
@@ -60,11 +60,11 @@
                     </li>
                 @endif
                 @if (Auth::user()->role_id == 3)
-                    <li class="{{ Request::is('operation_user/profile') ? 'mm-active' : '' }}">
+                    {{-- <li class="{{ Request::is('operation_user/profile') ? 'mm-active' : '' }}">
                         <a href="{{ route('operation_user.profile') }}">
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="{{ Request::is('operation_user/loan*') ? 'mm-active' : '' }}">
                         <a href="{{ route('operation_user.loan.index') }}">
                             <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
@@ -82,11 +82,11 @@
                     </li>
                 @endif
                 @if (Auth::user()->role_id == 4)
-                    <li class="{{ Request::is('accountant_user/profile') ? 'mm-active' : '' }}">
+                    {{-- <li class="{{ Request::is('accountant_user/profile') ? 'mm-active' : '' }}">
                         <a href="{{ route('accountant_user.profile') }}">
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="{{ Request::is('accountant_user/loan*') ? 'mm-active' : '' }}">
                         <a href="{{ route('accountant_user.loan.index') }}">
                             <i class="fas fa-piggy-bank metismenu-icon"></i>Loan
