@@ -1,41 +1,45 @@
 @extends('users.layouts.master')
 @section('content')
-    <!--CSS-->
-    @include('users.layouts.loan_page_extra_css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <div class="app-main__outer">
+<!--CSS-->
+@include('users.layouts.loan_page_extra_css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div class="app-main__outer">
     <div class="container mt-2 mb-5">
         <div class="row m-2 pb-4 mt-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
                 </ol>
-              </nav>
+            </nav>
         </div>
-          <div class="row m-0 justify-content-center pb-4 mt-2 form_title">
-			<div class="d-flex">
-				<img src="{{ asset('frontend/loan/peerless_logo.png') }}">
-				<h2 class="col-12 p-0">Peerless Financial Services Limited
-					<span>‘Peerless Bhavan’, 3 Esplanade East, Kolkata – 700069</span>
-				</h2>
-			</div>
-			<h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)</h6>
-		</div>
+        <div class="row m-0 justify-content-center pb-4 mt-2 form_title">
+            <div class="d-flex">
+                <img src="{{ asset('frontend/loan/peerless_logo.png') }}">
+                <h2 class="col-12 p-0">Peerless Financial Services Limited
+                    <span>‘Peerless Bhavan’, 3 Esplanade East, Kolkata – 700069</span>
+                </h2>
+            </div>
+            <h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)
+            </h6>
+        </div>
         <div class="row  m-0 justify-content-center form_title">
-            @if (session('success'))
-			<div class="alert alert-success alert-dismissible fade show col-12 col-lg-7 mb-2" role="alert">
-				{{ session('success') }}
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		@endif
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show col-12 col-lg-7 mb-2" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
         </div>
 
         <div class="row m-0 justify-content-center ">
             <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
-                <form action="{{ route('credit_user.failedLoanDetailsUpdate',$loan_details->id) }}" method="POST">
+                <form
+                    action="{{ route('credit_user.failedLoanDetailsUpdate',$loan_details->id) }}"
+                    method="POST" id="loan_form">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -47,7 +51,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">2. BCo-Borrower’s Name</label>
+                        <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any</label>
                         <input class="form-control" type="text" name="bco_borrower_name"
                             value="{{ $loan_details->bco_borrower_name ?? old('bco_borrower_name') }}">
                         @error('bco_borrower_name')
@@ -55,7 +59,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">3. BGuarantor’s Name</label>
+                        <label for="exampleFormControlFile1">3. Guarantor’s Name, if any</label>
                         <input class="form-control" type="text" name="bguarantor_name"
                             value="{{ $loan_details->bguarantor_name ?? old('bguarantor_name') }}">
                         @error('bguarantor_name')
@@ -63,7 +67,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">4. Type of Loan Availed</label>
+                        <label for="exampleFormControlFile1">4. Type of Loan Available</label>
                         <input class="form-control" type="text" name="loan_type"
                             value="{{ $loan_details->loan_type ?? old('loan_type') }}">
                         @error('loan_type')
@@ -71,7 +75,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">5. Amount of Sanction</label>
+                        <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)</label>
                         <input class="form-control" type="text" name="amount_of_sanction"
                             value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}">
                         @error('amount_of_sanction')
@@ -94,7 +98,7 @@
                         <p id="err_msg" class="text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">8. Deviation from last sanction terms</label>
+                        <label for="exampleFormControlFile1">8. Deviation from last sanction terms, if any</label>
                         <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
                             value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
                             id="deviation_from_last_sanction_terms" disabled>
@@ -133,25 +137,62 @@
                         <input class="form-control" type="text" name="reasons_for_the_irregularity" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">e. Peak irregularity in the account</label>
+                        <label for="exampleFormControlFile1">e. Peak irregularity in the account, if any</label>
                         <input class="form-control" type="text" name="peak_irregularity_in_the_account" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">f. Comment on irregularity</label>
+                        <label for="exampleFormControlFile1">f. Comment on irregularity, if any</label>
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                     </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                    </div>
                     <div class="col-12 text-right mt-3 p-0">
-                        <button class="btn btn-primary">Submit</button>
+                        <button class="btn btn-primary" id="btn_submit">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     @include('users.layouts.static_footer')
-    </div>
-    <script>
-        setTimeout(function() {
-            $(".alert-success").hide();
-        }, 5000);
-    </script>
+</div>
+<script>
+    $('#btn_submit').on('click', function () {
+        event.preventDefault();
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "To submit Loan Form!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, SUBMIT it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.preventDefault();
+                document.getElementById('loan_form').submit();
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Loan Form Is Not Submitted :)',
+                    'error'
+                )
+            }
+        })
+    })
+    setTimeout(function () {
+        $(".alert-success").hide();
+    }, 5000);
+
+</script>
 @endsection

@@ -63,12 +63,12 @@
                                                 @endif
                                                 @if ($loan->status == 3)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
-                                                        <p class="badge badge-success">Verified by Operation Dept</p>
+                                                        <p class="badge badge-primary">Verified by Operation Dept</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status == 0)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
-                                                        <p class="badge badge-success">Verified by Operation Dept</p>
+                                                        <p class="badge badge-primary">Verified by Operation Dept</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 2)

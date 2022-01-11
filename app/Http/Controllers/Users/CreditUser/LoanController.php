@@ -67,8 +67,13 @@ class LoanController extends Controller
 
         $current_user_id = Auth::user()->id;
 
+        $loan_forms = Loan::count();
+        $num_padded = sprintf("%05d", ($loan_forms + 1));
+        $form_no = 'PF'. $num_padded;
+
         $loan = new Loan();
         $loan->user_id = $current_user_id;
+        $loan->form_no = $form_no;
         $loan->borrower_name = $request->borrower_name;
         $loan->bco_borrower_name = $request->bco_borrower_name;
         $loan->bguarantor_name = $request->bguarantor_name;
@@ -90,7 +95,7 @@ class LoanController extends Controller
             createNotification($current_user_id, $user->id , 'credit_user_form_submission');
         }
 
-        return redirect()->back()->with('success','Loan created successfully, now it\'s verified by operation department');
+        return redirect()->back()->with('success','Loan Form Submitted Successfully');
     }
 
     /**

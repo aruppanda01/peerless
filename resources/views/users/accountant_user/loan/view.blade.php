@@ -50,7 +50,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">2. BCo-Borrower’s Name</label>
+                        <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any</label>
                         <input class="form-control" type="text" name="bco_borrower_name"
                             value="{{ $loan_details->bco_borrower_name ?? old('bco_borrower_name') }}"
                             disabled>
@@ -59,7 +59,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">3. BGuarantor’s Name</label>
+                        <label for="exampleFormControlFile1">3. Guarantor’s Name, if any</label>
                         <input class="form-control" type="text" name="bguarantor_name"
                             value="{{ $loan_details->bguarantor_name ?? old('bguarantor_name') }}"
                             disabled>
@@ -68,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">4. Type of Loan Availed</label>
+                        <label for="exampleFormControlFile1">4. Type of Loan Available</label>
                         <input class="form-control" type="text" name="loan_type"
                             value="{{ $loan_details->loan_type ?? old('loan_type') }}"
                             disabled>
@@ -77,7 +77,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">5. Amount of Sanction</label>
+                        <label for="exampleFormControlFile1">5. Amount of Sanction(Rs)</label>
                         <input class="form-control" type="text" name="amount_of_sanction"
                             value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}"
                             disabled>
@@ -101,7 +101,7 @@
                         <p id="err_msg" class="text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">8. Deviation from last sanction terms</label>
+                        <label for="exampleFormControlFile1">8. Deviation from last sanction terms, if any</label>
                         <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
                             value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
                             id="deviation_from_last_sanction_terms" disabled>
@@ -147,12 +147,12 @@
                             value="{{ $loan_details->reasons_for_the_irregularity }}" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">e. Peak irregularity in the account</label>
+                        <label for="exampleFormControlFile1">e. Peak irregularity in the account, if any</label>
                         <input class="form-control" type="text" name="peak_irregularity_in_the_account"
                             value="{{ $loan_details->peak_irregularity_in_the_account }}" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">f. Comment on irregularity</label>
+                        <label for="exampleFormControlFile1">f. Comment on irregularity, if any</label>
                         <input class="form-control" type="text" name="comment_on_irregularity"
                             value="{{ $loan_details->comment_on_irregularity }}" disabled>
                     </div>

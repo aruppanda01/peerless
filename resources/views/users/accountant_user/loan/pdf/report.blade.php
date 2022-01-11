@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Results</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <style>     
+    <style>
         .booknow {
             background-color: #2a2a2a;
             border-color: #2a2a2a;
@@ -16,20 +16,20 @@
             font-size: 14px;
             color: #fff;
         }
-    
+
         .booknow:hover {
             color: #2a2a2a;
             background-color: #fff;
             border-color: #2a2a2a;
         }
-    
+
         .form_title h6 {
             font-size: 15px;
             font-weight: 600;
             display: block;
             text-align: center;
         }
-    
+
         .form_title h2 {
             font-size: 24px;
             font-weight: 800;
@@ -37,20 +37,20 @@
             text-align: center;
             margin-bottom: 15px;
         }
-    
+
         .form_title h2 span {
             display: block;
             font-size: 15px;
             font-weight: 400;
         }
-    
+
         .form_title img {
             margin: 0 auto;
             margin-bottom: 20px;
         }
-    
+
     </style>
-    
+
 </head>
 <body>
     {{-- <div class="container mt-2"> --}}
@@ -65,7 +65,7 @@
         <div class="row m-0 justify-content-center pb-4 mt-2 form_title">
             <h6 class="col-12 p-0">Conduct Sheet for Loan Against Salary/ Loan To Professional Loan Products (Top Up)</h6>
         </div>
-        
+
     {{-- </div> --}}
     <table class="table table-striped table-bordered table-sm">
         <tbody>
@@ -74,19 +74,19 @@
                 <td>{{ $loan_details->borrower_name }}</td>
             </tr>
             <tr>
-                <td>2. BCo-Borrower’s Name</td>
+                <td>2. Co-Borrower’s Name, if any</td>
                 <td>{{ $loan_details->bco_borrower_name }}</td>
             </tr>
             <tr>
-                <td>3. BGuarantor’s Name</td>
+                <td>3. Guarantor’s Name, if any</td>
                 <td>{{ $loan_details->bguarantor_name }}</td>
             </tr>
             <tr>
-                <td>4. Type of Loan Availed</td>
+                <td>4. Type of Loan Available</td>
                 <td>{{ $loan_details->loan_type }}</td>
             </tr>
             <tr>
-                <td>5. Amount of Sanction</td>
+                <td>5. Amount of Sanction(Rs)</td>
                 <td>{{ $loan_details->amount_of_sanction }}</td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                 <td>{{ $loan_details->whether_compliance_of_last_sanction_terms_done }}</td>
             </tr>
             <tr>
-                <td>8. Deviation from last sanction terms</td>
+                <td>8. Deviation from last sanction terms, if any</td>
                 <td>{{ $loan_details->deviation_from_last_sanction_terms }}</td>
             </tr>
             <tr>
@@ -134,12 +134,16 @@
                 <td>{{ $loan_details->reasons_for_the_irregularity }}</td>
             </tr>
             <tr>
-                <td>e. Peak irregularity in the account</td>
+                <td>e. Peak irregularity in the account, if any</td>
                 <td>{{ $loan_details->peak_irregularity_in_the_account }}</td>
             </tr>
             <tr>
-                <td>f. Comment on irregularity</td>
+                <td>f. Comment on irregularity, if any</td>
                 <td>{{ $loan_details->comment_on_irregularity }}</td>
+            </tr>
+            <tr>
+                <td>Comment on Conduct of the A/c:</td>
+                <td></td>
             </tr>
         </tbody>
     </table>
