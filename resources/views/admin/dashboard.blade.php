@@ -47,11 +47,23 @@
                     <div class="col-12 col-md-3 mb-3">
                         <div class="card shadow-sm border-0">
                             <div class="card-body gpcVCf">
+                                <div class="icon-sec w-20 mr-2">
+                                    <img src="{{ asset('img/new-Customers.png') }}">
+                                </div>
+                                <div class="text-sec">
+                                    <h3>{{ $total_accountant_user }}<span>Total Account Users</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body gpcVCf">
                                 <div class="icon-sec w-25">
                                     <img src="{{ asset('img/new-Customers.png') }}">
                                 </div>
                                 <div class="text-sec">
-                                    <h3>{{ $total_accountant_user }}<span>Total Accountant Users</span></h3>
+                                    <h3>{{ $total_accountant_user }}<span>Total Loan</span></h3>
                                 </div>
                             </div>
                         </div>

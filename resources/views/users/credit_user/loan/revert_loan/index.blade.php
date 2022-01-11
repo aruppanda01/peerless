@@ -51,7 +51,7 @@
                                                         $user_details = App\Models\User::find($loan->revert_user_id);
                                                         echo $user_details->first_name . ' ' . $user_details->last_name;
                                                     }
-                                                    
+
                                                 @endphp
                                             </th>
                                             <td>{{ date('d-M-Y', strtotime($loan->updated_at)) }}</td>
@@ -103,6 +103,11 @@
     <script>
         $(document).ready(function() {
             $('#loan_table').DataTable();
+
         });
+        setTimeout(function() {
+            $(".alert-success").hide();
+        }, 10000);
+
     </script>
 @endsection

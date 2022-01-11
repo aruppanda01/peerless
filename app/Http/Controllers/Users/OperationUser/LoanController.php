@@ -91,7 +91,7 @@ class LoanController extends Controller
         $loan = Loan::find($id);
         $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
         $loan->deviation_from_last_sanction_terms = $request->deviation_from_last_sanction_terms;
-       
+
         $current_user_id = Auth::user()->id;;
         $loan->o_verified_by = $current_user_id;
         $loan->o_verified_status = 1;
@@ -104,7 +104,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',4)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'operation_dept_submit_a_form');   
+            createNotification($current_user_id, $user->id , 'operation_dept_submit_a_form');
         }
 
         return redirect()->route('operation_user.loan.index')->with('success','Successfully updated');
@@ -122,7 +122,7 @@ class LoanController extends Controller
     }
 
     /**
-     * If operation dept found any error then they always can revert it back to the credit department . 
+     * If operation dept found any error then they always can revert it back to the credit department .
      */
     public function revertBack(Request $request)
     {
@@ -144,9 +144,9 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',2)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'revert_back_by_operation_dept');   
+            createNotification($current_user_id, $user->id , 'revert_back_by_operation_dept');
         }
-        
+
         return response()->json('success');
     }
 
@@ -196,13 +196,19 @@ class LoanController extends Controller
 
         $loan->is_modify_details_by_operation_dept = 1;
 
-        /**
-         * For Updated status we are newly add an value 4.
-         *  */ 
         $loan->status = 4;
         $loan->o_verified_by = Auth::user()->id;
         $loan->o_verified_status = 1;
         $loan->save();
+
+        /**
+         * Send notification to the Account Department
+         * to inform that operation department just submitted a form
+         */
+        $operation_dept_users = User::where('role_id',4)->get();
+        foreach ($operation_dept_users as $key => $user) {
+            createNotification(Auth::user()->id, $user->id , 'operation_user_form_re_submission');
+        }
 
         return redirect()->route('operation_user.failedLoanDetails')->with('success','Successfully Loan Details updated');
     }

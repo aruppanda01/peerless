@@ -55,7 +55,7 @@
                                                         class=" {{ $noti->read_flag == 0 ? 'unread' : 'read' }}"
                                                         onclick="readNotification('{{ $noti->id }}', '{{ $noti->route ? route($noti->route) : '' }}')">
                                                         <p>{{ $noti->title }}
-                                                            <span class="font-weight-bold">{{ getAsiaTime($noti->created_at) }}</span> 
+                                                            <span class="font-weight-bold">{{ getAsiaTime($noti->created_at) }}</span>
                                                         </p>
                                                     </a>
 
@@ -410,13 +410,19 @@
             <div class="widget-content p-0">
                 <div class="widget-content-wrapper">
                     <div class="widget-content-left header-user-info">
-                        <div class="widget-heading"> HI’ {{ Auth::user()->first_name }} <br>{{ Auth::user()->email }}</div>
+                        <div class="widget-heading"> {{ Auth::user()->first_name }}
+                            {{ Auth::user()->last_name }}</div>
+                        <div class="widget-subheading">
+                            {{ Auth::user()->email }}
+                        </div>
                     </div>
-                    <div class="widget-content-left ml-3 responsive-top">
+                    <div class="widget-content-left ml-3">
                         <div class="btn-group">
                             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="p-0 btn">
-                                <img width="42" class="rounded-circle" src="{{ asset('img/1.jpg') }}" alt="">
+                                {{-- <img width="42" class="rounded-circle"
+                                    src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('frontend/assets/images/avatars/1.jpg') }}"
+                                    alt=""> --}}
                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                             </a>
                             <div tabindex="-1" role="menu" aria-hidden="true"
@@ -424,24 +430,27 @@
                                 <div class="dropdown-menu-header">
                                     <div class="dropdown-menu-header-inner bg-info">
                                         <div class="menu-header-image opacity-2"
-                                            style="background-image: url('assets/images/dropdown-header/city3.jpg');">
+                                            style="background-image: url('{{ asset('frontend/assets/images/dropdown-header/city3.jpg') }}');">
                                         </div>
                                         <div class="menu-header-content text-left">
-                                            <div class="widget-content">
-                                                <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-3">
+                                            <div class="widget-content p-0">
+                                                <div class="widget-content-wrapper justify-content-between p-2">
+                                                    {{-- <div class="widget-content-left mr-3">
                                                         <img width="42" class="rounded-circle"
-                                                            src="{{ asset('img/1.jpg') }}" alt="">
-                                                    </div>
+                                                            src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('frontend/assets/images/avatars/1.jpg') }}"
+                                                            alt="">
+                                                    </div> --}}
                                                     <div class="widget-content-left">
-                                                        <div class="widget-heading">{{ Auth::user()->first_name }}
+                                                        <div class="widget-heading text-white">
+                                                            {{ Auth::user()->first_name }}
                                                             {{ Auth::user()->last_name }}</div>
-                                                        <div class="widget-subheading opacity-8">{{ Auth::user()->email }}</div>
+                                                        {{-- <div class="widget-subheading">{{ Auth::user()->email }}</div> --}}
                                                     </div>
                                                     <div class="widget-content-right mr-2">
+
                                                         <a class="btn-pill btn-shadow btn-shine btn btn-focus"
                                                             href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();">
+                   document.getElementById('logout-form').submit();">
                                                             {{ __('Logout') }}
                                                         </a>
 
@@ -455,28 +464,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="scroll-area-xs" style="height: 150px;">
-                                    <div class="scrollbar-container ps">
+                                <div class="scroll-area-xs" style="height: auto">
+                                    <div>
                                         <ul class="nav flex-column">
-                                            <li class="nav-item-header nav-item">Personal Details</li>
                                             <li class="nav-item">
-                                                <a href="#" class="nav-link text-primary">Email:  {{ Auth::user()->email }} <br>
-                                                    Department: {{ Auth::user()->role['name'] }}</a>
+                                                <p class="nav-link mb-0 pb-0"><b class="mr-2">Email:</b>{{ Auth::user()->email }} </p>
+                                                <p class="nav-link mb-0 pb-0"><b class="mr-2">Department:</b>{{ Auth::user()->role['name'] }}</p>
+                                                <p class="nav-link mb-0 pb-0"><b class="mr-2">Id:</b>{{ Auth::user()->id_no }}</p>
                                             </li>
                                         </ul>
-                                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
-                                            </div>
-                                        </div>
-                                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;">
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-                                <ul class="nav flex-column">
-                                    <li class="nav-item-divider mb-0 nav-item"></li>
-                                </ul>
                             </div>
                         </div>
                     </div>

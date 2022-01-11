@@ -46,12 +46,12 @@
                                         <tr class="bg-tr">
                                             <td>{{ $key + 1 }}</td>
                                             <th>
-                                                @php 
+                                                @php
                                                     if($loan->user_id){
                                                         $user_details = App\Models\User::find($loan->user_id);
-                                                        echo $user_details->first_name .' '.$user_details->last_name; 
+                                                        echo $user_details->first_name .' '.$user_details->last_name;
                                                     }
-                                                    
+
                                                 @endphp
                                             </th>
                                             <td>{{ date('d-M-Y',strtotime($loan->created_at)) }}</td>
@@ -75,19 +75,19 @@
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the operation deperment due to insufficient documents">
                                                         <p class="badge badge-warning">Revert Back</p>
                                                     </span>
-                                                    
+
                                                 @elseif($loan->status == 4)
-                                                    <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the operation deperment">
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is reviewed by the operation deperment">
                                                         <p class="badge badge-primary">Updated</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 5)
-                                                     <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the operation deperment">
+                                                     <span data-toggle="tooltip" data-placement="top" title="This form is completed">
                                                         <p class="badge badge-primary">Completed</p>
                                                     </span>
                                                 @endif
                                             </th>
-                                            
+
                                             <td>
                                                 @if ($loan->revert_user_id != '')
                                                 <span  data-toggle="tooltip" data-placement="top" title="View Form">

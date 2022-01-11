@@ -1,16 +1,17 @@
 @extends('users.layouts.master')
 @section('content')
-    <!--CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    @include('users.layouts.loan_page_extra_css')
+<!--CSS-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+@include('users.layouts.loan_page_extra_css')
 
-
-    <div class="container mt-2">
-        <div class="row m-2 justify-content-center pb-4 mt-2">
+<div class="app-main__outer">
+    <div class="container mt-2 mb-5">
+        <div class="row m-2 pb-4 mt-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">View Loan Details</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +26,7 @@
             </h6>
         </div>
         <div class="row  m-0 justify-content-center form_title">
-            @if (session('success'))
+            @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show col-12 col-lg-7 mb-2" role="alert">
                     {{ session('success') }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -41,7 +42,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">1. Borrower’s Name</label>
                         <input class="form-control" type="text" name="borrower_name"
-                            value="{{ $loan_details->borrower_name ?? old('borrower_name') }}" disabled>
+                            value="{{ $loan_details->borrower_name ?? old('borrower_name') }}"
+                            disabled>
                         @error('borrower_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -49,7 +51,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">2. BCo-Borrower’s Name</label>
                         <input class="form-control" type="text" name="bco_borrower_name"
-                            value="{{ $loan_details->bco_borrower_name ?? old('bco_borrower_name') }}" disabled>
+                            value="{{ $loan_details->bco_borrower_name ?? old('bco_borrower_name') }}"
+                            disabled>
                         @error('bco_borrower_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -57,7 +60,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">3. BGuarantor’s Name</label>
                         <input class="form-control" type="text" name="bguarantor_name"
-                            value="{{ $loan_details->bguarantor_name ?? old('bguarantor_name') }}" disabled>
+                            value="{{ $loan_details->bguarantor_name ?? old('bguarantor_name') }}"
+                            disabled>
                         @error('bguarantor_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -65,7 +69,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">4. Type of Loan Availed</label>
                         <input class="form-control" type="text" name="loan_type"
-                            value="{{ $loan_details->loan_type ?? old('loan_type') }}" disabled>
+                            value="{{ $loan_details->loan_type ?? old('loan_type') }}"
+                            disabled>
                         @error('loan_type')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -73,7 +78,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">5. Amount of Sanction</label>
                         <input class="form-control" type="text" name="amount_of_sanction"
-                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}" disabled>
+                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}"
+                            disabled>
                         @error('amount_of_sanction')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -144,4 +150,6 @@
             </div>
         </div>
     </div>
+    @include('users.layouts.static_footer')
+</div>
 @endsection

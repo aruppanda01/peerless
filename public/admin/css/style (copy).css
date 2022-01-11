@@ -1535,35 +1535,26 @@ div.dataTables_wrapper div.dataTables_filter {
     margin-bottom: 20px !important;
 }
 .header-badge{
-	position: absolute !important;
-	top: -1px;
-	right: -16px;
-	border-radius: 50%;
-	width: 25px;
-	height: 25px;
-	text-align: center;
-	padding: 0;
-	line-height: 24px;
-	background-color: #dd7478 !important;
-  }
- 
- .dropdown-menu-header .menu-header-content {
-    padding: 12px 0;
+  position: absolute !important;
+  top: -1px;
+  right: -16px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  padding: 0;
+  line-height: 24px;
+  background-color: #dd7478 !important;
 }
-.vertical-timeline-element-icon {
-    top: 5px;
-    left: 0px;
+.vertical-timeline-element-icon{
+  left: 0 !important;
+  top: 2px !important;
 }
-.vertical-timeline-element-content {
-    margin-left: 36px;
+
+.vertical-timeline-element-content{
+  margin-left: 36px !important;
 }
-.vertical-timeline-element-content p {
-    font-weight: 400;
-    font-size: 15px;
-}
-.widget-content {
-    padding: 0;
-}
+
 .widget-content .dropdown-menu{
   top: 18px !important;
 }

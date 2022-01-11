@@ -128,7 +128,7 @@ class LoanController extends Controller
         $loan->utilization_of_limit = $request->utilization_of_limit;
         $loan->amount_O_s_as_on = $request->amount_O_s_as_on;
         $loan->residual_tenure = $request->residual_tenure;
-       
+
         $loan->a_verified_by = Auth::user()->id;
         $loan->a_verified_status = 1;
         $loan->status = 5;
@@ -140,7 +140,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',1)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification(Auth::user()->id, $user->id , 'loan_created_by_accountant');   
+            createNotification(Auth::user()->id, $user->id , 'loan_created_by_accountant');
         }
 
         return redirect()->route('accountant_user.loan.index')->with('success','Successfully updated');
@@ -158,7 +158,7 @@ class LoanController extends Controller
     }
 
     /**
-     * If operation dept found any error then they always can revert it back to the credit department . 
+     * If operation dept found any error then they always can revert it back to the credit department .
      */
     public function revertBack(Request $request)
     {
@@ -180,9 +180,9 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',3)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'revert_back_by_account_dept');   
+            createNotification($current_user_id, $user->id , 'revert_back_by_account_dept');
         }
-        
+
         return response()->json('success');
     }
 
@@ -193,9 +193,9 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
-          
+
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
-    
+
         return $pdf->download('loan_details.pdf');
     }
 }

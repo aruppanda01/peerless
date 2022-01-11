@@ -46,22 +46,22 @@
                                         <tr class="bg-tr">
                                             <td>{{ $key + 1 }}</td>
                                             <th>
-                                                @php 
+                                                @php
                                                     if($loan->user_id){
                                                         $user_details = App\Models\User::find($loan->user_id);
-                                                        echo $user_details->first_name .' '.$user_details->last_name; 
+                                                        echo $user_details->first_name .' '.$user_details->last_name;
                                                     }
                                                     // dd($loan);
-                                                    
+
                                                 @endphp
                                             </th>
                                             <td>{{ date('d-M-Y',strtotime($loan->created_at)) }}</td>
                                             <th>
-                                                @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == '')
+                                                {{-- @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == '')
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is submitted by the credit deperment">
                                                         <p class="badge badge-success">Sumitted</p>
                                                     </span>
-                                                @endif
+                                                @endif --}}
                                                 {{-- {{  $loan->o_verified_status }} --}}
                                                 @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == 1)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
@@ -77,14 +77,14 @@
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the credit deperment due to insufficient documents">
                                                         <p class="badge badge-warning">Revert Back</p>
                                                     </span>
-                                                    
+
                                                 @elseif($loan->status == 4)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is reviewd by the credit deperment">
                                                         <p class="badge badge-primary">Updated</p>
                                                     </span>
                                                 @endif
                                             </th>
-                                            
+
                                             <td>
                                                 @if ($loan->revert_user_id != '')
                                                 <span  data-toggle="tooltip" data-placement="top" title="View Form">
@@ -125,5 +125,8 @@
         $(document).ready(function() {
             $('#loan_table').DataTable();
         });
+        setTimeout(function() {
+            $(".alert-success").hide();
+        }, 10000);
     </script>
 @endsection

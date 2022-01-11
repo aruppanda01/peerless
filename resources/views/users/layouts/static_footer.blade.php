@@ -4,7 +4,7 @@
             <div class="app-footer-right">
                 <ul class="header-megamenu nav">
                     <li class="nav-item">
-                        <a class="nav-link">
+                        <a class="nav-link" style="color: #dd7478">
                             Copyright &copy; {{ date('Y') }} | All Right Reserved
                         </a>
                     </li>

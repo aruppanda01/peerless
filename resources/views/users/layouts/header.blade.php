@@ -184,7 +184,7 @@
                                                             class=" {{ $noti->read_flag == 0 ? 'unread' : 'read' }}"
                                                             onclick="readNotification('{{ $noti->id }}', '{{ $noti->route ? route($noti->route) : '' }}')">
                                                             <p>{{ $noti->title }}
-                                                                <span class="font-weight-bold">{{ getAsiaTime($noti->created_at) }}</span> 
+                                                                <span class="font-weight-bold">{{ getAsiaTime($noti->created_at) }}</span>
                                                             </p>
                                                         </a>
 
@@ -378,7 +378,7 @@
                                         <div>
                                             <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <p class="nav-link mb-0 pb-0"><b class="mr-2">Email:</b>{{ Auth::user()->email }} </p>   
+                                                    <p class="nav-link mb-0 pb-0"><b class="mr-2">Email:</b>{{ Auth::user()->email }} </p>
                                                     <p class="nav-link mb-0 pb-0"><b class="mr-2">Department:</b>{{ Auth::user()->role['name'] }}</p>
                                                     <p class="nav-link mb-0 pb-0"><b class="mr-2">Id:</b>{{ Auth::user()->id_no }}</p>
                                                 </li>
@@ -396,5 +396,5 @@
 </div>
 <div class="app-main">
     <script>
-        
+
     </script>
