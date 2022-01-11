@@ -92,7 +92,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',3)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'credit_user_form_submission');
+            createNotification($current_user_id, $user->id , $form_no ,'credit_user_form_submission');
         }
 
         return redirect()->back()->with('success','Loan Form Submitted Successfully');
@@ -219,7 +219,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',3)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'credit_user_form_re_submission');
+            createNotification($current_user_id, $user->id , $loan->form_no,'credit_user_form_re_submission');
         }
 
         return redirect()->route('credit_user.failedLoanDetails')->with('success','Successfully Loan Details updated');

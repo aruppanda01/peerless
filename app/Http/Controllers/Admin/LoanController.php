@@ -94,9 +94,9 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
-          
+
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
-    
-        return $pdf->download('loan_details.pdf');
+
+        return $pdf->download($data['loan_details']->form_no.'.pdf');
     }
 }

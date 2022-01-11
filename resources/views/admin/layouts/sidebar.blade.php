@@ -8,13 +8,13 @@
                     href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
             <li class="{{ Request::is('admin/credit-user*') ? 'active' : '' }}"><a
                     href="{{ route('admin.credit-user.index') }}"><i class="fa  fa-user"
-                        aria-hidden="true"></i>Credit User</a></li>
+                        aria-hidden="true"></i>Credit Users</a></li>
             <li class="{{ Request::is('admin/operation-user*') ? 'active' : '' }}"><a
                     href="{{ route('admin.operation-user.index') }}"><i class="fa  fa-user"
-                        aria-hidden="true"></i>Operation User</a></li>
+                        aria-hidden="true"></i>Operation Users</a></li>
             <li class="{{ Request::is('admin/accountant-user*') ? 'active' : '' }}"><a
                     href="{{ route('admin.accountant-user.index') }}"><i class="fa  fa-user-cog"
-                        aria-hidden="true"></i>Accountant User</a></li>
+                        aria-hidden="true"></i>Accounts Users</a></li>
             <li class="{{ Request::is('admin/loan*') ? 'active' : '' }}"><a
                     href="{{ route('admin.loan.index') }}"><i class="fa  fa-piggy-bank"
                         aria-hidden="true"></i>Loans</a></li>

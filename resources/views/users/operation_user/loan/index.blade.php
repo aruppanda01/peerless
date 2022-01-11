@@ -35,6 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>Serial no</th>
+                                        <th>Form ID</th>
                                         <th>Upload By</th>
                                         <th>Upload Date</th>
                                         <th>Status</th>
@@ -45,6 +46,7 @@
                                     @foreach ($all_loan_details as $key => $loan)
                                         <tr class="bg-tr">
                                             <td>{{ $key + 1 }}</td>
+                                            <th>{{ $loan->form_no }}</th>
                                             <th>
                                                 @php
                                                     if($loan->user_id){
@@ -92,13 +94,13 @@
                                                         class="fa fa-eye"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->o_verified_status == 0)
+                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->o_verified_status == 0 && $loan->status !== 2)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 1 && $loan->o_verified_status == 0)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 1 && $loan->o_verified_status == 0 && $loan->status !== 2)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>

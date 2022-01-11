@@ -104,7 +104,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',4)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'operation_dept_submit_a_form');
+            createNotification($current_user_id, $user->id , $loan->form_no,'operation_dept_submit_a_form');
         }
 
         return redirect()->route('operation_user.loan.index')->with('success','Successfully updated');
@@ -144,7 +144,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',2)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'revert_back_by_operation_dept');
+            createNotification($current_user_id, $user->id ,$loan_details->form_no, 'revert_back_by_operation_dept');
         }
 
         return response()->json('success');
@@ -207,7 +207,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',4)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification(Auth::user()->id, $user->id , 'operation_user_form_re_submission');
+            createNotification(Auth::user()->id, $user->id , $loan->form_no,'operation_user_form_re_submission');
         }
 
         return redirect()->route('operation_user.failedLoanDetails')->with('success','Successfully Loan Details updated');

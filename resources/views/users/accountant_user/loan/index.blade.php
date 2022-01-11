@@ -35,6 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>Serial no</th>
+                                        <th>Form ID</th>
                                         <th>Upload By</th>
                                         <th>Upload Date</th>
                                         <th>Status</th>
@@ -45,6 +46,7 @@
                                     @foreach ($all_loan_details as $key => $loan)
                                         <tr class="bg-tr">
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $loan->form_no }}</td>
                                             <th>
                                                 @php
                                                     if($loan->user_id){
@@ -63,12 +65,12 @@
                                                 @endif
                                                 @if ($loan->status == 3)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
-                                                        <p class="badge badge-primary">Verified by Operation Dept</p>
+                                                        <p class="badge badge-primary">Submitted by Operation Dept</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status == 0)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
-                                                        <p class="badge badge-primary">Verified by Operation Dept</p>
+                                                        <p class="badge badge-primary">Submitted by Operation Dept</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 2)
@@ -101,12 +103,12 @@
                                                         class="fa fa-download ml-2"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->a_verified_status == 0)
+                                                {{-- @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->a_verified_status == 0)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
-                                                @endif
+                                                @endif --}}
                                                 @if ($loan->status == 3)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"

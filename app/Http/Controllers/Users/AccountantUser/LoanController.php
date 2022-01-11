@@ -65,7 +65,7 @@ class LoanController extends Controller
     public function edit($id)
     {
         $data = array();
-        $data['loan_details'] = Loan::find($id);
+        $data['loan_details'] = Loan::where('status','>=',3)->find($id);
         return view('users.accountant_user.loan.edit')->with($data);
     }
 
@@ -140,7 +140,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',1)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification(Auth::user()->id, $user->id , 'loan_created_by_accountant');
+            createNotification(Auth::user()->id, $user->id ,$loan->form_no, 'loan_created_by_accountant');
         }
 
         return redirect()->route('accountant_user.loan.index')->with('success','Successfully updated');
@@ -180,7 +180,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',3)->get();
         foreach ($operation_dept_users as $key => $user) {
-            createNotification($current_user_id, $user->id , 'revert_back_by_account_dept');
+            createNotification($current_user_id, $user->id ,$loan_details->form_no, 'revert_back_by_account_dept');
         }
 
         return response()->json('success');
@@ -196,6 +196,6 @@ class LoanController extends Controller
 
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
 
-        return $pdf->download('loan_details.pdf');
+        return $pdf->download($data['loan_details']->form_no.'.pdf');
     }
 }

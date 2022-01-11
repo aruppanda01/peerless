@@ -35,6 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>Serial no</th>
+                                        <th>Form ID</th>
                                         <th>Revert By</th>
                                         <th>Upload Date</th>
                                         <th>Status</th>
@@ -45,13 +46,14 @@
                                     @foreach ($all_failed_loan as $key => $loan)
                                         <tr class="bg-tr">
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $loan->form_no }}</td>
                                             <th>
                                                 @php
                                                     if ($loan->user_id) {
                                                         $user_details = App\Models\User::find($loan->revert_user_id);
                                                         echo $user_details->first_name . ' ' . $user_details->last_name;
                                                     }
-                                                    
+
                                                 @endphp
                                             </th>
                                             <td>{{ date('d-M-Y', strtotime($loan->updated_at)) }}</td>

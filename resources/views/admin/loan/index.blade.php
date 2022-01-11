@@ -31,6 +31,7 @@
                         <thead>
                             <tr>
                                 <th>Serial No</th>
+                                <th>Form ID</th>
                                 <th>Upload By</th>
                                 <th>Verified By</th>
                                 <th>Status</th>
@@ -41,16 +42,17 @@
                             @foreach ($loans as $key => $loan)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    <td>{{ $loan->form_no }}</td>
                                     <td>
-                                        @php 
+                                        @php
                                         if($loan->user_id){
                                             $upload_user_details = App\Models\User::find($loan->user_id);
-                                            echo $upload_user_details->first_name .' '.$upload_user_details->last_name; 
+                                            echo $upload_user_details->first_name .' '.$upload_user_details->last_name;
                                         }
                                         if($loan->a_verified_by){
                                             $verified_by_user_details = App\Models\User::find($loan->a_verified_by);
                                         }
-                                        
+
                                         @endphp
                                     </td>
                                     <td>
