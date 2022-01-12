@@ -31,7 +31,7 @@ function createNotification($sender_user_id,$receiver_user_id,$form_no, $type)
             $route = 'operation_user.failedLoanDetails';
             break;
         case 'loan_created_by_accountant':
-            $title = 'The Account department just created a new loan, ID :'.$form_no;
+            $title = 'The Account department just submitted a new loan, ID :'.$form_no;
             $message = 'Please check & review the form';
             $route = 'operation_user.failedLoanDetails';
             break;
