@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -24,22 +24,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $redirectTo = 'admin/dashboard';
-        switch (Auth::user()->role_id) {
-            case 1:
-                $redirectTo = 'admin/dashboard';
-                break;
-            case 2:
-                $redirectTo = 'credit_user/loan';
-                break;
-            case 3:
-                $redirectTo = 'operation_user/loan';
-                break;
-            case 4:
-                $redirectTo = 'accountant_user/loan';
-                break;
+        if (Auth::check()) {
+            $redirectTo = 'admin/dashboard';
+            switch (Auth::user()->role_id) {
+                case 1:
+                    $redirectTo = 'admin/dashboard';
+                    break;
+                case 2:
+                    $redirectTo = 'credit_user/loan';
+                    break;
+                case 3:
+                    $redirectTo = 'operation_user/loan';
+                    break;
+                case 4:
+                    $redirectTo = 'accountant_user/loan';
+                    break;
+            }
+            return redirect($redirectTo);
+        }else{
+            return view('welcome');
         }
-        return redirect($redirectTo);
+
         // return view('home');
     }
 }

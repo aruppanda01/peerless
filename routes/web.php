@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('land_page');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('land_page');
 
 Auth::routes();
 
@@ -25,7 +25,8 @@ Route::any('admin/login', [LoginController::class, 'admin_login'])->name('admin_
 Route::any('operation/login', [LoginController::class, 'operation_login'])->name('operation_login');
 Route::any('accountant/login', [LoginController::class, 'accountant_login'])->name('accountant_login');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('land_page');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
 
 /**
  * Notification

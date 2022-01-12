@@ -62,7 +62,7 @@ class LoginController extends Controller
                 }
                 if (Hash::check($req->password, $user->password)) {
                     Auth::login($user);
-                    return redirect()->intended('/home');
+                    return redirect()->intended('/');
                 } else {
                     $errors['password'] = 'You have entered wrong password';
                 }
@@ -98,7 +98,7 @@ class LoginController extends Controller
                     }
                     if (Hash::check($req->password, $user->password)) {
                         Auth::login($user);
-                        return redirect()->intended('/home');
+                        return redirect()->intended('/');
                     } else {
                         $errors['password'] = 'You have entered wrong password';
                     }
@@ -135,7 +135,7 @@ class LoginController extends Controller
                     }
                     if (Hash::check($req->password, $user->password)) {
                         Auth::login($user);
-                        return redirect()->intended('/home');
+                        return redirect()->intended('/');
                     } else {
                         $errors['password'] = 'You have entered wrong password';
                     }
@@ -172,7 +172,7 @@ class LoginController extends Controller
                     }
                     if (Hash::check($request->password, $user->password)) {
                         Auth::login($user);
-                        return redirect()->intended('/home');
+                        return redirect()->intended('/');
                     } else {
                         $errors['password'] = 'You have entered wrong password';
                     }
