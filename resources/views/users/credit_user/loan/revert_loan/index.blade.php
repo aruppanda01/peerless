@@ -73,15 +73,9 @@
                                             </th>
 
                                             <td>
-                                                {{-- @if ($loan->revert_user_id != '')
-                                                <span  data-toggle="tooltip" data-placement="top" title="View Form">
-                                                    <a href="{{ route('operation_user.loan.show',$loan->id) }}"><i
-                                                        class="fa fa-eye"></i></a>
-                                                </span>
-                                                @endif --}}
                                                 @if ($loan->status == 2)
                                                     <span data-toggle="tooltip" data-placement="top" title="Review Form">
-                                                        <a href="{{ route('credit_user.failedLoanDetailsEdit', $loan->id) }}"
+                                                        <a href="{{ route('credit_user.reverted-loan.edit', $loan->id) }}"
                                                             class="ml-2"><i class="fa fa-edit"></i></a>
                                                     </span>
                                                 @endif

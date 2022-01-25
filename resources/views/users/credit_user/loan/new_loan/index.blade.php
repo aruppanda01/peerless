@@ -1,20 +1,15 @@
 @extends('users.layouts.master')
 @section('content')
-<!--CSS-->
 @include('users.layouts.loan_page_extra_css')
+<!--CSS-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{{-- <link href="{{ asset('frontend/loan/css/style.css') }}"
+rel="stylesheet" type="text/css"> --}}
+{{-- <link href="{{ asset('frontend/loan/css/bootstrap.css') }}"
+rel="stylesheet" type="text/css"> --}}
 <div class="app-main__outer">
     <div class="container mt-2 mb-5">
-        <div class="row m-2 pb-4 mt-2">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a
-                            href="{{ route('operation_user.loan.index') }}">Loan List</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Review Loan Details</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="row m-0 justify-content-center pb-4 mt-2 form_title">
+        <div class="row m-0 justify-content-center pb-4 mt-5 form_title">
             <div class="d-flex">
                 <img src="{{ asset('frontend/loan/peerless_logo.png') }}">
                 <h2 class="col-12 p-0">Peerless Financial Services Limited
@@ -35,17 +30,14 @@
             @endif
         </div>
 
-        <div class="row m-0 justify-content-center ">
-            <div class="col-12 col-lg-7 col-lg-7 shadow p-3 bg-light">
-                <form
-                    action="{{ route('credit_user.reverted-loan.update',$loan_details->id) }}"
-                    method="POST" id="loan_form">
-                    @method('PUT')
+        <div class="row col-12 m-0 justify-content-center ">
+            <div class="col-12 col-lg-7 shadow p-3 bg-light">
+                <form action="{{ route('credit_user.loan.store') }}" method="POST" id="loan_form">
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlFile1">1. Borrower’s Name</label>
                         <input class="form-control" type="text" name="borrower_name"
-                            value="{{ $loan_details->borrower_name ?? old('borrower_name') }}">
+                            value="{{ old('borrower_name') }}">
                         @error('borrower_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -53,7 +45,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any</label>
                         <input class="form-control" type="text" name="bco_borrower_name"
-                            value="{{ $loan_details->bco_borrower_name ?? old('bco_borrower_name') }}">
+                            value="{{ old('bco_borrower_name') }}">
                         @error('bco_borrower_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -61,7 +53,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">3. Guarantor’s Name, if any</label>
                         <input class="form-control" type="text" name="bguarantor_name"
-                            value="{{ $loan_details->bguarantor_name ?? old('bguarantor_name') }}">
+                            value="{{ old('bguarantor_name') }}">
                         @error('bguarantor_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -69,7 +61,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">4. Type of Loan Available</label>
                         <input class="form-control" type="text" name="loan_type"
-                            value="{{ $loan_details->loan_type ?? old('loan_type') }}">
+                            value="{{ old('loan_type') }}">
                         @error('loan_type')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -77,7 +69,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)</label>
                         <input class="form-control" type="text" name="amount_of_sanction"
-                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}">
+                            value="{{ old('amount_of_sanction') }}">
                         @error('amount_of_sanction')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -85,7 +77,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">6. Tenure</label>
                         <input class="form-control" type="text" name="tenure"
-                            value="{{ $loan_details->tenure ?? old('tenure') }}">
+                            value="{{ old('tenure') }}">
                         @error('tenure')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -93,16 +85,11 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done</label>
                         <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
-                            value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
-                            id="whether_compliance_of_last_sanction_terms_done" disabled>
-                        <p id="err_msg" class="text-danger"></p>
+                            disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">8. Deviation from last sanction terms, if any</label>
-                        <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
-                            value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
-                            id="deviation_from_last_sanction_terms" disabled>
-                        <p id="err_msg1" class="text-danger"></p>
+                        <input class="form-control" type="text" name="deviation_from_last_sanction_terms" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on</label>
@@ -118,7 +105,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1" class="text-dark">12. Occurrence of irregularity in the
-                            account since Operational </label>
+                            account since Operational</label>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">a. No. of times Bounces in the account</label>
@@ -156,6 +143,12 @@
     </div>
     @include('users.layouts.static_footer')
 </div>
+<!--Script-->
+
+<!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+             <![endif]-->
 <script>
     $('#btn_submit').on('click', function () {
         event.preventDefault();
@@ -192,7 +185,7 @@
     })
     setTimeout(function () {
         $(".alert-success").hide();
-    }, 5000);
+    }, 10000);
 
 </script>
 @endsection

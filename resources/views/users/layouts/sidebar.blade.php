@@ -43,13 +43,18 @@
                             <i class="fa fa-graduation-cap metismenu-icon"></i>Profile
                         </a>
                     </li> --}}
-                    <li class="{{ Request::is('credit_user/loan*') ? 'mm-active' : '' }}">
-                        <a href="{{ route('credit_user.loan.index') }}">
+                    <li class="{{ Request::is('credit_user/new-loan') ? 'mm-active' : '' }}">
+                        <a href="{{ route('credit_user.newLoan') }}">
                             <i class="fas fa-piggy-bank metismenu-icon"></i>New Loan
                         </a>
                     </li>
-                    <li class="{{ Request::is('credit_user/failed-loan-details*') ? 'mm-active' : '' }}">
-                        <a href="{{ route('credit_user.failedLoanDetails') }}">
+                    <li class="{{ Request::is('credit_user/loan*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('credit_user.loan.index') }}">
+                            <i class="fas fa-piggy-bank metismenu-icon"></i>Submitted Loan
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('credit_user/reverted-loan*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('credit_user.reverted-loan.index') }}">
                             <i class="fas fa-piggy-bank metismenu-icon"></i>Reverted Loan
                         </a>
                     </li>
