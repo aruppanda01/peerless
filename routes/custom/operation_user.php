@@ -17,4 +17,5 @@ Route::group(['middleware' => ['auth','operation_user']], function () {
     Route::get('failed-loan-details/show/{id}', [LoanController::class, 'failedLoanDetailsShow'])->name('failedLoanDetailsShow');
     Route::get('failed-loan-details/edit/{id}', [LoanController::class, 'failedLoanDetailsEdit'])->name('failedLoanDetailsEdit');
     Route::put('failed-loan-details/update/{id}', [LoanController::class, 'failedLoanDetailsUpdate'])->name('failedLoanDetailsUpdate');
+    Route::get('generate-pdf/{id}', [LoanController::class, 'generatePDF'])->name('generatePDF');
 });

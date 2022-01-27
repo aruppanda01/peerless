@@ -143,8 +143,21 @@
                         <input class="form-control" type="text" name="peak_irregularity_in_the_account" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">f. Comment on irregularity</label>
+                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        @if ($loan_remarks->count() > 0)
+                            <ul>
+                                @foreach ($loan_remarks as $loan)
+                                    <li>{{ $loan->remarks }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            N/A
+                        @endif
                     </div>
                 </form>
             </div>

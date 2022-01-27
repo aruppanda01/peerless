@@ -181,68 +181,49 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                        <input class="form-control" type="text" name="comment_on_conduct">
+                        @error('comment_on_conduct')
+                        <span class="text-danger">{{ $message }}</span>
+                         @enderror
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        @if ($loan_remarks->count() > 0)
+                            <ul>
+                                @foreach ($loan_remarks as $loan)
+                                    <li>{{ $loan->remarks }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            N/A
+                        @endif
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
-                        <button class="btn btn-primary float-left" data-toggle="tooltip" data-placement="top"
+                        {{-- <button class="btn btn-primary float-left" data-toggle="tooltip" data-placement="top"
                             title="Revert Back to the Operation Deperment"
-                            onclick="revertBack({{ $loan_details->id }})">Revert Back</button>
+                            onclick="revertBack({{ $loan_details->id }})">Revert Back to Opertaion Dept</button> --}}
+                            <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary revert-loan" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{ $loan_details->id }}">
+                            Revert Back to Credit Dept 
+                        </button>
+                        <button type="button" class="btn btn-primary revert-loan" data-toggle="modal" data-target="#exampleModalCenterForOperation" data-id="{{ $loan_details->id }}">
+                            Revert Back to Operation Dept 
+                        </button>
                         <button class="btn btn-primary" id="btn_submit">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+        </div>
     @include('users.layouts.static_footer')
 </div>
+</div>
+</div>
+@include('users.accountant_user.loan.modal.revert_to_credit')
+@include('users.accountant_user.loan.modal.revert_to_operation')
+@include('users.accountant_user.loan.modal.revert_js')
 <script>
-    function revertBack(id) {
-        event.preventDefault();
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "This form contains error and you revert back to the OPERATION depeartment",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, CONFIRM it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                event.preventDefault();
-                $.ajax({
-                    url: "{{ route('accountant_user.revertBack') }}",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        loan_id: id
-
-                    },
-                    dataType: 'json',
-                    type: 'post',
-                    success: function (response) {
-                        location.href =
-                            "{{ route('accountant_user.loan.index') }}";
-                    }
-                });
-
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'The form status remain same :)',
-                    'error'
-                )
-            }
-        })
-    }
 
     $('#btn_submit').on('click', function () {
         event.preventDefault();

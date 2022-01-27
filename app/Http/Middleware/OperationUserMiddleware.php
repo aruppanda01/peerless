@@ -21,9 +21,7 @@ class OperationUserMiddleware
             return $next($request);
         }
         else {
-            if (Auth::check() && Auth::user()->role->id == 3) {
-                return redirect()->route('operation_login');
-            }
+            return redirect()->route('operation_login');
         }
     }
 }

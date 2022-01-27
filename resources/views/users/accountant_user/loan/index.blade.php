@@ -115,7 +115,7 @@
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_operation_dept == 1 && $loan->a_verified_status == 0)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_operation_dept == 1 && $loan->a_verified_status == 0 && $loan->status != 2)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('accountant_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>

@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Users\OperationUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
+use App\Models\LoanRemark;
 use App\Models\User;
+use App\Notifications\LoanRevertedNotification;
+use App\Notifications\LoanUpdatedNotification;
+use App\Notifications\NewLoanCreatedNotifiedByOperationDept;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class LoanController extends Controller
 {
@@ -17,7 +23,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $data['all_loan_details'] = Loan::where('o_verified_status',0)->latest()->get();
+        $data['all_loan_details'] = Loan::latest()->get();
         return view('users.operation_user.loan.index')->with($data);
     }
 
@@ -52,6 +58,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.view')->with($data);
     }
 
@@ -65,6 +72,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.edit')->with($data);
     }
 
@@ -104,6 +112,7 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',4)->get();
         foreach ($operation_dept_users as $key => $user) {
+            Notification::route('mail', $user->email)->notify(new NewLoanCreatedNotifiedByOperationDept($user,$loan));
             createNotification($current_user_id, $user->id , $loan->form_no,'operation_dept_submit_a_form');
         }
 
@@ -139,15 +148,25 @@ class LoanController extends Controller
         $loan_details->save();
 
         /**
+         * Store remarks for why the form is reverted?
+         */
+        $new_remarks = new LoanRemark();
+        $new_remarks->user_id = $current_user_id;
+        $new_remarks->loan_id = $request->loan_id;
+        $new_remarks->remarks = $request->remarks;
+        $new_remarks->save();
+
+        /**
          * Send notification to the Credit Department
          * to inform that credit department just submitted a form
          */
         $operation_dept_users = User::where('role_id',2)->get();
         foreach ($operation_dept_users as $key => $user) {
+            Notification::route('mail', $user->email)->notify(new LoanRevertedNotification($user,$loan_details));
             createNotification($current_user_id, $user->id ,$loan_details->form_no, 'revert_back_by_operation_dept');
         }
 
-        return response()->json('success');
+        return redirect()->route('operation_user.loan.index')->with('success','Loan reverted to credit team');
     }
 
     /**
@@ -168,12 +187,14 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.revert_loan.show')->with($data);
     }
     public function failedLoanDetailsEdit($id)
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.revert_loan.edit')->with($data);
     }
 
@@ -207,9 +228,23 @@ class LoanController extends Controller
          */
         $operation_dept_users = User::where('role_id',4)->get();
         foreach ($operation_dept_users as $key => $user) {
+            Notification::route('mail', $user->email)->notify(new LoanUpdatedNotification($user,$loan));
             createNotification(Auth::user()->id, $user->id , $loan->form_no,'operation_user_form_re_submission');
         }
 
         return redirect()->route('operation_user.failedLoanDetails')->with('success','Successfully Loan Details updated');
+    }
+
+        /**
+     * Generate PDF for successfully loan update.
+     */
+    public function generatePDF(Request $request,$id)
+    {
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
+
+        $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
+
+        return $pdf->download($data['loan_details']->form_no.'.pdf');
     }
 }

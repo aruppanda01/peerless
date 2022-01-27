@@ -146,6 +146,20 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                        <input class="form-control" type="text" name="comment_on_irregularity" disabled>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        @if ($loan_remarks->count() > 0)
+                            <ul>
+                                @foreach ($loan_remarks as $loan)
+                                    <li>{{ $loan->remarks }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            N/A
+                        @endif
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
                         <button class="btn btn-primary" id="btn_submit">Submit</button>

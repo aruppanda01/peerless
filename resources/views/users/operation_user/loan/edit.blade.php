@@ -152,12 +152,34 @@
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c</label>
+                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                        <input class="form-control" type="text" name="comment_on_irregularity" disabled>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        @if ($loan_remarks->count() > 0)
+                            <ul>
+                                @foreach ($loan_remarks as $loan)
+                                    @if ($loan->is_solved == 1)
+                                        <li><del>{{ $loan->remarks }}</del> <span>{{ date('d-M-Y',strtotime($loan->created_at)) }}</span></li>
+                                    @else
+                                     <li>{{ $loan->remarks }}</li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
-                        <button class="btn btn-primary float-left" data-toggle="tooltip" data-placement="top"
-                            title="Revert Back to the Credit Deperment"
-                            onclick="revertBack({{ $loan_details->id }})">Revert Back</button>
+                        <button type="button" class="btn btn-primary revert-loan float-left" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{ $loan_details->id }}">
+                            Revert Back to Credit Dept 
+                        </button>
                         <button class="btn btn-primary" id="btn_submit">Submit</button>
                     </div>
                 </form>
@@ -166,55 +188,11 @@
     </div>
     @include('users.layouts.static_footer')
 </div>
+</div>
+</div>
+@include('users.operation_user.loan.modal.revert_to_credit')
+@include('users.operation_user.loan.modal.revert_js')
 <script>
-    function revertBack(id) {
-        event.preventDefault();
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "This form contains error and you revert back to the CREDIT depeartment",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, CONFIRM it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                event.preventDefault();
-                $.ajax({
-                    url: "{{ route('operation_user.revertBack') }}",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        loan_id: id
-
-                    },
-                    dataType: 'json',
-                    type: 'post',
-                    success: function (response) {
-                        location.href =
-                        "{{ route('operation_user.loan.index') }}";
-                    }
-                });
-
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'The form status remain same :)',
-                    'error'
-                )
-            }
-        })
-    }
 
     $('#btn_submit').on('click', function () {
         event.preventDefault();

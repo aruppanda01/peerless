@@ -65,6 +65,12 @@
                                                     </span>
                                                 @endif --}}
                                                 {{-- {{  $loan->o_verified_status }} --}}
+                                                @if ($loan->status == 5)
+                                                    <span class="badge badge-success">Completed</span>
+                                                @endif
+                                                @if ($loan->status == 3)
+                                                    <span class="badge badge-primary">Processing</span>
+                                                 @endif
                                                 @if ($loan->status == 1 && $loan->c_verified_status == 1 && $loan->o_verified_status == 1)
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is verified by the operation deperment">
                                                         <p class="badge badge-success">Verified</p>
@@ -88,6 +94,12 @@
                                             </th>
 
                                             <td>
+                                                @if ($loan->status == 5)
+                                                    <span  data-toggle="tooltip" data-placement="top" title="Download Form">
+                                                        <a href="{{ route('operation_user.generatePDF',$loan->id) }}"><i
+                                                            class="fa fa-download ml-2"></i></a>
+                                                    </span>
+                                                @endif
                                                 @if ($loan->revert_user_id != '')
                                                 <span  data-toggle="tooltip" data-placement="top" title="View Form">
                                                     <a href="{{ route('operation_user.loan.show',$loan->id) }}"><i

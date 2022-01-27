@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Users\CreditUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
+use App\Models\LoanRemark;
 use App\Models\User;
+use App\Notifications\LoanUpdatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class RevertedLoanController extends Controller
 {
@@ -23,6 +26,7 @@ class RevertedLoanController extends Controller
                             ->where('revert_department',Auth::user()->role_id)
                             ->latest()
                             ->get();
+        $data['remarks'] = LoanRemark::latest()->get();
         return view('users.credit_user.loan.revert_loan.index')->with($data);
     }
 
@@ -57,6 +61,7 @@ class RevertedLoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         return view('users.credit_user.loan.revert_loan.show')->with($data);
     }
 
@@ -70,6 +75,7 @@ class RevertedLoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         return view('users.credit_user.loan.revert_loan.edit')->with($data);
     }
 
@@ -125,15 +131,24 @@ class RevertedLoanController extends Controller
         $loan->save();
 
         /**
+         * Get the latest revert back remark
+         */
+
+         $latest_remarks = LoanRemark::where('loan_id',$loan->id)->latest()->first();
+         $latest_remarks->is_solved = 1;
+         $latest_remarks->save();
+
+        /**
          * Send notification to the Operation Department
          * to inform that credit department review and re submitted the form
          */
         $operation_dept_users = User::where('role_id',3)->get();
         foreach ($operation_dept_users as $key => $user) {
+            Notification::route('mail', $user->email)->notify(new LoanUpdatedNotification($user,$loan));
             createNotification($current_user_id, $user->id , $loan->form_no,'credit_user_form_re_submission');
         }
 
-        return redirect()->route('credit_user.failedLoanDetails')->with('success','Successfully Loan Details updated');
+        return redirect()->route('credit_user.reverted-loan.index')->with('success','Successfully Loan Details updated');
     }
 
     /**

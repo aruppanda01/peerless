@@ -11,6 +11,7 @@ Route::group(['middleware' => ['auth','accountant_user']], function () {
     Route::post('update-password', [AccountantUserController::class, 'updatePassword'])->name('updatePassword');
 
     Route::resource('loan',LoanController::class);
-    Route::post('revert-back',[LoanController::class,'revertBack'])->name('revertBack');
+    Route::post('revert-back-to-operation',[LoanController::class,'revertBackToOperation'])->name('revertBackToOperation');
+    Route::post('revert-back-to-credit',[LoanController::class,'revertBackToCredit'])->name('revertBackToCredit');
     Route::get('generate-pdf/{id}', [LoanController::class, 'generatePDF'])->name('generatePDF');
 });

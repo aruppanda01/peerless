@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Loan::class);
     }
+    public function loan_remarks()
+    {
+        return $this->belongsTo(Loan::class);
+    }
 }

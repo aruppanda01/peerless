@@ -21,9 +21,7 @@ class AccountantUserMiddleware
             return $next($request);
         }
         else {
-            if (Auth::check() && Auth::user()->role->id == 4) {
-                return redirect()->route('accountant_login');
-            }
+            return redirect()->route('accountant_login');
         }
     }
 }
