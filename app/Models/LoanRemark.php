@@ -9,4 +9,7 @@ class LoanRemark extends Model
 {
     use HasFactory;
     // protected $table='loan_remarks';
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }
