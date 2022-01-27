@@ -163,10 +163,10 @@ rel="stylesheet" type="text/css"> --}}
         swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "To submit Loan Form!",
-            icon: 'warning',
+            iconHtml: '<img src="{{ asset('frontend/images/logo.png') }}">',
             showCancelButton: true,
-            confirmButtonText: 'Yes, SUBMIT it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel!',
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {

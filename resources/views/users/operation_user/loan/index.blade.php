@@ -100,19 +100,20 @@
                                                             class="fa fa-download ml-2"></i></a>
                                                     </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '')
+                                                @if ($loan->revert_user_id != ''  && $loan->status != 5)
                                                 <span  data-toggle="tooltip" data-placement="top" title="View Form">
                                                     <a href="{{ route('operation_user.loan.show',$loan->id) }}"><i
                                                         class="fa fa-eye"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->o_verified_status == 0 && $loan->status !== 2)
+                                                @if ($loan->status == 1 && $loan->revert_user_id == '' && $loan->o_verified_status == 0)
+                                                
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>
                                                 </span>
                                                 @endif
-                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 1 && $loan->o_verified_status == 0 && $loan->status !== 2)
+                                                @if ($loan->revert_user_id != '' && $loan->is_modify_details_by_credit_dept == 1 && $loan->status != 3 && $loan->status != 2 && $loan->status != 4 && $loan->status != 5)
                                                 <span  data-toggle="tooltip" data-placement="top" title="Review Form">
                                                     <a href="{{ route('operation_user.loan.edit', $loan->id) }}"
                                                         class="ml-2"><i class="fa fa-edit"></i></a>

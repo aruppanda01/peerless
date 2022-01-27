@@ -158,19 +158,29 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
-                        <input class="form-control" type="text" name="comment_on_irregularity" disabled>
+                        <input class="form-control" type="text" name="comment_on_irregularity" value="{{ $loan_details->comment_on_conduct }}" disabled>
                     </div>
                     <hr>
                     <div class="form-group">
                         <label for="exampleFormControlFile1"><b>Remarks</b></label>
                         @if ($loan_remarks->count() > 0)
-                            <ul>
-                                @foreach ($loan_remarks as $loan)
-                                    <li>{{ $loan->remarks }}</li>
-                                @endforeach
-                            </ul>
+                        <ul>
+                            @foreach ($loan_remarks as $loan)
+                                @if ($loan->is_solved == 1)
+                                    <li>
+                                        <del>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                    </li>
+                                @else
+                                 <li>{{ $loan->remarks }}  <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span></li>
+                                @endif
+                            @endforeach
+                        </ul>
                         @else
-                            N/A
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
                         @endif
                     </div>
                 </form>

@@ -162,9 +162,11 @@
                             <ul>
                                 @foreach ($loan_remarks as $loan)
                                     @if ($loan->is_solved == 1)
-                                        <li><del>{{ $loan->remarks }}</del> <span>{{ date('d-M-Y',strtotime($loan->created_at)) }}</span></li>
+                                        <li>
+                                            <del>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                        </li>
                                     @else
-                                     <li>{{ $loan->remarks }}</li>
+                                     <li>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</li>
                                     @endif
                                 @endforeach
                             </ul>
@@ -207,10 +209,10 @@
         swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "To submit Loan Form!",
-            icon: 'warning',
+            iconHtml: '<img src="{{ asset('frontend/images/logo.png') }}">',
             showCancelButton: true,
-            confirmButtonText: 'Yes, SUBMIT it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel!',
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {

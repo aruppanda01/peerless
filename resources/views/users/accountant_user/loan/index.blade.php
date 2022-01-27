@@ -73,8 +73,12 @@
                                                         <p class="badge badge-primary">Submitted by Operation Dept</p>
                                                     </span>
                                                 @endif
-                                                @if ($loan->status == 2)
-                                                    <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the operation deperment due to insufficient documents">
+                                                @if ($loan->status == 2 && $loan->revert_department == 3)
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the operation deperment">
+                                                        <p class="badge badge-warning">Revert Back</p>
+                                                    </span>
+                                                @elseif ($loan->status == 2 && $loan->revert_department == 2)
+                                                    <span data-toggle="tooltip" data-placement="top" title="This form is revert back to the credit deperment">
                                                         <p class="badge badge-warning">Revert Back</p>
                                                     </span>
 

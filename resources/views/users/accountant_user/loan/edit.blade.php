@@ -192,11 +192,21 @@
                         @if ($loan_remarks->count() > 0)
                             <ul>
                                 @foreach ($loan_remarks as $loan)
-                                    <li>{{ $loan->remarks }}</li>
+                                    @if ($loan->is_solved == 1)
+                                        <li>
+                                            <del>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                        </li>
+                                    @else
+                                     <li>{{ $loan->remarks }}  <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span></li>
+                                    @endif
                                 @endforeach
                             </ul>
                         @else
-                            N/A
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
                         @endif
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
@@ -204,10 +214,10 @@
                             title="Revert Back to the Operation Deperment"
                             onclick="revertBack({{ $loan_details->id }})">Revert Back to Opertaion Dept</button> --}}
                             <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary revert-loan" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{ $loan_details->id }}">
+                        <button type="button" class="btn btn-primary revert-loan float-left" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{ $loan_details->id }}">
                             Revert Back to Credit Dept 
                         </button>
-                        <button type="button" class="btn btn-primary revert-loan" data-toggle="modal" data-target="#exampleModalCenterForOperation" data-id="{{ $loan_details->id }}">
+                        <button type="button" class="btn btn-primary revert-loan float-left ml-2" data-toggle="modal" data-target="#exampleModalCenterForOperation" data-id="{{ $loan_details->id }}">
                             Revert Back to Operation Dept 
                         </button>
                         <button class="btn btn-primary" id="btn_submit">Submit</button>
@@ -238,10 +248,10 @@
         swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "To submit Loan Form!",
-            icon: 'warning',
+            iconHtml: '<img src="{{ asset('frontend/images/logo.png') }}">',
             showCancelButton: true,
-            confirmButtonText: 'Yes, SUBMIT it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel!',
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {

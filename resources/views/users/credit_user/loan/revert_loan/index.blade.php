@@ -60,7 +60,7 @@
                                             <th>
                                                 @if ($loan->status == 2)
                                                     <span data-toggle="tooltip" data-placement="top"
-                                                        title="This form is revert back to the operation dept due to insufficient documents">
+                                                        title="This form is revert back ">
                                                         <p class="badge badge-warning">Revert Back</p>
                                                     </span>
 

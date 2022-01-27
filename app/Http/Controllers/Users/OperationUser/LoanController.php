@@ -222,6 +222,15 @@ class LoanController extends Controller
         $loan->o_verified_status = 1;
         $loan->save();
 
+
+        /**
+         * Get the latest revert back remark
+         */
+
+        $latest_remarks = LoanRemark::where('loan_id',$loan->id)->latest()->first();
+        $latest_remarks->is_solved = 1;
+        $latest_remarks->save();
+
         /**
          * Send notification to the Account Department
          * to inform that operation department just submitted a form

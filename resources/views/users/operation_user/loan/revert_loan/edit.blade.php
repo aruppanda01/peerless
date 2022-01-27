@@ -161,14 +161,24 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1"><b>Remarks</b></label>
                         @if ($loan_remarks->count() > 0)
-                            <ul>
-                                @foreach ($loan_remarks as $loan)
-                                    <li>{{ $loan->remarks }}</li>
-                                @endforeach
-                            </ul>
-                        @else
-                            N/A
-                        @endif
+                        <ul>
+                            @foreach ($loan_remarks as $loan)
+                                @if ($loan->is_solved == 1)
+                                    <li>
+                                        <del>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                    </li>
+                                @else
+                                 <li>{{ $loan->remarks }}  <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span></li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    @else
+                        <ul>
+                            <li>
+                                N/A
+                            </li>
+                        </ul>
+                    @endif
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
                         <button class="btn btn-primary" id="btn_submit">Submit</button>
@@ -197,10 +207,10 @@
         swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "To submit Loan Form!",
-            icon: 'warning',
+            iconHtml: '<img src="{{ asset('frontend/images/logo.png') }}">',
             showCancelButton: true,
-            confirmButtonText: 'Yes, SUBMIT it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel!',
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {

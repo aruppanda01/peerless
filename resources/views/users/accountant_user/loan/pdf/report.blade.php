@@ -143,7 +143,7 @@
             </tr>
             <tr>
                 <td>Comment on Conduct of the A/c:</td>
-                <td></td>
+                <td>{{ $loan_details->comment_on_conduct }}</td>
             </tr>
         </tbody>
     </table>
