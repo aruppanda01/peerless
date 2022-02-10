@@ -106,7 +106,7 @@
                                                                     {{ $noti->title }}
                                                                 @endif
 
-                                                                <span class="font-weight-bold">{{ getAsiaTime($noti->created_at) }}</span>
+                                                                <span class="font-weight-bold">{{ date('d-M-y',strtotime(getAsiaTime($noti->created_at))) }}, {{ date('h:i A',strtotime(getAsiaTime($noti->created_at))) }}</span>
                                                             </p>
                                                         </a>
 
