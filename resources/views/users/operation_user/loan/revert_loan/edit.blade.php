@@ -43,6 +43,14 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
+                        <label for="exampleFormControlFile1">Account No</label>
+                        <input class="form-control" type="text" name="account_no"
+                            value="{{ $loan_details->account_no ?  $loan_details->account_no : ''}}" disabled>
+                        @error('account_no')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="exampleFormControlFile1">1. Borrower’s Name</label>
                         <input class="form-control" type="text" name="borrower_name"
                             value="{{ $loan_details->borrower_name ?? old('borrower_name') }}"
@@ -159,26 +167,50 @@
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        <label for="exampleFormControlFile1"><b><u>Available Comments</u></b></label>
+                        @if ($loan_comments->count() > 0)
+                            <ul>
+                                @foreach ($loan_comments as $loan)
+                                        <li>{{ $loan->comment }}
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                                {{ getAsiaTime($loan->created_at) }}</span>)
+                                        </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
+                        @endif
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b><u>Remarks</u></b></label>
                         @if ($loan_remarks->count() > 0)
-                        <ul>
-                            @foreach ($loan_remarks as $loan)
-                                @if ($loan->is_solved == 1)
-                                    <li>
-                                        <del>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
-                                    </li>
-                                @else
-                                 <li>{{ $loan->remarks }}  <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span></li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    @else
-                        <ul>
-                            <li>
-                                N/A
-                            </li>
-                        </ul>
-                    @endif
+                            <ul>
+                                @foreach ($loan_remarks as $loan)
+                                    @if ($loan->is_solved == 1)
+                                        <li>
+                                            <del>{{ $loan->remarks }}
+                                                (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                                    {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                        </li>
+                                    @else
+                                        <li>{{ $loan->remarks }}
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                                {{ getAsiaTime($loan->created_at) }}</span>)</li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                     <div class="col-12 text-right mt-3 p-0">
                         <button class="btn btn-primary" id="btn_submit">Submit</button>

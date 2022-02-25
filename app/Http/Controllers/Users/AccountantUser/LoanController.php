@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\AccountantUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
+use App\Models\LoanComment;
 use App\Models\LoanRemark;
 use App\Models\User;
 use App\Notifications\LoanRevertedNotification;
@@ -57,6 +58,7 @@ class LoanController extends Controller
         $data = array();
         $data['loan_details'] = Loan::find($id);
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
+        $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.accountant_user.loan.view')->with($data);
     }
 
@@ -71,6 +73,7 @@ class LoanController extends Controller
         $data = array();
         $data['loan_details'] = Loan::where('status','>=',3)->find($id);
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
+        $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.accountant_user.loan.edit')->with($data);
     }
 
@@ -94,6 +97,7 @@ class LoanController extends Controller
             'peak_irregularity_in_the_account' => 'required|max:255',
             'comment_on_irregularity' => 'required|max:255',
             'comment_on_conduct' => 'required|max:255',
+            'comment' => 'nullable|max:255'
         ],[
             'amount_O_s_as_on.required' => 'This field is required',
             'amount_O_s_as_on.max:255' => 'Maximum character reached',
@@ -125,6 +129,8 @@ class LoanController extends Controller
             'comment_on_conduct.required' => 'This field is required',
             'comment_on_conduct.max:255' => 'Maximum character reached',
 
+            'comment' => 'nullable|max:255'
+
         ]);
 
         $loan = Loan::find($id);
@@ -143,6 +149,18 @@ class LoanController extends Controller
         $loan->a_verified_status = 1;
         $loan->status = 5;
         $loan->save();
+
+        /**
+         * If operation user give any comment then save that comment 
+         */
+
+        if ($request->comment != '') {
+            $new_comment = new LoanComment();
+            $new_comment->user_id = Auth::user()->id;
+            $new_comment->loan_id = $loan->id;
+            $new_comment->comment = $request->comment;
+            $new_comment->save();
+        }
 
          /**
          * Send notification to the Operation Department

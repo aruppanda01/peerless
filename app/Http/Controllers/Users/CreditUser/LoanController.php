@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\CreditUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
+use App\Models\LoanComment;
 use App\Models\User;
 use App\Notifications\NewLoanCreatedNotifiedByOperationDept;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -44,30 +45,37 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'account_no' => 'nullable|max:255',
             'borrower_name' => 'required|max:255',
             'bco_borrower_name' => 'required|max:255',
             'bguarantor_name' => 'required|max:255',
             'loan_type' => 'required|max:255',
             'amount_of_sanction' => 'required|max:255',
             'tenure' => 'required|max:255',
+            'comment' => 'nullable|max:255'
         ],[
+            'account_no.required' => 'This field is required',
+            'account_no.max' => 'Maximum character reached.Only 255 character allowed',
+
             'borrower_name.required' => 'This field is required',
-            'borrower_name.max:255' => 'Maximum character reached',
+            'borrower_name.max' => 'Maximum character reached.Only 255 character allowed',
 
             'bco_borrower_name.required' => 'This field is required',
-            'bco_borrower_name.max:255' => 'Maximum character reached',
+            'bco_borrower_name.max' => 'Maximum character reached.Only 255 character allowed',
 
             'bguarantor_name.required' => 'This field is required',
-            'bguarantor_name.max:255' => 'Maximum character reached',
+            'bguarantor_name.max' => 'Maximum character reached.Only 255 character allowed',
 
             'loan_type.required' => 'This field is required',
-            'loan_type.max:255' => 'Maximum character reached',
+            'loan_type.max' => 'Maximum character reached.Only 255 character allowed',
 
             'amount_of_sanction.required' => 'This field is required',
-            'amount_of_sanction.max:255' => 'Maximum character reached',
+            'amount_of_sanction.max' => 'Maximum character reached.Only 255 character allowed',
 
             'tenure.required' => 'This field is required',
-            'tenure.max:255' => 'Maximum character reached',
+            'tenure.max' => 'Maximum character reached.Only 255 character allowed',
+
+            'comment.max' => 'Maximum character reached.Only 255 character allowed',
         ]);
 
         $current_user_id = Auth::user()->id;
@@ -79,6 +87,7 @@ class LoanController extends Controller
         $loan = new Loan();
         $loan->user_id = $current_user_id;
         $loan->form_no = $form_no;
+        $loan->account_no = $request->account_no;
         $loan->borrower_name = $request->borrower_name;
         $loan->bco_borrower_name = $request->bco_borrower_name;
         $loan->bguarantor_name = $request->bguarantor_name;
@@ -90,6 +99,18 @@ class LoanController extends Controller
         $loan->c_verified_by = $current_user_id;
         $loan->c_verified_status = 1;
         $loan->save();
+
+        /**
+         * If credit user give any comment then save that comment 
+         */
+
+         if ($request->comment != '') {
+            $new_comment = new LoanComment();
+            $new_comment->user_id = $current_user_id;
+            $new_comment->loan_id = $loan->id;
+            $new_comment->comment = $request->comment;
+            $new_comment->save();
+         }
 
         /**
          * Send notification to the Operation Department

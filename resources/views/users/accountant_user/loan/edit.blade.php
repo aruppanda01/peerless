@@ -42,6 +42,14 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
+                        <label for="exampleFormControlFile1">Account No</label>
+                        <input class="form-control" type="text" name="account_no"
+                            value="{{ $loan_details->account_no ?  $loan_details->account_no : ''}}" disabled>
+                        @error('account_no')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="exampleFormControlFile1">1. Borrower’s Name</label>
                         <input class="form-control" type="text" name="borrower_name"
                             value="{{ $loan_details->borrower_name ?? old('borrower_name') }}"
@@ -113,21 +121,21 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">9. Amount O/s as on</label>
+                        <label for="exampleFormControlFile1">9. Amount O/s as on<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="amount_O_s_as_on">
                         @error('amount_O_s_as_on')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">10. Residual Tenure</label>
+                        <label for="exampleFormControlFile1">10. Residual Tenure<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="residual_tenure">
                         @error('residual_tenure')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">11. Utilization of Limit</label>
+                        <label for="exampleFormControlFile1">11. Utilization of Limit<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="utilization_of_limit">
                         @error('utilization_of_limit')
                             <span class="text-danger">{{ $message }}</span>
@@ -138,49 +146,49 @@
                             account since Operational </label>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">a. No. of times Bounces in the account</label>
+                        <label for="exampleFormControlFile1">a. No. of times Bounces in the account<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="no_of_times_bounces_in_the_account">
                         @error('no_of_times_bounces_in_the_account')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">b. Any bounces in last six months</label>
+                        <label for="exampleFormControlFile1">b. Any bounces in last six months<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="any_bounces_in_last_six_months">
                         @error('any_bounces_in_last_six_months')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">c. No. of times and days, the account was irregular</label>
+                        <label for="exampleFormControlFile1">c. No. of times and days, the account was irregular<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="no_of_times_and_days">
                         @error('no_of_times_and_days')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">d. Reasons for the irregularity (ies)</label>
+                        <label for="exampleFormControlFile1">d. Reasons for the irregularity (ies)<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="reasons_for_the_irregularity">
                         @error('reasons_for_the_irregularity')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">e. Peak irregularity in the account, if any</label>
+                        <label for="exampleFormControlFile1">e. Peak irregularity in the account, if any<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="peak_irregularity_in_the_account">
                         @error('peak_irregularity_in_the_account')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">f. Comment on irregularity, if any</label>
+                        <label for="exampleFormControlFile1">f. Comment on irregularity, if any<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="comment_on_irregularity">
                         @error('comment_on_irregularity')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="comment_on_conduct">
                         @error('comment_on_conduct')
                         <span class="text-danger">{{ $message }}</span>
@@ -188,7 +196,35 @@
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        <label for="exampleFormControlFile1">Comment</label>
+                        <input class="form-control" type="text" name="comment">
+                        @error('comment')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b><u>Available Comments</u></b></label>
+                        @if ($loan_comments->count() > 0)
+                            <ul>
+                                @foreach ($loan_comments as $loan)
+                                        <li>{{ $loan->comment }}
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                                {{ getAsiaTime($loan->created_at) }}</span>)
+                                        </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
+                        @endif
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b><u>Remarks</u></b></label>
                         @if ($loan_remarks->count() > 0)
                             <ul>
                                 @foreach ($loan_remarks as $loan)

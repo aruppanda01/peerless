@@ -18,6 +18,9 @@
 
         if (remarks != '' && remarks.length <= 255) {
             $('.revert-form').submit();
+            $('#btnSubmitForCredit').text('Loading...');
+            document.getElementById("btnSubmitForCredit").disabled = true;
+			document.getElementById("btnSubmitForCredit").style.cursor = 'no-drop';
         }
     })
     // Revert back to operation
@@ -37,6 +40,9 @@
 
         if (remarks != '' && remarks.length <= 255) {
             $('.revert-form-opertion').submit();
+            $('#btnSubmitForOperation').text('Loading...');
+            document.getElementById("btnSubmitForOperation").disabled = true;
+			document.getElementById("btnSubmitForOperation").style.cursor = 'no-drop';
         }
     })
 </script>

@@ -43,7 +43,15 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">1. Borrower’s Name</label>
+                        <label for="exampleFormControlFile1">Account No</label>
+                        <input class="form-control" type="text" name="account_no"
+                            value="{{ $loan_details->account_no ?  $loan_details->account_no : ''}}">
+                        @error('account_no')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">1. Borrower’s Name<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="borrower_name"
                             value="{{ $loan_details->borrower_name ?? old('borrower_name') }}">
                         @error('borrower_name')
@@ -51,7 +59,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any</label>
+                        <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="bco_borrower_name"
                             value="{{ $loan_details->bco_borrower_name ?? old('bco_borrower_name') }}">
                         @error('bco_borrower_name')
@@ -59,7 +67,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">3. Guarantor’s Name, if any</label>
+                        <label for="exampleFormControlFile1">3. Guarantor’s Name, if any<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="bguarantor_name"
                             value="{{ $loan_details->bguarantor_name ?? old('bguarantor_name') }}">
                         @error('bguarantor_name')
@@ -67,7 +75,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">4. Type of Loan Available</label>
+                        <label for="exampleFormControlFile1">4. Type of Loan Available<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="loan_type"
                             value="{{ $loan_details->loan_type ?? old('loan_type') }}">
                         @error('loan_type')
@@ -75,7 +83,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)</label>
+                        <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="amount_of_sanction"
                             value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}">
                         @error('amount_of_sanction')
@@ -83,7 +91,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">6. Tenure</label>
+                        <label for="exampleFormControlFile1">6. Tenure<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="tenure"
                             value="{{ $loan_details->tenure ?? old('tenure') }}">
                         @error('tenure')
@@ -148,18 +156,45 @@
                         <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                     </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Comment</label>
+                        <input class="form-control" type="text" name="comment">
+                        @error('comment')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <hr>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1"><b>Remarks</b></label>
+                        <label for="exampleFormControlFile1"><b><u>Available Comments</u></b></label>
+                        @if ($loan_comments->count() > 0)
+                            <ul>
+                                @foreach ($loan_comments as $loan)
+                                        <li>{{ $loan->comment }}
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                                {{ getAsiaTime($loan->created_at) }}</span>)
+                                        </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul>
+                                <li>
+                                    N/A
+                                </li>
+                            </ul>
+                        @endif
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1"><b><u>Remarks</u></b></label>
                         @if ($loan_remarks->count() > 0)
                             <ul>
                                 @foreach ($loan_remarks as $loan)
                                     @if ($loan->is_solved == 1)
                                         <li>
-                                            <del>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                            <del>{{ $loan->remarks }}  (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
                                         </li>
                                     @else
-                                     <li>{{ $loan->remarks }}  (<span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</li>
+                                     <li>{{ $loan->remarks }}  (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</li>
                                     @endif
                                 @endforeach
                             </ul>
@@ -203,6 +238,9 @@
             if (result.isConfirmed) {
                 event.preventDefault();
                 document.getElementById('loan_form').submit();
+                $('#btn_submit').text('Loading...');
+                document.getElementById("btn_submit").disabled = true;
+                document.getElementById("btn_submit").style.cursor = 'no-drop';
             } else if (
                 result.dismiss === Swal.DismissReason.cancel
             ) {

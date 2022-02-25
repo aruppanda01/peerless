@@ -60,7 +60,7 @@
                                             <th>
                                                 @if ($loan->status == 1 && $loan->o_verified_status == 1 && $loan->a_verified_status == '')
                                                     <span data-toggle="tooltip" data-placement="top" title="This form is submitted by the operation deperment">
-                                                        <p class="badge badge-success">Sumitted</p>
+                                                        <p class="badge badge-success">Submitted</p>
                                                     </span>
                                                 @endif
                                                 @if ($loan->status == 3)

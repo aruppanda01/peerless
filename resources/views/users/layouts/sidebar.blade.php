@@ -55,7 +55,7 @@
                         </a>-->
                         <a href="javascript:void(0);"><i class="fas fa-piggy-bank metismenu-icon"></i>New Loan <span class="submenu_icon"><i class="fas fa-chevron-down"></i></span></a>
                         <ul class="">
-                            <li class="{{ Request::is('credit_user/new-loan') ? 'mm-active' : '' }}"><a href="{{ route('credit_user.newLoan') }}"><i class="fas fa-piggy-bank metismenu-icon"></i> Loan Against Salary</a></li>
+                            <li class="{{ Request::is('credit_user/new-loan') ? 'mm-active' : '' }}"><a href="{{ route('credit_user.newLoan') }}"><i class="fas fa-piggy-bank metismenu-icon"></i> Individual Loan</a></li>
                             <li><a href="javascript:void(0);">Type 2</a></li>
                             <li><a href="javascript:void(0);">Type 3</a></li>
                         </ul>

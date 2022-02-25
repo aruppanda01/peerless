@@ -1,4 +1,8 @@
 <?php
+
+use App\Models\Role;
+use App\Models\User;
+
 function createNotification($sender_user_id,$receiver_user_id,$form_no, $type)
 {
     $title = '';
@@ -64,4 +68,10 @@ function getAsiaTime($date)
 	$timezone = new DateTimeZone('Asia/Kolkata');
 	$set_timezone =  $date->setTimezone($timezone)->format('h:i A');
 	return $set_timezone;
+}
+
+function getUserDepartment($user_id){
+    $user_details = User::find($user_id);
+    $user_department = Role::where('id',$user_details->role_id)->first();
+    return $user_department->name;
 }

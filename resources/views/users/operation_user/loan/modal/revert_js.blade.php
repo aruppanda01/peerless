@@ -21,6 +21,9 @@
 
         if (remarks != '' && remarks.length <= 255) {
             $('.credit-revert-form').submit();
+            $('#btnSubmitForCredit').text('Loading...');
+            document.getElementById("btnSubmitForCredit").disabled = true;
+            document.getElementById("btnSubmitForCredit").style.cursor = 'no-drop';
         }
     })
 </script>
