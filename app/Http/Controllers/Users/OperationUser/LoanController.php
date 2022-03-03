@@ -270,6 +270,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_comments'] = LoanComment::where('loan_id',$id)->get();
 
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
 

@@ -36,14 +36,14 @@ rel="stylesheet" type="text/css"> --}}
                         @csrf
                         <div class="form-group">
                             <label for="exampleFormControlFile1">Account No</label>
-                            <input class="form-control" type="text" name="account_no"
-                                value="{{ old('account_no') }}">
+                            <input class="form-control" type="text" name="account_no" value="{{ old('account_no') }}">
                             @error('account_no')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">1. Borrower’s Name<span class="text-danger">*</span></label>
+                            <label for="exampleFormControlFile1">1. Borrower’s Name<span
+                                    class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="borrower_name"
                                 value="{{ old('borrower_name') }}">
                             @error('borrower_name')
@@ -51,7 +51,8 @@ rel="stylesheet" type="text/css"> --}}
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any<span class="text-danger">*</span></label>
+                            <label for="exampleFormControlFile1">2. Co-Borrower’s Name, if any<span
+                                    class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="bco_borrower_name"
                                 value="{{ old('bco_borrower_name') }}">
                             @error('bco_borrower_name')
@@ -59,7 +60,8 @@ rel="stylesheet" type="text/css"> --}}
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">3. Guarantor’s Name, if any<span class="text-danger">*</span></label>
+                            <label for="exampleFormControlFile1">3. Guarantor’s Name, if any<span
+                                    class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="bguarantor_name"
                                 value="{{ old('bguarantor_name') }}">
                             @error('bguarantor_name')
@@ -67,16 +69,18 @@ rel="stylesheet" type="text/css"> --}}
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">4. Type of Loan Available<span class="text-danger">*</span></label>
+                            <label for="exampleFormControlFile1">4. Type of Loan Available<span
+                                    class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="loan_type" value="{{ old('loan_type') }}">
                             @error('loan_type')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span class="text-danger">*</span></label>
+                            <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span
+                                    class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="amount_of_sanction"
-                                value="{{ old('amount_of_sanction') }}">
+                                value="{{ old('amount_of_sanction') }}" id="amount_of_sanction">
                             @error('amount_of_sanction')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -162,10 +166,24 @@ rel="stylesheet" type="text/css"> --}}
     <!--Script-->
 
     <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-                  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-                 <![endif]-->
+                      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                     <![endif]-->
     <script>
+        // Add commas
+        $('#amount_of_sanction').on('keyup', function(){
+
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+                // format number
+                $(this).val(function(index, value) {
+                return value
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                ;
+            });
+        })
+
         $('#btn_submit').on('click', function() {
             event.preventDefault();
             const swalWithBootstrapButtons = Swal.mixin({
@@ -190,7 +208,7 @@ rel="stylesheet" type="text/css"> --}}
                     document.getElementById('loan_form').submit();
                     $('#btn_submit').text('Loading...');
                     document.getElementById("btn_submit").disabled = true;
-			        document.getElementById("btn_submit").style.cursor = 'no-drop';
+                    document.getElementById("btn_submit").style.cursor = 'no-drop';
                 } else if (
                     result.dismiss === Swal.DismissReason.cancel
                 ) {

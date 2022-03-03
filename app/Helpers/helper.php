@@ -75,3 +75,8 @@ function getUserDepartment($user_id){
     $user_department = Role::where('id',$user_details->role_id)->first();
     return $user_department->name;
 }
+function getUserDepartmentId($user_id){
+    $user_details = User::find($user_id);
+    $user_department = Role::where('id',$user_details->role_id)->first();
+    return $user_department->id;
+}

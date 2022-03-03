@@ -197,12 +197,12 @@
                                     @if ($loan->is_solved == 1)
                                         <li>
                                             <del>{{ $loan->remarks }}
-                                                (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                                (By <b>{{  getUserDepartment($loan->user_id) }}s </b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
                                                     {{ getAsiaTime($loan->created_at) }}</span>)</del>
                                         </li>
                                     @else
                                         <li>{{ $loan->remarks }}
-                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}s </b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
                                                 {{ getAsiaTime($loan->created_at) }}</span>)</li>
                                     @endif
                                 @endforeach

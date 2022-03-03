@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users\CreditUser;
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
 use App\Models\LoanComment;
+use App\Models\LoanRemark;
 use App\Models\User;
 use App\Notifications\NewLoanCreatedNotifiedByOperationDept;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -133,7 +134,11 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array();
+        $data['loan_details'] = Loan::find($id);
+        $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
+        $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
+        return view('users.credit_user.loan.submitted_loan.view')->with($data);
     }
 
     /**
@@ -181,6 +186,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['loan_comments'] = LoanComment::where('loan_id',$id)->get();
 
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);
 

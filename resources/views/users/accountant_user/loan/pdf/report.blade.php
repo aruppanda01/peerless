@@ -70,6 +70,10 @@
     <table class="table table-striped table-bordered table-sm">
         <tbody>
             <tr>
+                <td>Account No</td>
+                <td>{{ $loan_details->account_no }}</td>
+            </tr>
+            <tr>
                 <td>1. Borrower’s Name</td>
                 <td>{{ $loan_details->borrower_name }}</td>
             </tr>
@@ -144,6 +148,16 @@
             <tr>
                 <td>Comment on Conduct of the A/c:</td>
                 <td>{{ $loan_details->comment_on_conduct }}</td>
+            </tr>
+            <tr>
+                <td>Comment on Conduct of the Operation:</td>
+                <td>
+                    @foreach ($loan_comments as $comment)
+                        @if (getUserDepartmentId($comment->user_id) == 3)
+                            {{ $comment->comment }}
+                        @endif
+                    @endforeach
+                </td>
             </tr>
         </tbody>
     </table>
