@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="amount_of_sanction"
-                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}">
+                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}" id="amount_of_sanction" onkeydown="return numericOnly(event);">
                         @error('amount_of_sanction')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -191,10 +191,10 @@
                                 @foreach ($loan_remarks as $loan)
                                     @if ($loan->is_solved == 1)
                                         <li>
-                                            <del>{{ $loan->remarks }}  (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
+                                            <del>{{ $loan->remarks }}  (By <b>{{  getUserDepartment($loan->user_id) }}s </b> at <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</del>
                                         </li>
                                     @else
-                                     <li>{{ $loan->remarks }}  (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</li>
+                                     <li>{{ $loan->remarks }}  (By <b>{{  getUserDepartment($loan->user_id) }}s </b> at <span>{{ date('d-M-y',strtotime($loan->created_at)) }}, {{ getAsiaTime($loan->created_at) }}</span>)</li>
                                     @endif
                                 @endforeach
                             </ul>
@@ -255,6 +255,44 @@
     setTimeout(function () {
         $(".alert-success").hide();
     }, 5000);
+
+            // Add commas
+            $('#amount_of_sanction').on('keyup', function() {
+            var input = $(this).val().replaceAll(',', '');
+            if (input.length < 1)
+                $(this).val('');
+            else {
+                var val = parseFloat(input);
+                var formatted = inrFormat(input);
+                if (formatted.indexOf('.') > 0) {
+                    var split = formatted.split('.');
+                    formatted = split[0] + '.' + split[1].substring(0, 2);
+                }
+                $(this).val(formatted);
+            }
+
+        });
+
+        function inrFormat(val) {
+            var x = val;
+            x = x.toString();
+            var afterPoint = '';
+            if (x.indexOf('.') > 0)
+                afterPoint = x.substring(x.indexOf('.'), x.length);
+            x = Math.floor(x);
+            x = x.toString();
+            var lastThree = x.substring(x.length - 3);
+            var otherNumbers = x.substring(0, x.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+            return res;
+        }
+    function numericOnly(event) {
+            var key = event.keyCode;
+            console.log(key);
+            return ((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || key == 57 || key == 9 || key == 46 || key == 8  || key == 110);
+    };
 
 </script>
 @endsection

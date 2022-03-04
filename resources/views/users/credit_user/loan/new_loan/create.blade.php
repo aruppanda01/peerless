@@ -80,7 +80,7 @@ rel="stylesheet" type="text/css"> --}}
                             <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span
                                     class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="amount_of_sanction"
-                                value="{{ old('amount_of_sanction') }}" id="amount_of_sanction">
+                                value="{{ old('amount_of_sanction') }}" id="amount_of_sanction" onkeydown="return numericOnly(event);">
                             @error('amount_of_sanction')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -166,23 +166,43 @@ rel="stylesheet" type="text/css"> --}}
     <!--Script-->
 
     <!--[if lt IE 9]>
-                      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-                      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-                     <![endif]-->
+                          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                         <![endif]-->
     <script>
         // Add commas
-        $('#amount_of_sanction').on('keyup', function(){
+        $('#amount_of_sanction').on('keyup', function() {
+            var input = $(this).val().replaceAll(',', '');
+            if (input.length < 1)
+                $(this).val('');
+            else {
+                var val = parseFloat(input);
+                var formatted = inrFormat(input);
+                if (formatted.indexOf('.') > 0) {
+                    var split = formatted.split('.');
+                    formatted = split[0] + '.' + split[1].substring(0, 2);
+                }
+                $(this).val(formatted);
+            }
 
-            // skip for arrow keys
-            if(event.which >= 37 && event.which <= 40) return;
-                // format number
-                $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-            });
-        })
+        });
+
+        function inrFormat(val) {
+            var x = val;
+            x = x.toString();
+            var afterPoint = '';
+            if (x.indexOf('.') > 0)
+                afterPoint = x.substring(x.indexOf('.'), x.length);
+            x = Math.floor(x);
+            x = x.toString();
+            var lastThree = x.substring(x.length - 3);
+            var otherNumbers = x.substring(0, x.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+            return res;
+        }
+
 
         $('#btn_submit').on('click', function() {
             event.preventDefault();
@@ -212,16 +232,22 @@ rel="stylesheet" type="text/css"> --}}
                 } else if (
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Loan Form Is Not Submitted :)',
-                        'error'
-                    )
+                    // swalWithBootstrapButtons.fire(
+                    //     'Cancelled',
+                    //     'Loan Form Is Not Submitted :)',
+                    //     'error'
+                    // )
                 }
             })
         })
         setTimeout(function() {
             $(".alert-success").hide();
         }, 10000);
+
+        function numericOnly(event) {
+            var key = event.keyCode;
+            console.log(key);
+            return ((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || key == 57 || key == 9 || key == 46 || key == 8  || key == 110);
+        };
     </script>
 @endsection

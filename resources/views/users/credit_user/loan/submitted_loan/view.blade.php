@@ -162,7 +162,7 @@
                             <ul>
                                 @foreach ($loan_comments as $loan)
                                         <li>{{ $loan->comment }}
-                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}s.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
                                                 {{ getAsiaTime($loan->created_at) }}</span>)
                                         </li>
                                 @endforeach

@@ -122,7 +122,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="amount_O_s_as_on">
+                        <input class="form-control" type="text" name="amount_O_s_as_on" id="amount_O_s_as_on" onkeydown="return numericOnly(event);">
                         @error('amount_O_s_as_on')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -308,6 +308,45 @@
     setTimeout(function () {
         $(".alert-success").hide();
     }, 5000);
+
+            // Add commas
+            $('#amount_O_s_as_on').on('keyup', function() {
+            var input = $(this).val().replaceAll(',', '');
+            if (input.length < 1)
+                $(this).val('');
+            else {
+                var val = parseFloat(input);
+                var formatted = inrFormat(input);
+                if (formatted.indexOf('.') > 0) {
+                    var split = formatted.split('.');
+                    formatted = split[0] + '.' + split[1].substring(0, 2);
+                }
+                $(this).val(formatted);
+            }
+
+        });
+
+        function inrFormat(val) {
+            var x = val;
+            x = x.toString();
+            var afterPoint = '';
+            if (x.indexOf('.') > 0)
+                afterPoint = x.substring(x.indexOf('.'), x.length);
+            x = Math.floor(x);
+            x = x.toString();
+            var lastThree = x.substring(x.length - 3);
+            var otherNumbers = x.substring(0, x.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+            return res;
+        }
+
+        function numericOnly(event) {
+            var key = event.keyCode;
+            console.log(key);
+            return ((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || key == 57 || key == 9 || key == 46 || key == 8  || key == 110);
+        };
 
 </script>
 @endsection
