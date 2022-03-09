@@ -78,68 +78,156 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">4. Type of Loan Available</label>
-                        <input class="form-control" type="text" name="loan_type"
-                            value="{{ $loan_details->loan_type ?? old('loan_type') }}"
-                            disabled>
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row" id="loan_type">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="loan_type"
+                                    value="{{ $other_loan_detail->loan_type ?? old('loan_type') }}" disabled>
+                                </div>
+                            </div>
+                            <hr>
+                            @endforeach
+                        </div>
                         @error('loan_type')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">5. Amount of Sanction(Rs)</label>
-                        <input class="form-control" type="text" name="amount_of_sanction"
-                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}"
-                            disabled>
-                        @error('amount_of_sanction')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                                <div class="row" id="loan_type">
+                                    <div class="col-md-3">
+                                        Loan - {{ $key + 1 }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="amount_of_sanction"
+                                        value="{{ $other_loan_detail->amount_of_sanction ?? old('amount_of_sanction') }}" disabled>
+                                        <span class="loan_type_err text-danger"></span>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">6. Tenure</label>
-                        <input class="form-control" type="text" name="tenure"
-                            value="{{ $loan_details->tenure ?? old('tenure') }}" disabled>
-                        @error('tenure')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row" id="loan_type">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="tenure"
+                                    value="{{ $other_loan_detail->tenure ?? old('tenure') }}" disabled>
+                                </div>
+                            </div>
+                            <hr>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done</label>
-                        <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
-                            value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
-                            id="whether_compliance_of_last_sanction_terms_done" disabled>
-                        @error('whether_compliance_of_last_sanction_terms_done')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row" id="loan_type">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
+                                    value="{{ $other_loan_detail->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
+                                    id="whether_compliance_of_last_sanction_terms_done" disabled>
+                                </div>
+                            </div>
+                        <hr>
+                        @endforeach
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">8. Deviation from last sanction terms, if any</label>
-                        <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
-                            value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
-                            id="deviation_from_last_sanction_terms" disabled>
-                        @error('deviation_from_last_sanction_terms')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                     <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
+                                    value="{{ $other_loan_detail->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
+                                    id="deviation_from_last_sanction_terms" disabled>
+                                </div>
+                            </div>
+                        <hr>
+                        @endforeach
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">9. Amount O/s as on<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="amount_O_s_as_on" id="amount_O_s_as_on" onkeydown="return numericOnly(event);">
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][amount_O_s_as_on]" onkeydown="return numericOnly(event);" onkeyup="indianMoneyFormat(event)">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            <hr>
+                        @endforeach
+                        </div>
                         @error('amount_O_s_as_on')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">10. Residual Tenure<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="residual_tenure">
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][residual_tenure]">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            <hr>
+                         @endforeach
+                        </div>
                         @error('residual_tenure')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                       
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">11. Utilization of Limit<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="utilization_of_limit">
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][utilization_of_limit]">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                                </div>
+                            <hr>
+                            @endforeach
+                        </div>
                         @error('utilization_of_limit')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                        
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1" class="text-dark">12. Occurrence of irregularity in the
@@ -147,45 +235,119 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">a. No. of times Bounces in the account<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="no_of_times_bounces_in_the_account">
-                        @error('no_of_times_bounces_in_the_account')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][no_of_times_bounces_in_the_account]">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            @endforeach
+                            @error('no_of_times_bounces_in_the_account')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">b. Any bounces in last six months<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="any_bounces_in_last_six_months">
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][any_bounces_in_last_six_months]">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                         @error('any_bounces_in_last_six_months')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">c. No. of times and days, the account was irregular<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="no_of_times_and_days">
-                        @error('no_of_times_and_days')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][no_of_times_and_days]">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            @endforeach
+                            </div>
+                            @error('no_of_times_and_days')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">d. Reasons for the irregularity (ies)<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="reasons_for_the_irregularity">
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Loan - {{ $key + 1 }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][reasons_for_the_irregularity]">
+                                        <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                         @error('reasons_for_the_irregularity')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">e. Peak irregularity in the account, if any<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="peak_irregularity_in_the_account">
-                        @error('peak_irregularity_in_the_account')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Loan - {{ $key + 1 }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][peak_irregularity_in_the_account]">
+                                        <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                            @error('peak_irregularity_in_the_account')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">f. Comment on irregularity, if any<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="comment_on_irregularity">
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][comment_on_irregularity]">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                         @error('comment_on_irregularity')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                        
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Comment on Conduct of the A/c:<span class="text-danger">*</span></label>
@@ -309,8 +471,23 @@
         $(".alert-success").hide();
     }, 5000);
 
-            // Add commas
-            $('#amount_O_s_as_on').on('keyup', function() {
+        // Add commas
+        function indianMoneyFormat(event) {
+        var input = event.target.value.replaceAll(',', '');
+        console.log(input);
+        if (input.length < 1)
+            $(this).val('');
+        else {
+            var val = parseFloat(input);
+            var formatted = inrFormat(input);
+            if (formatted.indexOf('.') > 0) {
+                var split = formatted.split('.');
+                formatted = split[0] + '.' + split[1].substring(0, 2);
+            }
+            event.target.value = formatted;
+        }
+    }
+        $('#amount_O_s_as_on').on('keyup', function() {
             var input = $(this).val().replaceAll(',', '');
             if (input.length < 1)
                 $(this).val('');

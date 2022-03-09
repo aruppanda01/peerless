@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users\OperationUser;
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
 use App\Models\LoanComment;
+use App\Models\LoanDetails;
 use App\Models\LoanRemark;
 use App\Models\User;
 use App\Notifications\LoanRevertedNotification;
@@ -59,6 +60,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.view')->with($data);
@@ -74,6 +76,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.edit')->with($data);
@@ -88,9 +91,10 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate($request,[
-            'whether_compliance_of_last_sanction_terms_done' => 'required|max:255',
-            'deviation_from_last_sanction_terms' => 'required|max:255',
+            'addMoreInputFields' => 'required|array',
+            'addMoreInputFields.*' => 'required|max:255',
             'comment' => 'nullable|max:255'
         ],[
             'whether_compliance_of_last_sanction_terms_done.required' => 'This field is required',
@@ -101,16 +105,25 @@ class LoanController extends Controller
 
             'comment.max' => 'Maximum character reached.Only 255 character allowed',
         ]);
-
         $loan = Loan::find($id);
-        $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
-        $loan->deviation_from_last_sanction_terms = $request->deviation_from_last_sanction_terms;
 
         $current_user_id = Auth::user()->id;
         $loan->o_verified_by = $current_user_id;
         $loan->o_verified_status = 1;
         $loan->status = 3;
         $loan->save();
+
+        /**
+         * Store loan details
+         */
+
+        foreach ($request->addMoreInputFields as $key => $input_field) {
+            $loan_details = LoanDetails::find($input_field['loan_details_id']);
+            $loan_details->whether_compliance_of_last_sanction_terms_done = $input_field['whether_compliance_of_last_sanction_terms_done'];
+            $loan_details->deviation_from_last_sanction_terms = $input_field['deviation_from_last_sanction_terms'];
+            $loan_details->save();
+        }
+
 
         /**
          * If credit user give any comment then save that comment 
@@ -212,6 +225,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.operation_user.loan.revert_loan.edit')->with($data);
@@ -219,16 +233,16 @@ class LoanController extends Controller
 
     public function failedLoanDetailsUpdate(Request $request, $id)
     {
-        $this->validate($request,[
-            'whether_compliance_of_last_sanction_terms_done' => 'required|max:255',
-            'deviation_from_last_sanction_terms' => 'required|max:255',
-        ],[
-            'whether_compliance_of_last_sanction_terms_done.required' => 'This field is required',
-            'whether_compliance_of_last_sanction_terms_done.max:255' => 'Maximum character reached',
+        // $this->validate($request,[
+        //     'whether_compliance_of_last_sanction_terms_done' => 'required|max:255',
+        //     'deviation_from_last_sanction_terms' => 'required|max:255',
+        // ],[
+        //     'whether_compliance_of_last_sanction_terms_done.required' => 'This field is required',
+        //     'whether_compliance_of_last_sanction_terms_done.max:255' => 'Maximum character reached',
 
-            'deviation_from_last_sanction_terms.required' => 'This field is required',
-            'deviation_from_last_sanction_terms.max:255' => 'Maximum character reached',
-        ]);
+        //     'deviation_from_last_sanction_terms.required' => 'This field is required',
+        //     'deviation_from_last_sanction_terms.max:255' => 'Maximum character reached',
+        // ]);
 
         $loan = Loan::find($id);
         $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
@@ -241,6 +255,17 @@ class LoanController extends Controller
         $loan->o_verified_status = 1;
         $loan->save();
 
+
+        /**
+         * Store loan details
+         */
+
+        foreach ($request->addMoreInputFields as $key => $input_field) {
+            $loan_details = LoanDetails::find($input_field['loan_details_id']);
+            $loan_details->whether_compliance_of_last_sanction_terms_done = $input_field['whether_compliance_of_last_sanction_terms_done'];
+            $loan_details->deviation_from_last_sanction_terms = $input_field['deviation_from_last_sanction_terms'];
+            $loan_details->save();
+        }
 
         /**
          * Get the latest revert back remark
@@ -270,6 +295,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->get();
 
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);

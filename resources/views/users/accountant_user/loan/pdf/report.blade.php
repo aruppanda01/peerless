@@ -49,6 +49,16 @@
             margin-bottom: 20px;
         }
 
+        .actv_bg {
+            background: #d4d4d4;
+        }
+        .wh_class {
+            border: 1px solid #efefef;
+            margin-bottom: 15px;
+            padding-top: 5px;
+            padding-left: 5px;
+        }
+
     </style>
 
 </head>
@@ -70,87 +80,205 @@
     <table class="table table-striped table-bordered table-sm">
         <tbody>
             <tr>
-                <td>Account No</td>
+                <th>Account No</th>
                 <td>{{ $loan_details->account_no }}</td>
             </tr>
             <tr>
-                <td>1. Borrower’s Name</td>
+                <th>1. Borrower’s Name</th>
                 <td>{{ $loan_details->borrower_name }}</td>
             </tr>
             <tr>
-                <td>2. Co-Borrower’s Name, if any</td>
+                <th>2. Co-Borrower’s Name, if any</th>
                 <td>{{ $loan_details->bco_borrower_name }}</td>
             </tr>
             <tr>
-                <td>3. Guarantor’s Name, if any</td>
+                <th>3. Guarantor’s Name, if any</th>
                 <td>{{ $loan_details->bguarantor_name }}</td>
             </tr>
             <tr>
-                <td>4. Type of Loan Available</td>
-                <td>{{ $loan_details->loan_type }}</td>
+                <th>4. Type of Loan Available</th>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->loan_type}}</td>
+                </tr>
+            @endforeach
+            
             <tr>
-                <td>5. Amount of Sanction(Rs)</td>
+                <th>5. Amount of Sanction(Rs)</th>
                 <td>{{ $loan_details->amount_of_sanction }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->amount_of_sanction}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>6. Tenure</td>
+                <th>6. Tenure</th>
                 <td>{{ $loan_details->tenure }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->tenure}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>7. Whether compliance of last sanction terms done</td>
+                <th>7. Whether compliance of last sanction terms done</th>
                 <td>{{ $loan_details->whether_compliance_of_last_sanction_terms_done }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->whether_compliance_of_last_sanction_terms_done}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>8. Deviation from last sanction terms, if any</td>
+                <th>8. Deviation from last sanction terms, if any</th>
                 <td>{{ $loan_details->deviation_from_last_sanction_terms }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->deviation_from_last_sanction_terms}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>9. Amount O/s as on</td>
+                <th>9. Amount O/s as on</th>
                 <td>{{ $loan_details->amount_O_s_as_on }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->amount_O_s_as_on}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>10. Residual Tenure</td>
+                <th>10. Residual Tenure</th>
                 <td>{{ $loan_details->residual_tenure }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->residual_tenure}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>11. Utilization of Limit</td>
+                <th>11. Utilization of Limit</th>
                 <td>{{ $loan_details->utilization_of_limit }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->utilization_of_limit}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>12. Occurrence of irregularity in the
-                    account since Operational</td>
+                <th>12. Occurrence of irregularity in the
+                    account since Operational</th>
             </tr>
             <tr>
-                <td>a. No. of times Bounces in the account</td>
+                <th>a. No. of times Bounces in the account</th>
                 <td>{{ $loan_details->no_of_times_bounces_in_the_account }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->no_of_times_bounces_in_the_account}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>b. Any bounces in last six months</td>
+                <th>b. Any bounces in last six months</th>
                 <td>{{ $loan_details->any_bounces_in_last_six_months }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->any_bounces_in_last_six_months}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>c. No. of times and days, the account was irregular</td>
+                <th>c. No. of times and days, the account was irregular</th>
                 <td>{{ $loan_details->no_of_times_and_days }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->no_of_times_and_days}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>d. Reasons for the irregularity (ies)</td>
+                <th>d. Reasons for the irregularity (ies)</th>
                 <td>{{ $loan_details->reasons_for_the_irregularity }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->reasons_for_the_irregularity}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>e. Peak irregularity in the account, if any</td>
+                <th>e. Peak irregularity in the account, if any</th>
                 <td>{{ $loan_details->peak_irregularity_in_the_account }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->peak_irregularity_in_the_account}}</td>
+                </tr>
+            @endforeach
             <tr>
-                <td>f. Comment on irregularity, if any</td>
+                <th>f. Comment on irregularity, if any</th>
                 <td>{{ $loan_details->comment_on_irregularity }}</td>
             </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td>{{ $other_loan_detail->comment_on_irregularity}}</td>
+                </tr>
+             @endforeach
             <tr>
-                <td>Comment on Conduct of the A/c:</td>
-                <td>{{ $loan_details->comment_on_conduct }}</td>
+                <th>Comment on Conduct of the Accounts:</th>
+                <td>
+                    @foreach ($loan_comments as $comment)
+                        @if (getUserDepartmentId($comment->user_id) == 4)
+                            {{ $comment->comment }}
+                        @endif
+                    @endforeach
+                </td>
             </tr>
             <tr>
-                <td>Comment on Conduct of the Operation:</td>
+                <th>Comment on Conduct of the Operation:</th>
                 <td>
                     @foreach ($loan_comments as $comment)
                         @if (getUserDepartmentId($comment->user_id) == 3)

@@ -71,44 +71,99 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">4. Type of Loan Availabled</label>
-                            <input class="form-control" type="text" name="loan_type"
-                                value="{{ $loan_details->loan_type ?? old('loan_type') }}" disabled>
-                            @error('loan_type')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)</label>
-                            <input class="form-control" type="text" name="amount_of_sanction"
-                                value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}" disabled>
-                            @error('amount_of_sanction')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">6. Tenure</label>
-                            <input class="form-control" type="text" name="tenure"
-                                value="{{ $loan_details->tenure ?? old('tenure') }}" disabled>
-                            @error('tenure')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">4. Type of Loan Available</label>
+                                <div class="wh_class actv_bg">
+                                    @foreach ($other_loan_details as $key => $other_loan_detail)
+                                    <div class="row" id="loan_type">
+                                        <div class="col-md-3">
+                                            Loan Type - {{ $key + 1 }}
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="loan_type"
+                                            value="{{ $other_loan_detail->loan_type ?? old('loan_type') }}" disabled>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @endforeach
+                                </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)</label>
+                                <div class="wh_class actv_bg">
+                                    @foreach ($other_loan_details as $key => $other_loan_detail)
+                                        <div class="row" id="loan_type">
+                                            <div class="col-md-3">
+                                                Loan Type - {{ $key + 1 }}
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text" name="amount_of_sanction"
+                                                value="{{ $other_loan_detail->amount_of_sanction ?? old('amount_of_sanction') }}" disabled>
+                                                <span class="loan_type_err text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">6. Tenure</label>
+                                <div class="wh_class actv_bg">
+                                    @foreach ($other_loan_details as $key => $other_loan_detail)
+                                    <div class="row" id="loan_type">
+                                        <div class="col-md-3">
+                                            Loan Type - {{ $key + 1 }}
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="tenure"
+                                            value="{{ $other_loan_detail->tenure ?? old('tenure') }}" disabled>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @endforeach
+                                </div>
+                            </div>
+                       
                         <div class="form-group">
                             <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done<span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
-                                value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ??old('whether_compliance_of_last_sanction_terms_done') }}"
-                                id="whether_compliance_of_last_sanction_terms_done">
-                            @error('whether_compliance_of_last_sanction_terms_done')
+                            <div class="wh_class actv_bg">
+                                @foreach ($other_loan_details as $key => $other_loan_detail)
+                                <div class="row" id="loan_type">
+                                    <div class="col-md-3">
+                                        Loan Type - {{ $key + 1 }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][whether_compliance_of_last_sanction_terms_done]"
+                                            value="{{ $loan_details->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
+                                            id="whether_compliance_of_last_sanction_terms_done">
+                                        <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                    </div>
+                                </div>
+                                <hr>
+                                @endforeach
+                            </div>
+                            @error('addMoreInputFields[{{ $key }}][whether_compliance_of_last_sanction_terms_done]')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlFile1">8. Deviation from last sanction terms, if any<span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
-                                value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
-                                id="deviation_from_last_sanction_terms">
+                            <div class="wh_class actv_bg">
+                                @foreach ($other_loan_details as $key => $other_loan_detail)
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Loan Type - {{ $key + 1 }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][deviation_from_last_sanction_terms]"
+                                        value="{{ $loan_details->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
+                                        id="deviation_from_last_sanction_terms">
+                                        <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                    </div>
+                                </div>
+                                <hr>
+                            @endforeach
+                            </div>
+                            
                             @error('deviation_from_last_sanction_terms')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

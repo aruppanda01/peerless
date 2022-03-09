@@ -75,28 +75,58 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">4. Type of Loan Available<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="loan_type"
-                            value="{{ $loan_details->loan_type ?? old('loan_type') }}">
-                        @error('loan_type')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <label for="exampleFormControlFile1">4. Type of Loan Available</label>
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row" id="loan_type">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][loan_type]"
+                                    value="{{ $other_loan_detail->loan_type ?? old('loan_type') }}">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            <hr>
+                            @endforeach
+                        </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)</label>
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                                <div class="row" id="loan_type">
+                                    <div class="col-md-3">
+                                        Loan - {{ $key + 1 }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][amount_of_sanction]"
+                                        value="{{ $other_loan_detail->amount_of_sanction ?? old('amount_of_sanction') }}">
+                                        <span class="loan_type_err text-danger"></span>
+                                        <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                    </div>
+                                </div>
+                                <hr>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="amount_of_sanction"
-                            value="{{ $loan_details->amount_of_sanction ?? old('amount_of_sanction') }}" id="amount_of_sanction" onkeydown="return numericOnly(event);">
-                        @error('amount_of_sanction')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1">6. Tenure<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="tenure"
-                            value="{{ $loan_details->tenure ?? old('tenure') }}">
-                        @error('tenure')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <label for="exampleFormControlFile1">6. Tenure</label>
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row" id="loan_type">
+                                <div class="col-md-3">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][tenure]"
+                                    value="{{ $other_loan_detail->tenure ?? old('tenure') }}">
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                            <hr>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done</label>
@@ -293,6 +323,38 @@
             console.log(key);
             return ((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || key == 57 || key == 9 || key == 46 || key == 8  || key == 110);
     };
+
+    function indianMoneyFormat(event) {
+        var input = event.target.value.replaceAll(',', '');
+        console.log(input);
+        if (input.length < 1)
+            $(this).val('');
+        else {
+            var val = parseFloat(input);
+            var formatted = inrFormat(input);
+            if (formatted.indexOf('.') > 0) {
+                var split = formatted.split('.');
+                formatted = split[0] + '.' + split[1].substring(0, 2);
+            }
+            event.target.value = formatted;
+        }
+    }
+
+    function inrFormat(val) {
+        var x = val;
+        x = x.toString();
+        var afterPoint = '';
+        if (x.indexOf('.') > 0)
+            afterPoint = x.substring(x.indexOf('.'), x.length);
+        x = Math.floor(x);
+        x = x.toString();
+        var lastThree = x.substring(x.length - 3);
+        var otherNumbers = x.substring(0, x.length - 3);
+        if (otherNumbers != '')
+            lastThree = ',' + lastThree;
+        var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+        return res;
+    }
 
 </script>
 @endsection

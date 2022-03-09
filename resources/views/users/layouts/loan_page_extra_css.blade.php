@@ -75,4 +75,8 @@
         margin-bottom: 20px;
     }
 
+    .form-group label {
+        font-weight: bold;
+    }
+
 </style>

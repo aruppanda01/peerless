@@ -2089,3 +2089,12 @@ table.dataTable.no-footer {
     top: 1px;
     font-size: 10px;
 }
+.actv_bg {
+  background: #d4d4d4;
+}
+.wh_class {
+  border: 1px solid #efefef;
+  margin-bottom: 15px;
+  padding-top: 5px;
+  padding-left: 5px;
+}

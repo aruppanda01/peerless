@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users\AccountantUser;
 use App\Http\Controllers\Controller;
 use App\Models\Loan;
 use App\Models\LoanComment;
+use App\Models\LoanDetails;
 use App\Models\LoanRemark;
 use App\Models\User;
 use App\Notifications\LoanRevertedNotification;
@@ -57,6 +58,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.accountant_user.loan.view')->with($data);
@@ -72,6 +74,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::where('status','>=',3)->find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_remarks'] = LoanRemark::where('loan_id',$id)->latest()->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->latest()->get();
         return view('users.accountant_user.loan.edit')->with($data);
@@ -86,16 +89,17 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate($request,[
-            'amount_O_s_as_on' => 'required|max:255',
-            'residual_tenure' => 'required|max:255',
-            'utilization_of_limit' => 'required|max:255',
-            'no_of_times_bounces_in_the_account' => 'required|max:255',
-            'any_bounces_in_last_six_months' => 'required|max:255',
-            'no_of_times_and_days' => 'required|max:255',
-            'reasons_for_the_irregularity' => 'required|max:255',
-            'peak_irregularity_in_the_account' => 'required|max:255',
-            'comment_on_irregularity' => 'required|max:255',
+            // 'amount_O_s_as_on' => 'required|max:255',
+            // 'residual_tenure' => 'required|max:255',
+            // 'utilization_of_limit' => 'required|max:255',
+            // 'no_of_times_bounces_in_the_account' => 'required|max:255',
+            // 'any_bounces_in_last_six_months' => 'required|max:255',
+            // 'no_of_times_and_days' => 'required|max:255',
+            // 'reasons_for_the_irregularity' => 'required|max:255',
+            // 'peak_irregularity_in_the_account' => 'required|max:255',
+            // 'comment_on_irregularity' => 'required|max:255',
             'comment_on_conduct' => 'required|max:255',
             'comment' => 'nullable|max:255'
         ],[
@@ -134,16 +138,6 @@ class LoanController extends Controller
         ]);
 
         $loan = Loan::find($id);
-        $loan->comment_on_irregularity = $request->comment_on_irregularity;
-        $loan->peak_irregularity_in_the_account = $request->peak_irregularity_in_the_account;
-        $loan->reasons_for_the_irregularity = $request->reasons_for_the_irregularity;
-        $loan->no_of_times_and_days = $request->no_of_times_and_days;
-        $loan->any_bounces_in_last_six_months = $request->any_bounces_in_last_six_months;
-        $loan->no_of_times_bounces_in_the_account = $request->no_of_times_bounces_in_the_account;
-        $loan->utilization_of_limit = $request->utilization_of_limit;
-        $loan->amount_O_s_as_on = $request->amount_O_s_as_on;
-        $loan->residual_tenure = $request->residual_tenure;
-        $loan->comment_on_conduct = $request->comment_on_conduct;
 
         $loan->a_verified_by = Auth::user()->id;
         $loan->a_verified_status = 1;
@@ -151,14 +145,31 @@ class LoanController extends Controller
         $loan->save();
 
         /**
+         * Store loan details
+         */
+        foreach ($request->addMoreInputFields as $key => $input_field) {
+            $loan_details = LoanDetails::find($input_field['loan_details_id']);
+            $loan_details->comment_on_irregularity = $input_field['comment_on_irregularity'];
+            $loan_details->peak_irregularity_in_the_account = $input_field['peak_irregularity_in_the_account'];
+            $loan_details->reasons_for_the_irregularity = $input_field['reasons_for_the_irregularity'];
+            $loan_details->no_of_times_and_days = $input_field['no_of_times_and_days'];
+            $loan_details->any_bounces_in_last_six_months = $input_field['any_bounces_in_last_six_months'];
+            $loan_details->no_of_times_bounces_in_the_account = $input_field['no_of_times_bounces_in_the_account'];
+            $loan_details->utilization_of_limit = $input_field['utilization_of_limit'];
+            $loan_details->amount_O_s_as_on = $input_field['amount_O_s_as_on'];
+            $loan_details->residual_tenure = $input_field['residual_tenure'];
+            $loan_details->save();
+        }
+
+        /**
          * If operation user give any comment then save that comment 
          */
 
-        if ($request->comment != '') {
+        if ($request->comment_on_conduct != '') {
             $new_comment = new LoanComment();
             $new_comment->user_id = Auth::user()->id;
             $new_comment->loan_id = $loan->id;
-            $new_comment->comment = $request->comment;
+            $new_comment->comment = $request->comment_on_conduct;
             $new_comment->save();
         }
 
@@ -270,6 +281,7 @@ class LoanController extends Controller
     {
         $data = array();
         $data['loan_details'] = Loan::find($id);
+        $data['other_loan_details'] = LoanDetails::where('loan_id',$id)->get();
         $data['loan_comments'] = LoanComment::where('loan_id',$id)->get();
 
         $pdf = PDF::loadView('users.accountant_user.loan.pdf.report', $data);

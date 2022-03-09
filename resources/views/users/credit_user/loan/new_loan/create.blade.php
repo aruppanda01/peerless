@@ -69,28 +69,68 @@ rel="stylesheet" type="text/css"> --}}
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">4. Type of Loan Available<span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="loan_type" value="{{ old('loan_type') }}">
-                            @error('loan_type')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <button type="button" name="add" id="dynamic-ar" class="btn btn-primary mt-3 btn-sm mb-3 "><i
+                                class="fa fa-plus"></i> Add Loan</button>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="amount_of_sanction"
-                                value="{{ old('amount_of_sanction') }}" id="amount_of_sanction" onkeydown="return numericOnly(event);">
-                            @error('amount_of_sanction')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">6. Tenure<span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="tenure" value="{{ old('tenure') }}">
-                            @error('tenure')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                      
+                        <div id="dynamicAddRemove">
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">4. Type of Loan Available<span
+                                        class="text-danger">*</span></label>
+                                <div id="loan_type_block" class="wh_class">
+                                    <div class="row" id="loan_type">
+                                        <div class="col-md-3">
+                                            Loan - 1
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="addMoreInputFields[0][loan_type]" value="{{ old('loan_type') }}">
+                                            <span class="loan_type_err text-danger"></span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                               
+                                @error('loan_type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">5. Amount of Sanction (Rs)<span
+                                        class="text-danger">*</span></label>
+                                <div id="amount_of_sanction_block" class="wh_class">
+                                    <div class="row" id="amount_of_sanction">
+                                        <div class="col-md-3">
+                                            Loan - 1
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="addMoreInputFields[0][amount_of_sanction]"
+                                            value="{{ old('amount_of_sanction') }}" id="amount_of_sanctn" onkeydown="return numericOnly(event);">
+                                            <span class="amount_of_sanction_err text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @error('amount_of_sanction')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">6. Tenure<span class="text-danger">*</span></label>
+                                <div id="tenure_block" class="wh_class">
+                                    <div class="row" id="amount_of_sanction">
+                                        <div class="col-md-3">
+                                            Loan - 1
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="addMoreInputFields[0][tenure]" value="{{ old('tenure') }}" id="tenure">
+                                            <span class="tenure_err text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @error('tenure')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlFile1">7. Whether compliance of last sanction terms done</label>
@@ -169,85 +209,11 @@ rel="stylesheet" type="text/css"> --}}
                           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
                           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
                          <![endif]-->
-    <script>
-        // Add commas
-        $('#amount_of_sanction').on('keyup', function() {
-            var input = $(this).val().replaceAll(',', '');
-            if (input.length < 1)
-                $(this).val('');
-            else {
-                var val = parseFloat(input);
-                var formatted = inrFormat(input);
-                if (formatted.indexOf('.') > 0) {
-                    var split = formatted.split('.');
-                    formatted = split[0] + '.' + split[1].substring(0, 2);
-                }
-                $(this).val(formatted);
-            }
+    @include('users.credit_user.loan.new_loan.create_js')
 
+    {{-- <script>
+        $('.amount-of-sanction').on('keypress', function() {
+            alert('hello');
         });
-
-        function inrFormat(val) {
-            var x = val;
-            x = x.toString();
-            var afterPoint = '';
-            if (x.indexOf('.') > 0)
-                afterPoint = x.substring(x.indexOf('.'), x.length);
-            x = Math.floor(x);
-            x = x.toString();
-            var lastThree = x.substring(x.length - 3);
-            var otherNumbers = x.substring(0, x.length - 3);
-            if (otherNumbers != '')
-                lastThree = ',' + lastThree;
-            var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
-            return res;
-        }
-
-
-        $('#btn_submit').on('click', function() {
-            event.preventDefault();
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "To submit Loan Form!",
-                iconHtml: '<img src="{{ asset('frontend/images/logo.png') }}">',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'Cancel',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    event.preventDefault();
-                    document.getElementById('loan_form').submit();
-                    $('#btn_submit').text('Loading...');
-                    document.getElementById("btn_submit").disabled = true;
-                    document.getElementById("btn_submit").style.cursor = 'no-drop';
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    // swalWithBootstrapButtons.fire(
-                    //     'Cancelled',
-                    //     'Loan Form Is Not Submitted :)',
-                    //     'error'
-                    // )
-                }
-            })
-        })
-        setTimeout(function() {
-            $(".alert-success").hide();
-        }, 10000);
-
-        function numericOnly(event) {
-            var key = event.keyCode;
-            console.log(key);
-            return ((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || key == 57 || key == 9 || key == 46 || key == 8  || key == 110);
-        };
-    </script>
+    </script> --}}
 @endsection
