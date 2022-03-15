@@ -96,7 +96,7 @@
                 <td>{{ $loan_details->bguarantor_name }}</td>
             </tr>
             <tr>
-                <th>4. Type of Loan Available</th>
+                <th>4. Type of facility availed</th>
             </tr>
             @foreach ($other_loan_details as $key => $other_loan_detail)
                 <tr class="wh_class actv_bg">  
@@ -120,7 +120,7 @@
                 </tr>
             @endforeach
             <tr>
-                <th>6. Tenure</th>
+                <th>6. Tenure(In months)</th>
                 <td>{{ $loan_details->tenure }}</td>
             </tr>
             @foreach ($other_loan_details as $key => $other_loan_detail)
@@ -156,7 +156,7 @@
                 </tr>
             @endforeach
             <tr>
-                <th>9. Amount O/s as on</th>
+                <th>9. Amount O/s as on date</th>
                 <td>{{ $loan_details->amount_O_s_as_on }}</td>
             </tr>
             @foreach ($other_loan_details as $key => $other_loan_detail)
@@ -268,7 +268,7 @@
                 </tr>
              @endforeach
             <tr>
-                <th>Comment on Conduct of the Accounts:</th>
+                <th>Comment on Conduct by the Accounts:</th>
                 <td>
                     @foreach ($loan_comments as $comment)
                         @if (getUserDepartmentId($comment->user_id) == 4)
@@ -278,10 +278,20 @@
                 </td>
             </tr>
             <tr>
-                <th>Comment on Conduct of the Operation:</th>
+                <th>Comment on Conduct by the Operations:</th>
                 <td>
                     @foreach ($loan_comments as $comment)
                         @if (getUserDepartmentId($comment->user_id) == 3)
+                            {{ $comment->comment }}
+                        @endif
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <th>Comment on Conduct by the Credits:</th>
+                <td>
+                    @foreach ($loan_comments as $comment)
+                        @if (getUserDepartmentId($comment->user_id) == 2)
                             {{ $comment->comment }}
                         @endif
                     @endforeach

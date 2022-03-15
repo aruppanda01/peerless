@@ -72,12 +72,12 @@
                             @enderror
                         </div>
                             <div class="form-group">
-                                <label for="exampleFormControlFile1">4. Type of Loan Available</label>
+                                <label for="exampleFormControlFile1">4. Type of facility availed</label>
                                 <div class="wh_class actv_bg">
                                     @foreach ($other_loan_details as $key => $other_loan_detail)
                                     <div class="row" id="loan_type">
                                         <div class="col-md-3">
-                                            Loan Type - {{ $key + 1 }}
+                                            Loan - {{ $key + 1 }}
                                         </div>
                                         <div class="col-md-9">
                                             <input class="form-control" type="text" name="loan_type"
@@ -93,7 +93,7 @@
                                     @foreach ($other_loan_details as $key => $other_loan_detail)
                                         <div class="row" id="loan_type">
                                             <div class="col-md-3">
-                                                Loan Type - {{ $key + 1 }}
+                                                Loan - {{ $key + 1 }}
                                             </div>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="text" name="amount_of_sanction"
@@ -106,12 +106,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlFile1">6. Tenure</label>
+                                <label for="exampleFormControlFile1">6. Tenure(In months)</label>
                                 <div class="wh_class actv_bg">
                                     @foreach ($other_loan_details as $key => $other_loan_detail)
                                     <div class="row" id="loan_type">
                                         <div class="col-md-3">
-                                            Loan Type - {{ $key + 1 }}
+                                            Loan - {{ $key + 1 }}
                                         </div>
                                         <div class="col-md-9">
                                             <input class="form-control" type="text" name="tenure"
@@ -129,7 +129,7 @@
                                 @foreach ($other_loan_details as $key => $other_loan_detail)
                                 <div class="row" id="loan_type">
                                     <div class="col-md-3">
-                                        Loan Type - {{ $key + 1 }}
+                                        Loan - {{ $key + 1 }}
                                     </div>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][whether_compliance_of_last_sanction_terms_done]"
@@ -151,7 +151,7 @@
                                 @foreach ($other_loan_details as $key => $other_loan_detail)
                                 <div class="row">
                                     <div class="col-md-3">
-                                        Loan Type - {{ $key + 1 }}
+                                        Loan - {{ $key + 1 }}
                                     </div>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][deviation_from_last_sanction_terms]"
@@ -169,7 +169,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">9. Amount O/s as on</label>
+                            <label for="exampleFormControlFile1">9. Amount O/s as on date</label>
                             <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
                         </div>
                         <div class="form-group">
@@ -210,7 +210,7 @@
                             <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                            <label for="exampleFormControlFile1">Comment on Conduct by the Accounts:</label>
                             <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                         </div>
                         <hr>

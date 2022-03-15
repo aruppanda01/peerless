@@ -75,7 +75,7 @@ rel="stylesheet" type="text/css"> --}}
                       
                         <div id="dynamicAddRemove">
                             <div class="form-group">
-                                <label for="exampleFormControlFile1">4. Type of Loan Available<span
+                                <label for="exampleFormControlFile1">4. Type of facility availed<span
                                         class="text-danger">*</span></label>
                                 <div id="loan_type_block" class="wh_class">
                                     <div class="row" id="loan_type">
@@ -115,7 +115,7 @@ rel="stylesheet" type="text/css"> --}}
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlFile1">6. Tenure<span class="text-danger">*</span></label>
+                                <label for="exampleFormControlFile1">6. Tenure(In months)<span class="text-danger">*</span></label>
                                 <div id="tenure_block" class="wh_class">
                                     <div class="row" id="amount_of_sanction">
                                         <div class="col-md-3">
@@ -142,7 +142,7 @@ rel="stylesheet" type="text/css"> --}}
                             <input class="form-control" type="text" name="deviation_from_last_sanction_terms" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">9. Amount O/s as on</label>
+                            <label for="exampleFormControlFile1">9. Amount O/s as on date</label>
                             <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
                         </div>
                         <div class="form-group">
@@ -183,7 +183,7 @@ rel="stylesheet" type="text/css"> --}}
                             <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                            <label for="exampleFormControlFile1">Comment on Conduct by the Accounts</label>
                             {{-- <input class="form-control" type="text" name="comment_on_conduct" disabled> --}}
                         </div>
                         <hr>

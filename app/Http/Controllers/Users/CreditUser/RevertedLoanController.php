@@ -150,13 +150,11 @@ class RevertedLoanController extends Controller
         }
 
         /**
-         * If credit user give any comment then save that comment 
+         * If credit user give any comment then update that comment 
          */
 
         if ($request->comment != '') {
-            $new_comment = new LoanComment();
-            $new_comment->user_id = $current_user_id;
-            $new_comment->loan_id = $loan->id;
+            $new_comment = LoanComment::where('loan_id',$loan->id)->where('user_id',$current_user_id)->first();
             $new_comment->comment = $request->comment;
             $new_comment->save();
         }

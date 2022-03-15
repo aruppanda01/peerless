@@ -85,7 +85,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">6. Tenure</label>
+                    <label for="exampleFormControlFile1">6. Tenure(In months)</label>
                     <input class="form-control" type="text" name="tenure"
                         value="{{ $loan_details->tenure ?? old('tenure') }}" disabled>
                     @error('tenure')
@@ -107,7 +107,7 @@
                     <p id="err_msg1" class="text-danger"></p>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">9. Amount O/s as on</label>
+                    <label for="exampleFormControlFile1">9. Amount O/s as on date</label>
                     <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
                 </div>
                 <div class="form-group">
@@ -143,7 +143,7 @@
                     <input class="form-control" type="text" name="peak_irregularity_in_the_account" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                    <label for="exampleFormControlFile1">Comment on Conduct by the Accounts:</label>
                     <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                 </div>
                 <hr>

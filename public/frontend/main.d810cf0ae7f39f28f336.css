@@ -2098,3 +2098,36 @@ table.dataTable.no-footer {
   padding-top: 5px;
   padding-left: 5px;
 }
+
+.swal2-icon-content img{
+    /* width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    height: 100px;
+    padding: 10px; */
+}
+.swal2-icon{
+    /* border-color:#363637 !important;
+    margin-bottom: 10px !important; */
+}
+.swal2-icon.swal2-error {
+    border-color: #f27474 !important;
+}
+.swal2-popup{
+  width: 250px !important;
+  background-color: #eaeaea !important;
+}
+.swal2-popup .swal2-title{
+font-size: 1.2em !important;
+color: #000000 !important;
+}
+.swal2-html-container{
+font-size: 14px;
+color: #000000;
+}
+.swal2-icon-show{
+  margin-top: 0 !important;
+}
+.swal2-icon .swal2-error .swal2-icon-show{
+  display: none !important;
+}

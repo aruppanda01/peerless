@@ -245,8 +245,6 @@ class LoanController extends Controller
         // ]);
 
         $loan = Loan::find($id);
-        $loan->whether_compliance_of_last_sanction_terms_done = $request->whether_compliance_of_last_sanction_terms_done;
-        $loan->deviation_from_last_sanction_terms = $request->deviation_from_last_sanction_terms;
 
         $loan->is_modify_details_by_operation_dept = 1;
 
@@ -274,6 +272,16 @@ class LoanController extends Controller
         $latest_remarks = LoanRemark::where('loan_id',$loan->id)->latest()->first();
         $latest_remarks->is_solved = 1;
         $latest_remarks->save();
+
+        /**
+         * If credit user give any comment then update that comment 
+         */
+
+        if ($request->comment != '') {
+            $new_comment = LoanComment::where('loan_id',$loan->id)->where('user_id',Auth::user()->id)->first();
+            $new_comment->comment = $request->comment;
+            $new_comment->save();
+        }
 
         /**
          * Send notification to the Account Department

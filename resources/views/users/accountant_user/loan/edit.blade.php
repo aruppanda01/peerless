@@ -77,7 +77,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">4. Type of Loan Available</label>
+                        <label for="exampleFormControlFile1">4. Type of facility availed</label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">6. Tenure</label>
+                        <label for="exampleFormControlFile1">6. Tenure(In months)</label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">9. Amount O/s as on<span class="text-danger">*</span></label>
+                        <label for="exampleFormControlFile1">9. Amount O/s as on date<span class="text-danger">*</span></label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
@@ -350,7 +350,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:<span class="text-danger">*</span></label>
+                        <label for="exampleFormControlFile1">Comment on Conduct by the Accounts:<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" name="comment_on_conduct">
                         @error('comment_on_conduct')
                         <span class="text-danger">{{ $message }}</span>

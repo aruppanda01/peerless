@@ -75,7 +75,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">4. Type of Loan Available</label>
+                        <label for="exampleFormControlFile1">4. Type of facility availed</label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">6. Tenure</label>
+                        <label for="exampleFormControlFile1">6. Tenure(In months)</label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
@@ -143,7 +143,7 @@
                         <p id="err_msg1" class="text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">9. Amount O/s as on</label>
+                        <label for="exampleFormControlFile1">9. Amount O/s as on date</label>
                         <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
                     </div>
                     <div class="form-group">
@@ -183,12 +183,17 @@
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Comment on Conduct of the A/c:</label>
+                        <label for="exampleFormControlFile1">Comment on Conduct by the Accounts</label>
                         <input class="form-control" type="text" name="comment_on_irregularity" disabled>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Comment</label>
-                        <input class="form-control" type="text" name="comment">
+                        @foreach ($loan_comments as $loan)
+                            @if (getUserDepartmentId($loan->user_id) == 2)
+                                <input class="form-control" type="text" name="comment" value="{{ $loan->comment }}">
+                            @endif
+                        @endforeach
+                        {{-- <input class="form-control" type="text" name="comment"> --}}
                         @error('comment')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -199,10 +204,16 @@
                         @if ($loan_comments->count() > 0)
                             <ul>
                                 @foreach ($loan_comments as $loan)
+                                    @if (getUserDepartmentId($loan->user_id) == 3 || getUserDepartmentId($loan->user_id) == 4)
                                         <li>{{ $loan->comment }}
-                                            (By <b>{{  getUserDepartment($loan->user_id) }}  dept.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
+                                            (By <b>{{  getUserDepartment($loan->user_id) }}s.</b> at <span>{{ date('d-M-y', strtotime($loan->created_at)) }},
                                                 {{ getAsiaTime($loan->created_at) }}</span>)
                                         </li>
+                                    @else
+                                        <li>
+                                            N/A
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                         @else
