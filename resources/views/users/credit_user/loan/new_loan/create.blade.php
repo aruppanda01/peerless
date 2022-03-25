@@ -148,12 +148,22 @@ rel="stylesheet" type="text/css"> --}}
                             <input class="form-control" type="text" name="deviation_from_last_sanction_terms" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">9. Amount O/s as on date</label>
-                            <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                            <label for="exampleFormControlFile1">9. Amount O/s as on date(Rs)</label>
+                            <div class="input-group mb-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                                </div>
+                                <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlFile1">10. Reduced Loan Limit (Rs)</label>
-                            <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                            <div class="input-group mb-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                                </div>
+                                <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlFile1">11. Residual Tenure(In months)</label>
