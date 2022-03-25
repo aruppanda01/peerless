@@ -81,10 +81,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="loan_type"
                                     value="{{ $other_loan_detail->loan_type ?? old('loan_type') }}" disabled>
                                 </div>
@@ -101,16 +101,20 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                                 <div class="row" id="loan_type">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         Loan - {{ $key + 1 }}
                                     </div>
-                                    <div class="col-md-9">
-                                        <input class="form-control" type="text" name="amount_of_sanction"
-                                        value="{{ $other_loan_detail->amount_of_sanction ?? old('amount_of_sanction') }}" disabled>
+                                    <div class="col-md-12">
+                                        <div class="input-group mb-0">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                                            </div>
+                                            <input class="form-control" type="text" name="amount_of_sanction"
+                                            value="{{ $other_loan_detail->amount_of_sanction ?? old('amount_of_sanction') }}" disabled>
+                                        </div>
                                         <span class="loan_type_err text-danger"></span>
                                     </div>
                                 </div>
-                                <hr>
                             @endforeach
                         </div>
                     </div>
@@ -119,15 +123,14 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="tenure"
                                     value="{{ $other_loan_detail->tenure ?? old('tenure') }}" disabled>
                                 </div>
                             </div>
-                            <hr>
                             @endforeach
                         </div>
                     </div>
@@ -136,16 +139,15 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row" id="loan_type">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="whether_compliance_of_last_sanction_terms_done"
                                     value="{{ $other_loan_detail->whether_compliance_of_last_sanction_terms_done ?? old('whether_compliance_of_last_sanction_terms_done') }}"
                                     id="whether_compliance_of_last_sanction_terms_done" disabled>
                                 </div>
                             </div>
-                        <hr>
                         @endforeach
                         </div>
                     </div>
@@ -154,33 +156,36 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                      <input class="form-control" type="text" name="deviation_from_last_sanction_terms"
                                     value="{{ $other_loan_detail->deviation_from_last_sanction_terms ?? old('deviation_from_last_sanction_terms') }}"
                                     id="deviation_from_last_sanction_terms" disabled>
                                 </div>
                             </div>
-                        <hr>
                         @endforeach
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">9. Amount O/s as on date<span class="text-danger">*</span></label>
+                        <label for="exampleFormControlFile1">9. Amount O/s as on date(Rs)<span class="text-danger">*</span></label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][amount_O_s_as_on]" onkeydown="return numericOnly(event);" onkeyup="indianMoneyFormat(event)">
+                                <div class="col-md-12">
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                                        </div>
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][amount_O_s_as_on]" onkeydown="return numericOnly(event);" onkeyup="indianMoneyFormat(event)">
+                                    </div>
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
                             </div>
-                            <hr>
                         @endforeach
                         </div>
                         @error('amount_O_s_as_on')
@@ -188,19 +193,42 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">10. Residual Tenure<span class="text-danger">*</span></label>
+                        <label for="exampleFormControlFile1">10. Reduced Loan Limit (Rs)</label>
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                                        </div>
+                                        <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][reduced_loan_limit]" onkeydown="return numericOnly(event);" onkeyup="indianMoneyFormat(event)">
+                                    </div>
+                                    <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
+                                </div>
+                            </div>
+                         @endforeach
+                        </div>
+                        @error('residual_tenure')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">10. Residual Tenure(In months)<span class="text-danger">*</span></label>
+                        <div class="wh_class actv_bg">
+                            @foreach ($other_loan_details as $key => $other_loan_detail)
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Loan - {{ $key + 1 }}
+                                </div>
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][residual_tenure]">
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
                             </div>
-                            <hr>
                          @endforeach
                         </div>
                         @error('residual_tenure')
@@ -213,15 +241,14 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][utilization_of_limit]">
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
                                 </div>
-                            <hr>
                             @endforeach
                         </div>
                         @error('utilization_of_limit')
@@ -238,10 +265,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][no_of_times_bounces_in_the_account]">
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
@@ -257,10 +284,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][any_bounces_in_last_six_months]">
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
@@ -276,10 +303,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][no_of_times_and_days]">
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
@@ -295,10 +322,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         Loan - {{ $key + 1 }}
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][reasons_for_the_irregularity]">
                                         <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                     </div>
@@ -314,10 +341,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         Loan - {{ $key + 1 }}
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][peak_irregularity_in_the_account]">
                                         <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                     </div>
@@ -334,10 +361,10 @@
                         <div class="wh_class actv_bg">
                             @foreach ($other_loan_details as $key => $other_loan_detail)
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     Loan - {{ $key + 1 }}
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <input class="form-control" type="text" name="addMoreInputFields[{{ $key }}][comment_on_irregularity]">
                                     <input type="hidden" name="addMoreInputFields[{{ $key }}][loan_details_id]" value="{{ $other_loan_detail->id }}">
                                 </div>
@@ -458,11 +485,11 @@
             } else if (
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Loan Form Is Not Submitted :)',
-                    'error'
-                )
+                // swalWithBootstrapButtons.fire(
+                //     'Cancelled',
+                //     'Loan Form Is Not Submitted :)',
+                //     'error'
+                // )
             }
         })
     })

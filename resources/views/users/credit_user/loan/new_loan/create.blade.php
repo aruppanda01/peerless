@@ -79,11 +79,11 @@ rel="stylesheet" type="text/css"> --}}
                                         class="text-danger">*</span></label>
                                 <div id="loan_type_block" class="wh_class">
                                     <div class="row" id="loan_type">
-                                        <div class="col-md-3">
+                                        <div class="col-md-12">
                                             Loan - 1
                                         </div>
-                                        <div class="col-md-9">
-                                            <input class="form-control" type="text" name="addMoreInputFields[0][loan_type]" value="{{ old('loan_type') }}">
+                                        <div class="col-md-12 mb-0">
+                                            <input class="form-control mb-0" type="text" name="addMoreInputFields[0][loan_type]" value="{{ old('loan_type') }}">
                                             <span class="loan_type_err text-danger"></span>
                                         </div>
                                     </div>
@@ -100,14 +100,20 @@ rel="stylesheet" type="text/css"> --}}
                                         class="text-danger">*</span></label>
                                 <div id="amount_of_sanction_block" class="wh_class">
                                     <div class="row" id="amount_of_sanction">
-                                        <div class="col-md-3">
+                                        <div class="col-md-12">
                                             Loan - 1
                                         </div>
-                                        <div class="col-md-9">
-                                            <input class="form-control" type="text" name="addMoreInputFields[0][amount_of_sanction]"
-                                            value="{{ old('amount_of_sanction') }}" id="amount_of_sanctn" onkeydown="return numericOnly(event);">
+                                        <div class="col-md-12">
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                                                  </div>
+                                                <input class="form-control mb-0" type="text" name="addMoreInputFields[0][amount_of_sanction]"
+                                                value="{{ old('amount_of_sanction') }}" id="amount_of_sanctn" onkeydown="return numericOnly(event);">
+                                            </div>
                                             <span class="amount_of_sanction_err text-danger"></span>
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 @error('amount_of_sanction')
@@ -118,11 +124,11 @@ rel="stylesheet" type="text/css"> --}}
                                 <label for="exampleFormControlFile1">6. Tenure(In months)<span class="text-danger">*</span></label>
                                 <div id="tenure_block" class="wh_class">
                                     <div class="row" id="amount_of_sanction">
-                                        <div class="col-md-3">
+                                        <div class="col-md-12">
                                             Loan - 1
                                         </div>
-                                        <div class="col-md-9">
-                                            <input class="form-control" type="text" name="addMoreInputFields[0][tenure]" value="{{ old('tenure') }}" id="tenure">
+                                        <div class="col-md-12 mb-0">
+                                            <input class="form-control mb-0" type="text" name="addMoreInputFields[0][tenure]" value="{{ old('tenure') }}" id="tenure">
                                             <span class="tenure_err text-danger"></span>
                                         </div>
                                     </div>
@@ -146,15 +152,19 @@ rel="stylesheet" type="text/css"> --}}
                             <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">10. Residual Tenure</label>
+                            <label for="exampleFormControlFile1">10. Reduced Loan Limit (Rs)</label>
+                            <input class="form-control" type="text" name="amount_O_s_as_on" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">11. Residual Tenure(In months)</label>
                             <input class="form-control" type="text" name="residual_tenure" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1">11. Utilization of Limit</label>
+                            <label for="exampleFormControlFile1">12. Utilization of Limit</label>
                             <input class="form-control" type="text" name="utilization_of_limit" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlFile1" class="text-dark">12. Occurrence of irregularity in
+                            <label for="exampleFormControlFile1" class="text-dark">13. Occurrence of irregularity in
                                 the
                                 account since Operational</label>
                         </div>

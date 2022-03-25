@@ -158,6 +158,7 @@ class LoanController extends Controller
             $loan_details->utilization_of_limit = $input_field['utilization_of_limit'];
             $loan_details->amount_O_s_as_on = $input_field['amount_O_s_as_on'];
             $loan_details->residual_tenure = $input_field['residual_tenure'];
+            $loan_details->reduced_loan_limit = $input_field['reduced_loan_limit'];
             $loan_details->save();
         }
 

@@ -2090,13 +2090,21 @@ table.dataTable.no-footer {
     font-size: 10px;
 }
 .actv_bg {
-  background: #d4d4d4;
+  background: #e3e3e4;
+  padding:8px;
+  border-radius: 5px;
+}
+.actv_bg .form-control{
+  margin-bottom: 10px !important;
+}
+.actv_bg .input-group-text{
+  height: 45px;
 }
 .wh_class {
   border: 1px solid #efefef;
   margin-bottom: 15px;
-  padding-top: 5px;
-  padding-left: 5px;
+  /* padding-top: 5px;
+  padding-left: 5px; */
 }
 
 .swal2-icon-content img{
@@ -2130,4 +2138,29 @@ color: #000000;
 }
 .swal2-icon .swal2-error .swal2-icon-show{
   display: none !important;
+}
+
+.loan_type_err{
+  position: absolute;
+  bottom: -16px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.tenure_err{
+  position: absolute;
+  bottom: -16px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.amount_of_sanction_err{
+  position: absolute;
+  bottom: -16px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }

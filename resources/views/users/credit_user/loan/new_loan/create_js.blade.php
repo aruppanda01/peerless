@@ -202,35 +202,40 @@
             $('#loan_type_block').addClass("actv_bg");
             $('#amount_of_sanction_block').addClass("actv_bg");
             $('#tenure_block').addClass("actv_bg");
-            $("#loan_type_block").append(`<hr>
+            $("#loan_type_block").append(`
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         Loan - ${k+2}
                     </div>
-                    <div class="col-md-9">
-                        <input class="form-control" type="text" name="addMoreInputFields[${k+1}][loan_type]" value="{{ old('loan_type') }}">
+                    <div class="col-md-12 mb-0">
+                        <input class="form-control mb-0" type="text" name="addMoreInputFields[${k+1}][loan_type]" value="{{ old('loan_type') }}">
                         <span class="loan_type_err${k+1} text-danger"></span>
                     </div>
                 </div>
             `);
             $("#amount_of_sanction_block").append(`
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                             Loan - ${k+2}
                     </div>
-                    <div class="col-md-9">
-                        <input class="form-control" type="text" name="addMoreInputFields[${k+1}][amount_of_sanction]" value="{{ old('amount_of_sanction') }}" onkeydown="return numericOnly(event);" onkeyup="indianMoneyFormat(event)">
+                    <div class="col-md-12 mb-0">
+                        <div class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold" id="basic-addon1">&#8377;</span>
+                            </div>
+                            <input class="form-control mb-0" type="text" name="addMoreInputFields[${k+1}][amount_of_sanction]" value="{{ old('amount_of_sanction') }}" onkeydown="return numericOnly(event);" onkeyup="indianMoneyFormat(event)">
+                        </div>
                         <span class="amount_of_sanction_err${k+1} text-danger"></span>
                     </div>
                 </div>
             `);
             $("#tenure_block").append(`
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                                 Loan - ${k+2}
                         </div>
-                        <div class="col-md-9">
-                            <input class="form-control" type="text" name="addMoreInputFields[${k+1}][tenure]" value="{{ old('tenure') }}">
+                        <div class="col-md-12 mb-0">
+                            <input class="form-control mb-0" type="text" name="addMoreInputFields[${k+1}][tenure]" value="{{ old('tenure') }}">
                             <span class="tenure_err${k+1} text-danger"></span>
                         </div>
                     </div>

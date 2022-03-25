@@ -116,7 +116,7 @@
                     <td>
                         Loan - {{ $key + 1 }}
                     </td>
-                    <td>{{ $other_loan_detail->amount_of_sanction}}</td>
+                    <td><span style="font-family: DejaVu Sans; sans-serif;">&#8377;</span>{{ $other_loan_detail->amount_of_sanction}}</td>
                 </tr>
             @endforeach
             <tr>
@@ -156,7 +156,7 @@
                 </tr>
             @endforeach
             <tr>
-                <th>9. Amount O/s as on date</th>
+                <th>9. Amount O/s as on date(Rs)</th>
                 <td>{{ $loan_details->amount_O_s_as_on }}</td>
             </tr>
             @foreach ($other_loan_details as $key => $other_loan_detail)
@@ -164,11 +164,23 @@
                     <td>
                         Loan - {{ $key + 1 }}
                     </td>
-                    <td>{{ $other_loan_detail->amount_O_s_as_on}}</td>
+                    <td><span style="font-family: DejaVu Sans; sans-serif;">&#8377;</span>{{ $other_loan_detail->amount_O_s_as_on}}</td>
                 </tr>
             @endforeach
             <tr>
-                <th>10. Residual Tenure</th>
+                <th>10. Reduced Loan Limit(Rs)</th>
+                <td>{{ $loan_details->reduced_loan_limit }}</td>
+            </tr>
+            @foreach ($other_loan_details as $key => $other_loan_detail)
+                <tr class="wh_class actv_bg">  
+                    <td>
+                        Loan - {{ $key + 1 }}
+                    </td>
+                    <td><span style="font-family: DejaVu Sans; sans-serif;">&#8377;</span>{{ $other_loan_detail->reduced_loan_limit}}</td>
+                </tr>
+            @endforeach
+            <tr>
+                <th>11. Residual Tenure(In months)</th>
                 <td>{{ $loan_details->residual_tenure }}</td>
             </tr>
             @foreach ($other_loan_details as $key => $other_loan_detail)
@@ -180,7 +192,7 @@
                 </tr>
             @endforeach
             <tr>
-                <th>11. Utilization of Limit</th>
+                <th>12. Utilization of Limit</th>
                 <td>{{ $loan_details->utilization_of_limit }}</td>
             </tr>
             @foreach ($other_loan_details as $key => $other_loan_detail)
@@ -192,7 +204,7 @@
                 </tr>
             @endforeach
             <tr>
-                <th>12. Occurrence of irregularity in the
+                <th>13. Occurrence of irregularity in the
                     account since Operational</th>
             </tr>
             <tr>
@@ -267,6 +279,9 @@
                     <td>{{ $other_loan_detail->comment_on_irregularity}}</td>
                 </tr>
              @endforeach
+             <tr>
+                 <td></td>
+             </tr>
             <tr>
                 <th>Comment on Conduct by the Accounts:</th>
                 <td>

@@ -95,6 +95,12 @@
 
                                             <td>
                                                 @if ($loan->status == 5)
+                                                <span  data-toggle="tooltip" data-placement="top" title="View Form">
+                                                    <a href="{{ route('operation_user.loan.show',$loan->id) }}"><i
+                                                        class="fa fa-eye"></i></a>
+                                                </span>
+                                                @endif
+                                                @if ($loan->status == 5)
                                                     <span  data-toggle="tooltip" data-placement="top" title="Download Form">
                                                         <a href="{{ route('operation_user.generatePDF',$loan->id) }}"><i
                                                             class="fa fa-download ml-2"></i></a>

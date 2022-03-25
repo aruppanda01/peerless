@@ -279,8 +279,17 @@ class LoanController extends Controller
 
         if ($request->comment != '') {
             $new_comment = LoanComment::where('loan_id',$loan->id)->where('user_id',Auth::user()->id)->first();
-            $new_comment->comment = $request->comment;
-            $new_comment->save();
+            if ($new_comment) {
+                $new_comment->comment = $request->comment;
+                $new_comment->save();
+            }else{
+                $new_comment = new LoanComment();
+                $new_comment->loan_id = $loan->id;
+                $new_comment->user_id = Auth::user()->id;
+                $new_comment->comment = $request->comment;
+                $new_comment->save();
+            }
+
         }
 
         /**
